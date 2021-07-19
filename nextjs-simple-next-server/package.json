@@ -1,0 +1,6 @@
+{
+  "dependencies": {},
+  "scripts": {
+    "app-install": "cd with-next-translate; npm install; npm run build"
+  }
+}
