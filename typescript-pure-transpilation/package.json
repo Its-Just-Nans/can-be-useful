@@ -1,0 +1,14 @@
+{
+  "name": "typescript-test",
+  "version": "1.0.0",
+  "description": "typescript test",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "its-just-nans",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^4.2.4"
+  }
+}
