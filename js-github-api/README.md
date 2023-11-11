@@ -2,7 +2,7 @@
 
 Contact the github API with javascript.
 
-Not used anymore because of the API rate limit.
+Not used anymore because of the API rate limit. Now using the GraqhQL API.
 
 ## Usage
 
