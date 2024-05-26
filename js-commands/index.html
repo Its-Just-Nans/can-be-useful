@@ -1,0 +1,112 @@
+<meta charset="utf-8" />
+<div class="content">
+    <button id="paramsClick" onclick="addParams()">></button>
+    <input id="input" placeholder="insert here code" value="'lol'.split(" />
+    <button onclick="executeEval()">test</button>
+    <div id="params">
+        <label>JSON.stringify</label>
+        <input onclick="executeEval()" type="checkbox" id="stringify" />
+    </div>
+    <br />
+    <textarea id="result" disabled></textarea>
+</div>
+<script>
+    var input = document.getElementById("input");
+    var res = document.getElementById("result");
+    input.addEventListener(
+        "keyup",
+        function (event) {
+            if (res.style.display == "block") {
+                res.style.display = "none";
+            }
+            executeEval();
+        },
+        false
+    );
+    function addParams() {
+        let params = document.getElementById("params");
+        let paramClick = document.getElementById("paramsClick");
+        if (params.style.display == "none" || params.style.display === "") {
+            params.style.display = "block";
+            paramClick.innerHTML = "∨";
+        } else {
+            params.style.display = "none";
+            paramClick.innerHTML = ">";
+        }
+        params.addEventListener(
+            "onchange",
+            function (e) {
+                if (e.key === "Enter") {
+                    executeEval();
+                }
+            },
+            false
+        );
+    }
+    addEventListener(
+        "keypress",
+        function (e) {
+            if (e.key === "Enter") {
+                executeEval();
+            }
+        },
+        false
+    );
+    function executeEval() {
+        let value = input.value;
+        let result;
+        try {
+            result = eval(value);
+            if (document.getElementById("stringify").checked) {
+                res.innerHTML = JSON.stringify(result);
+            } else {
+                res.innerHTML = result;
+            }
+        } catch (e) {
+            result.innerHTML = "error";
+        } finally {
+            res.style.display = "block";
+        }
+    }
+</script>
+
+<style>
+    #params {
+        width: 75%;
+        margin: auto;
+        display: none;
+        text-align: initial;
+    }
+    textarea {
+        margin: auto;
+        width: 75%;
+        height: 60%;
+        resize: none;
+        display: none;
+    }
+    .content {
+        display: inline-table;
+        margin: auto;
+        text-align: center;
+        width: 100%;
+        height: 100%;
+    }
+    #input {
+        width: 65%;
+        border: 1px solid #555;
+        background-color: lightgray;
+        padding: 10px 10px;
+        font-size: 1.05em;
+    }
+    button {
+        width: 5%;
+        padding: 10px 10px;
+        font-size: 1.05em;
+        margin: 0px;
+        border: 1px solid #555;
+    }
+    input:focus,
+    button:focus {
+        outline: none;
+    }
+</style>
