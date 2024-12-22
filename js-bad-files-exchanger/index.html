@@ -1,0 +1,33 @@
+<input type="file" id="file_input" />
+<button id="buttonFile">Envoyer</button>
+<hr />
+<textarea id="textToKnow"></textarea>
+<button type="submit" id="buttonText">Send text</button>
+<script>
+    document.getElementById("buttonText").onclick = async () => {
+        const textarea = document.getElementById("textToKnow");
+        const data = textarea.value;
+        const res = await fetch("/data", {
+            method: "POST",
+            headers: {
+                ["content-type"]: "application/json"
+            },
+            body: JSON.stringify({
+                text: data
+            })
+        });
+        textarea.value = "";
+    }
+    document.getElementById("buttonFile").onclick = async () => {
+        const input = document.getElementById("file_input");
+        var data = new FormData()
+        for (const file of input.files) {
+            data.append('files', file, file.name)
+        }
+        const res = await fetch("/data", {
+            method: "POST",
+            body: data
+        });
+        textarea.value = "";
+    }
+</script>

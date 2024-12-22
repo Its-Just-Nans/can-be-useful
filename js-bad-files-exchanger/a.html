@@ -1,0 +1,58 @@
+<!doctype html>
+<input type="file" id="file_input" multiple />
+<button id="buttonFile">Envoyer</button>
+<div id="progress"></div>
+<hr />
+<textarea id="textToKnow"></textarea>
+<button type="submit" id="buttonText">Send text</button>
+<script>
+    const progress = document.getElementById("progress")
+    document.getElementById("buttonText").onclick = async () => {
+        const textarea = document.getElementById("textToKnow");
+        const data = textarea.value;
+        const res = await fetch("/data", {
+            method: "POST",
+            "headers": {
+                "content-type": "application/octet-stream"
+            },
+            body: data
+        });
+        textarea.value = "";
+    }
+    document.getElementById("buttonFile").onclick = async () => {
+        const input = document.getElementById("file_input");
+        const len = input.files.length;
+        for (let i = 0; i < len; i++) {
+            await upload(input.files[i]);
+        }
+
+    }
+    const upload = async (theFile) => {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            fileReader.onload = async ev => {
+                const CHUNK_SIZE = 5000;
+                const chunkCount = ev.target.result.byteLength / CHUNK_SIZE;
+
+                console.log("Read successfully");
+                const fileName = Math.random() * 1000 + theFile.name;
+                for (let chunkId = 0; chunkId < chunkCount + 1; chunkId++) {
+                    const chunk = ev.target.result.slice(chunkId * CHUNK_SIZE, chunkId * CHUNK_SIZE + CHUNK_SIZE);
+                    await fetch("/data", {
+                        "method": "POST",
+                        "headers": {
+                            "content-type": "application/octet-stream",
+                            "file-name": fileName
+                        },
+                        "body": chunk
+                    })
+                    progress.innerHTML = Math.round(chunkId * 100 / chunkCount, 0) + "%"
+                }
+                progress.innerHTML = ""
+                console.log(ev.target.result.byteLength);
+                resolve(true);
+            }
+            fileReader.readAsArrayBuffer(theFile);
+        });
+    }
+</script>
