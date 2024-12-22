@@ -1,0 +1,104 @@
+{
+    "type": "REQUEST",
+    "params": [
+        {
+            "type": "SELECT",
+            "params": [
+                {
+                    "type": "VALUE",
+                    "value": "habit"
+                },
+                {
+                    "type": "VALUE",
+                    "value": "pigeon"
+                }
+            ]
+        },
+        {
+            "type": "FROM",
+            "params": [
+                {
+                    "type": "VALUE",
+                    "value": "habit"
+                }
+            ]
+        },
+        {
+            "type": "WHERE",
+            "params": [
+                {
+                    "type": "AND",
+                    "params": [
+                        {
+                            "type": "EQUAL",
+                            "params": [
+                                {
+                                    "type": "VALUE",
+                                    "value": "habit.user_id"
+                                },
+                                {
+                                    "type": "VALUE",
+                                    "value": "user_id"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "EQUAL",
+                            "params": [
+                                {
+                                    "type": "VALUE",
+                                    "value": "habit.id"
+                                },
+                                {
+                                    "type": "REQUEST",
+                                    "params": [
+                                        {
+                                            "type": "SELECT",
+                                            "params": [
+                                                {
+                                                    "type": "VALUE",
+                                                    "value": "habit"
+                                                },
+                                                {
+                                                    "type": "VALUE",
+                                                    "value": "pigeon"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "FROM",
+                                            "params": [
+                                                {
+                                                    "type": "VALUE",
+                                                    "value": "habit"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "WHERE",
+                                            "params": [
+                                                {
+                                                    "type": "EQUAL",
+                                                    "params": [
+                                                        {
+                                                            "type": "VALUE",
+                                                            "value": "habit.user_id"
+                                                        },
+                                                        {
+                                                            "type": "VALUE",
+                                                            "value": "user_id"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
