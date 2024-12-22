@@ -1,0 +1,113 @@
+#button
+{
+		position: absolute;
+		text-align:center;
+		width: 10%;
+		top: 30%;
+		left: 45%;
+}
+
+#menu
+{
+		position: absolute;
+		background-color: grey;
+		height: 5%;
+		width: 100%;
+}
+
+body
+{
+	margin: 0 0 0 0;
+	background-color: #F5F5F5;
+}
+
+#content
+{
+	position:absolute;
+	width: 100%;
+	height: 95%;
+	top: 5%;
+}
+
+#page
+{
+	position: absolute;
+	width: 27%;
+	height: 80%;
+	left: 35%;
+	background-color: white;
+	top: 10%;
+	bottom: 10%;
+	border: 1px solid black;
+}
+
+#colonne
+{
+	position: absolute;
+	width: 10%;
+	height: 100%;
+	left: 80%;
+	background-color: grey;
+	
+}
+
+#head
+{
+	position: absolute;
+	width: 100%;
+	height: 10%;
+	top: 10%;
+	background-color: silver;
+	
+}
+
+@media print{
+	
+	#menu
+	{
+			display: none;
+	}
+	#content
+	{
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		left: 0%;
+		top: 0%;
+
+	}
+	#page
+	{
+		
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		left: 0%;
+		top: 0%;
+		border: none;
+	}
+	#colonne
+	{
+		position: absolute;
+		width: 10%;
+		height: 100%;
+		left: 80%;
+		background-color: grey;
+		
+	}
+
+	#head
+	{
+		position: absolute;
+		width: 100%;
+		height: 10%;
+		top: 10%;
+		background-color: silver;
+		
+	}
+	
+	
+	
+	
+	
+}
