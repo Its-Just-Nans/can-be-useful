@@ -1,0 +1,37 @@
+{
+    "type": "REQUEST",
+    "params": [
+        {
+            "type": "SELECT",
+            "params": [
+                {
+                    "value": "habit"
+                }
+            ]
+        },
+        {
+            "type": "FROM",
+            "params": [
+                {
+                    "value": "habit"
+                }
+            ]
+        },
+        {
+            "type": "WHERE",
+            "params": [
+                {
+                    "type": "=",
+                    "params": [
+                        {
+                            "value": "habit.user_id"
+                        },
+                        {
+                            "value": "user_id"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

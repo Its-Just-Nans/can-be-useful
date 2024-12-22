@@ -1,0 +1,3 @@
+-> changer le mdp de la base de donnée avec le bon dans le fichier function_bdd.php
+-> aller sur phpmyadmin, importer les données présente dans wtf1.sql
+-> ouvrir le fichier index.php

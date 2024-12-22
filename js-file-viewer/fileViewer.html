@@ -1,0 +1,158 @@
+
+
+<input id="input1" type="file">
+<button onclick="changeView(1)" type="button">Superposé</button>
+<button onclick="changeView(2)" type="button">En 4</button>
+<br>
+<button id="button" type="button">afterReading</button>
+<button id="button2" type="button">afterReading2</button>
+<button id="button3" type="button">afterReading3</button>
+<button id="button4" type="button">afterReading4</button>
+<button id="time" type="button">check</button>
+<style>
+    body{
+        font-family: Consolas, monaco, monospace;
+    }
+    .content{
+        background-color: lightblue;
+        border: 1px solid black;
+        height: 370px;
+        overflow: auto;
+    }
+    .spaceClass{
+        margin: 0px 2px 0px 2px;
+        display: inline-block;
+    }
+    .title{
+        width: 50%;;
+    }
+    .contentReaded{
+        display: table-cell;
+        vertical-align: baseline;
+    }
+</style>
+<h1>Hexa</h1>
+<table>
+    <tbody>
+        <tr>
+            <td class="title" id="case1">
+                <button type="button" id="buttonHexa" onclick="change(1)">Hexa</button>
+            </td>
+            <td class="title" id="case2">
+                <button type="button" id="buttonDecimal" onclick="change(2)">Decimal</button>
+            </td>
+        </tr>
+        <tr>
+            <td class="contentReaded">
+                <div id="content1" class="content"></div>
+            </td>
+            <td class="contentReaded">
+                <div id="content2" class="content"></div>
+            </td>
+        </tr>
+        <tr>
+            <td id="case3">
+                <button type="button" id="buttonBinary" onclick="change(3)">Binary</button>
+            </td>
+            <td id="case4">
+                <button type="button" id="buttonASCII" onclick="change(4)">ASCII</button>
+            </td>
+        </tr>
+        <tr>
+            <td class="contentReaded">
+                <div id="content3" class="content"></div>
+            </td>
+            <td class="contentReaded">
+                <div id="content4" class="content"></div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<script>
+    var date1;
+    function change(value){
+        document.getElementById('content1').parentNode.style.display = 'none';
+        document.getElementById('content2').parentNode.style.display = 'none';
+        document.getElementById('content3').parentNode.style.display = 'none';
+        document.getElementById('content4').parentNode.style.display = 'none';
+        document.getElementById('content'+value).parentNode.style.display = 'table-cell';
+    }
+    document.getElementById('button').onclick = function(){
+        document.getElementById('content1').innerHTML = "";
+        document.getElementById('content2').innerHTML = "";
+        document.getElementById('content3').innerHTML = "";
+        document.getElementById('content4').innerHTML = "";
+        var selectedFile = document.getElementById('input1').files[0];
+        var reader = new FileReader();
+        var buffer;
+        reader.onload = () => { afterReading(reader)};
+        reader.readAsArrayBuffer(selectedFile);
+    }
+
+    document.getElementById('button2').onclick = function(){
+        document.getElementById('content1').innerHTML = "";
+        document.getElementById('content2').innerHTML = "";
+        document.getElementById('content3').innerHTML = "";
+        document.getElementById('content4').innerHTML = "";
+        var selectedFile = document.getElementById('input1').files[0];
+        var reader = new FileReader();
+        var buffer;
+        reader.onload = () => { afterReading2(reader)};
+        reader.readAsArrayBuffer(selectedFile);
+    }
+    document.getElementById('button4').onclick = function(){
+        document.getElementById('content1').innerHTML = "";
+        document.getElementById('content2').innerHTML = "";
+        document.getElementById('content3').innerHTML = "";
+        document.getElementById('content4').innerHTML = "";
+        var selectedFile = document.getElementById('input1').files[0];
+        var reader = new FileReader();
+        var buffer;
+        reader.onload = () => { afterReading4(reader)};
+        reader.readAsArrayBuffer(selectedFile);
+    }
+    document.getElementById('button3').onclick = function(){
+        document.getElementById('content1').innerHTML = "";
+        document.getElementById('content2').innerHTML = "";
+        document.getElementById('content3').innerHTML = "";
+        document.getElementById('content4').innerHTML = "";
+        var selectedFile = document.getElementById('input1').files[0];
+        var reader = new FileReader();
+        var buffer;
+        reader.onload = () => { afterReading3(reader)};
+        reader.readAsArrayBuffer(selectedFile);
+    }
+    document.getElementById('time').onclick = function(){
+        console.log(Math.abs(new Date() - date1));
+    }
+
+    function afterReading2(reader){
+        date1 = new Date();
+        buffer = reader.result;
+        let viewer = new DataView(buffer); //viewer sur le buffer
+        let counter = 1;
+        let max = buffer.byteLength
+        resElementHexa = [];
+        resElementDecimal = [];
+        resElementBinary = [];
+        resElementASCII = [];
+        for(let i = 0; i< max; i++){
+            element = viewer.getUint8(i);
+            resElementHexa.push('<span class="spaceClass item'+counter+'">'+("00" + (+element).toString(16)).slice(-2).toUpperCase()+'</span>');
+            resElementDecimal.push('<span class="spaceClass item'+counter+'">'+("000" + (+element).toString()).slice(-3)+'</span>')
+            resElementBinary.push('<span class="spaceClass item'+counter+'">'+("00000000" + (+element).toString(2)).slice(-8)+'</span>')
+            resElementASCII.push('<span class="spaceClass item'+counter+'">'+String.fromCodePoint(element)+'</span>')
+            counter++;
+        }
+        document.getElementById('content1').innerHTML = resElementHexa.join('');
+        document.getElementById('content2').innerHTML = resElementDecimal.join('');
+        document.getElementById('content3').innerHTML = resElementBinary.join('');
+        document.getElementById('content4').innerHTML = resElementASCII.join('');
+        document.getElementById('content1').parentNode.style.display = 'table-cell';
+        let date2 = new Date();
+        const diffTime = Math.abs(date2 - date1);
+        console.log(diffTime);
+    }
+</script>

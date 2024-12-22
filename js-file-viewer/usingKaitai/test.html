@@ -1,0 +1,23 @@
+<html>
+<head>
+    <script src="./KaitaiStream.js"></script>
+    <script src="./Png.js"></script>
+</head>
+<body>
+    <pre id="dump">parsing in process...</pre>
+    <script>
+        var oReq = new XMLHttpRequest();
+        oReq.open("GET", "./sample.png", true);
+        oReq.responseType = "arraybuffer";
+
+        oReq.onload = function (oEvent) {
+            var arrayBuffer = oReq.response;
+            var parsedPng = new Png(new KaitaiStream(arrayBuffer));
+            Png;
+            document.getElementById("dump").textContent = parsedPng.chunks.map(x => " - " + x.type).join("\n");
+        };
+
+        oReq.send(null);
+    </script>
+</body>
+</html>

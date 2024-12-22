@@ -1,0 +1,24 @@
+
+
+<input id="input1" type="file">
+<pre id="res"></pre>
+<div id="content1"></div>
+<div id="content2"></div>
+<div id="content3"></div>
+<div id="content4"></div>
+<script>
+    document.getElementById('input1').addEventListener('change', (e) =>{
+        const reader = new FileReader();
+        reader.onloadend = (e) =>{
+            file = e.target.result;
+            console.log(file);
+            file = file.replace(/</gi, '&lt;')
+            file = file.replace(/>/gi, '&gt;')
+            document.getElementById('res').innerHTML = file.toString(16);
+            //disp(file);
+        };
+        reader.readAsBinaryString(e.target.files[0]);
+        //reader.readAsArrayBuffer(e.target.files[0]);
+    }, false);
+
+</script>

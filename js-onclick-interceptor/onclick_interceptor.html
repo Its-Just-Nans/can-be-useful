@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<head>
+    <title>Interceptor</title>
+</head>
+<body>
+    <nav>
+
+    </nav>
+    <section id="contenu">
+        <a id="link" href="test">Click to test</a>
+        <p>When you click on this link, the href will be changed and will will be redirected to the same page, with window.location.search, will be the href of the link</p>
+    </section>
+<script>
+
+document.getElementById('link').onclick = function() {
+        const lol = this.getAttribute('href');
+        const newPath = window.location.origin + window.location.pathname + '?' + lol;
+        this.setAttribute('href', newPath);
+}
+</script>
+</body>

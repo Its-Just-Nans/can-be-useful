@@ -1,0 +1,1 @@
+javascript:void%20function(){function%20a(a){window.open(a,%22_blank%22)}var%20b=document.querySelectorAll(%22img%22);for(var%20c%20of%20b)console.log(c.src),a(c.src),console.log(%22Ouverture%20%22+c.src);var%20b=document.querySelectorAll(%22image%22);for(var%20c%20of%20b)console.log(window.location.href+c.getAttribute(%22xlink:href%22))}();

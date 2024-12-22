@@ -1,0 +1,93 @@
+{
+    "type": "REQUEST",
+    "params": [
+        {
+            "type": "SELECT",
+            "params": [
+                {
+                    "value": "habit"
+                },
+                {
+                    "value": "pigeon"
+                }
+            ]
+        },
+        {
+            "type": "FROM",
+            "params": [
+                {
+                    "value": "habit"
+                }
+            ]
+        },
+        {
+            "type": "WHERE",
+            "params": [
+                {
+                    "type": "AND",
+                    "params": [
+                        {
+                            "type": "=",
+                            "params": [
+                                {
+                                    "value": "habit.user_id"
+                                },
+                                {
+                                    "value": "user_id"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "=",
+                            "params": [
+                                {
+                                    "value": "habit.id"
+                                },
+                                {
+                                    "type": "REQUEST",
+                                    "params": [
+                                        {
+                                            "type": "SELECT",
+                                            "params": [
+                                                {
+                                                    "value": "habit"
+                                                },
+                                                {
+                                                    "value": "pigeon"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "FROM",
+                                            "params": [
+                                                {
+                                                    "value": "habit"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "WHERE",
+                                            "params": [
+                                                {
+                                                    "type": "=",
+                                                    "params": [
+                                                        {
+                                                            "value": "habit.user_id"
+                                                        },
+                                                        {
+                                                            "value": "user_id"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
