@@ -1,0 +1,1 @@
+javascript:void function(){let b=document.createElement("textarea");b.value="\u2705",document.body.append(b),b.focus(),b.select(),document.execCommand("copy"),b.remove()}();
