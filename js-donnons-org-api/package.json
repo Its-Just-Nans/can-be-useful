@@ -1,0 +1,23 @@
+{
+  "name": "donnons-org-api",
+  "version": "1.0.0",
+  "description": "Bad web scraping on donnons.org",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Its-Just-Nans/donnons-org-api.git"
+  },
+  "author": "n4n5",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Its-Just-Nans/donnons-org-api/issues"
+  },
+  "homepage": "https://github.com/Its-Just-Nans/donnons-org-api#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "moment": "^2.29.1"
+  }
+}
