@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
+    </head>
+<body>
+<div id="converted"></div>
+<pre id="toConvert" style="display:none">
+Here some text with & taht is converted
+
+```c
+#include <stdio.h>
+
+int main(){
+    int number = 7;
+    int *pointerTOnumber = &number;
+}
+```
+</pre>
+<script>
+    let converter = new showdown.Converter();
+    let html = converter.makeHtml(document.getElementById('toConvert').innerHTML);
+    document.getElementById('converted').innerHTML = html;
+</script>
+</body>
+</html>

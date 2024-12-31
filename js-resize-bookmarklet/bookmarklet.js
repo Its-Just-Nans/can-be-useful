@@ -1,0 +1,1 @@
+javascript:void function(){const a=document.getElementById("openrunner-create");if(a.style.cssText%26%2640>a.style.cssText.length){a.style.cssText="height:100vh;width:100vw;z-index:100000;position:fixed;top:0px;right:0px;left:0px";var b=new Event("resize");window.dispatchEvent(b)}else a.style.cssText="position: relative;"}();
