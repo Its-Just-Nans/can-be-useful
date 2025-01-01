@@ -1,0 +1,6 @@
+{
+    "secret": "",
+    "appId": "",
+    "REDIRECT_URL": "/auth",
+    "PORT": 3000
+}
