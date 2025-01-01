@@ -1,0 +1,14 @@
+{
+    "manifest_version": 3,
+    "name": "endpoints-extension",
+    "version": "1.0",
+    "description": "Browser extension to dectect api endpoints",
+    "permissions": ["webRequest", "activeTab", "alarms", "contextMenus", "storage", "notifications", "webRequest"],
+    "action": {
+        "default_popup": "popup.html"
+    },
+    "host_permissions": ["*://*/*"],
+    "background": {
+        "service_worker": "background.js"
+    }
+}
