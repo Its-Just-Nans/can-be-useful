@@ -22,4 +22,4 @@ Example :
 }
 ```
 
-> Made in 2022-06-03
+Made in 2022-06-03
