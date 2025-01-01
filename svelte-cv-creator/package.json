@@ -1,0 +1,40 @@
+{
+	"name": "cv-creator",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"build": "rollup -c",
+		"dev": "rollup -c -w",
+		"start": "sirv public --no-clear",
+		"validate": "svelte-check"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Its-Just-Nans/cv.git"
+	},
+	"author": "n4n5",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/Its-Just-Nans/cv/issues"
+	},
+	"homepage": "https://github.com/Its-Just-Nans/cv#readme",
+	"devDependencies": {
+		"@rollup/plugin-commonjs": "^17.0.0",
+		"@rollup/plugin-node-resolve": "^11.0.0",
+		"@rollup/plugin-typescript": "^8.0.0",
+		"rollup": "^2.3.4",
+		"rollup-plugin-css-only": "^3.1.0",
+		"rollup-plugin-livereload": "^2.0.0",
+		"rollup-plugin-svelte": "^7.0.0",
+		"rollup-plugin-terser": "^7.0.0",
+		"svelte": "^3.32.3",
+		"svelte-check": "^1.0.0",
+		"svelte-dnd-action": "^0.9.5",
+		"svelte-preprocess": "^4.0.0"
+	},
+	"dependencies": {
+		"sirv-cli": "^1.0.0"
+	}
+}
