@@ -1,0 +1,7 @@
+# Added by cargo
+/target/
+
+*.docx
+code.rs
+
+output.asn1
