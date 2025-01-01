@@ -1,0 +1,27 @@
+{
+    "name": "js-animation",
+    "version": "1.0.0",
+    "description": "Create animation with javascript and timecut",
+    "main": "index.js",
+    "scripts": {
+        "create": "timecut 'http://localhost:8080/index.html' --duration=5 --viewport=500,500 --output=animation.mp4",
+        "server": "http-server -p 8080"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Its-Just-Nans/js-animation.git"
+    },
+    "keywords": [
+        "animation"
+    ],
+    "author": "n4n5",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/Its-Just-Nans/js-animation/issues"
+    },
+    "homepage": "https://github.com/Its-Just-Nans/js-animation#readme",
+    "dependencies": {
+        "http-server": "^13.0.0",
+        "timecut": "^0.3.2"
+    }
+}
