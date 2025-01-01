@@ -1,0 +1,18 @@
+{
+    "name": "forem-cli",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "bin": "./bin/forem-cli.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "realease": "cp index.js bin/"
+    },
+    "author": "n4n5",
+    "license": "MIT",
+    "type": "module",
+    "dependencies": {
+        "axios": "^0.26.0",
+        "forem-client": "^1.0.1"
+    }
+}
