@@ -1,0 +1,8 @@
+{
+    "OVH_SUBSIDIARY": "FR",
+    "EXTENSIONS": ["org", "net", "com", "fr"],
+    "PRINT_BAD_NEWS": false,
+    "MAX_PRICE": 25,
+    "MAX_SIZE_WORD": 4,
+    "WORDS_FILE_PATH": "/usr/share/dict/words"
+}
