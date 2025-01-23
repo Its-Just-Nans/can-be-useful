@@ -1,0 +1,36 @@
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans&display=swap");
+.explorerContainer {
+    font-family: "PT Sans", sans-serif;
+    margin: 100px;
+    word-break: break-all;
+}
+.explorerContainer > table {
+    border: 1px solid grey;
+    color: black;
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+}
+.explorerContainer thead {
+    font-weight: bold;
+    border-bottom: 1px solid grey;
+}
+.explorerContainer td {
+    padding: 5px 10px;
+}
+.explorerContainer tbody tr:hover {
+    color: blue;
+    font-weight: bold;
+}
+.explorerContainer tr {
+    border: 1px solid grey;
+}
+.explorerContainer tr {
+    cursor: pointer;
+}
+@media screen and (min-width: 0px) and (max-width: 1050px) {
+    .explorerContainer {
+        margin: 0px;
+        font-size: 0.85em;
+    }
+}
