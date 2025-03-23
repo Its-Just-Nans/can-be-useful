@@ -1,0 +1,44 @@
+<pre id="final"></pre>
+<script>
+    const URL_TO_EXPLORE = "https://its-just-nans.github.io";
+    fetch(URL_TO_EXPLORE).then(function (response) {
+        response.text().then(function (cleanText) {
+            const regex = /href="[^"]*"/gs;
+            let result = cleanText.match(regex);
+            let res = [];
+            for (let oneLink of result) {
+                res.push(oneLink.substring(6, oneLink.length - 1));
+            }
+            genSiteMap(res);
+        });
+    });
+
+    //async
+    let final = document.getElementById("final");
+
+    function genSiteMap(result) {
+        var blob = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+        for (let oneLink of result) {
+            blob += `<url>\n`;
+            blob += `<loc>${oneLink}</loc>\n`;
+            blob += `</url>\n`;
+        }
+        blob += "</urlset>";
+        //console.log(allLinks);
+        download("sitemap.xml", blob);
+        final.innerHTML = blob;
+    }
+
+    function download(filename, text) {
+        var element = document.createElement("a");
+        element.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(text));
+        element.setAttribute("download", filename);
+
+        element.style.display = "none";
+        document.body.appendChild(element);
+
+        element.click();
+
+        document.body.removeChild(element);
+    }
+</script>
