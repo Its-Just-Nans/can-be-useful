@@ -1,0 +1,36 @@
+.searchBox > input {
+    width: 100%;
+    padding: 0.4em;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+}
+
+.searchBox > button {
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+}
+.searchBox > input:hover {
+    border-radius: "40px";
+}
+
+.searchBox > input:focus-visible {
+    outline: none;
+}
+.searchBox {
+    position: fixed;
+    z-index: 401;
+    --width: 50vw;
+    width: var(--width);
+    margin: 15px 25vw;
+    margin: 15px calc((100vw - var(--width)) / 2);
+    display: inline-flex;
+    left: 0px;
+}
+
+@media screen and (max-width: 600px) {
+    .searchBox {
+        --width: 75vw;
+    }
+}
