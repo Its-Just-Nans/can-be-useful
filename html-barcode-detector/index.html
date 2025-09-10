@@ -25,12 +25,12 @@
                     });
             });
         const file = document.getElementsByTagName("input")[0].files[0];
-        const [e, urls] = await readQRCode(file);
-        if (e) {
-            console.error(e);
-            return;
+        let [err, urls] = await readQRCode(file);
+        if (err) {
+            console.error(err);
+            urls = [];
         }
         console.log(urls);
-        document.getElementsByTagName("textarea")[0].value = JSON.stringify(urls);
+        document.getElementsByTagName("textarea")[0].value = JSON.stringify(urls, null, 4);
     };
 </script>
