@@ -11,7 +11,10 @@ const startPath = "";
 var baseLink;
 var linkForStart;
 var dataTable = document.getElementById("dataTable");
+var maxRetry;
+let localMaxRety = maxRetry || 10;
 startRender();
+let retry = 0;
 
 function startRender() {
     if (typeof githubName === "undefined" || typeof repoName === "undefined") {
@@ -60,7 +63,11 @@ async function generateTable(url) {
     }
     const response = await fetch(url).catch(function (error) {
         console.log(error);
+        retry += 1;
     });
+    if (retry > localMaxRety) {
+        return;
+    }
     if (!response) {
         generateTable(linkForStart);
         return;
