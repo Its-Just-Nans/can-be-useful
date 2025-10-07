@@ -13,8 +13,8 @@
 <script>
 
 document.getElementById('link').onclick = function() {
-        const lol = this.getAttribute('href');
-        const newPath = window.location.origin + window.location.pathname + '?' + lol;
+        const old_href = this.getAttribute('href');
+        const newPath = window.location.origin + window.location.pathname + '?intercepted_href=' + old_href;
         this.setAttribute('href', newPath);
 }
 </script>
