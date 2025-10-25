@@ -9,3 +9,4 @@ svelte-not-paint
 svelte-waldo
 svelte-leaflet-map
 svelte-github-stats
+svelte-schmidt-coupling
