@@ -6,3 +6,4 @@ svelte-pack-your-bag
 svelte-time-based-animation
 svelte-threlte-test
 svelte-not-paint
+svelte-waldo
