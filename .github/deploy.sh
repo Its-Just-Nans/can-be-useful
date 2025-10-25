@@ -6,7 +6,7 @@ cp -R html-* dist/
 cp -R js-onclick-interceptor dist/
 cp -R cdn dist/
 
-projects=("svelte-bad-font-viewer" "svelte-cv-creator")
+projects=("svelte-bad-font-viewer" "svelte-cv-creator" "js-readme-compiler")
 
 output_folders=("dist" "public")
 
@@ -14,7 +14,7 @@ output_folders=("dist" "public")
 for project in "${projects[@]}"; do
     echo "building $project"
     pushd "$project" || exit 1
-    npm install
+    npm install --force
     npm run build
     for output_folder in "${output_folders[@]}"; do
         if [ -e "$output_folder" ]; then

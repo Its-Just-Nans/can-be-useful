@@ -1,0 +1,44 @@
+{
+  "name": "readme-compiler",
+  "version": "1.0.0",
+  "description": "A online README Compiler",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node .",
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "vercel": "vercel dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Its-Just-Nans/readme-compiler.git"
+  },
+  "author": "n4n5",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Its-Just-Nans/readme-compiler/issues"
+  },
+  "type": "module",
+  "homepage": "https://github.com/Its-Just-Nans/readme-compiler#readme",
+  "dependencies": {
+    "@polka/send-type": "^0.4.0",
+    "body-parser": "^1.19.2",
+    "polka": "^1.0.0-next.22",
+    "serve-static": "^1.14.2",
+    "showdown": "^2.0.0",
+    "showdown-highlight": "^2.1.8",
+    "showdown-katex": "^0.8.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-node-resolve": "^11.0.0",
+    "rollup": "^2.3.4",
+    "rollup-plugin-css-only": "^3.1.0",
+    "rollup-plugin-livereload": "^2.0.0",
+    "rollup-plugin-svelte": "^7.0.0",
+    "rollup-plugin-terser": "^7.0.0",
+    "svelte": "^3.0.0",
+    "vercel": "^24.0.0"
+  }
+}
