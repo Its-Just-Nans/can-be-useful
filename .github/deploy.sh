@@ -6,7 +6,7 @@ cp -R html-* dist/
 cp -R js-onclick-interceptor dist/
 cp -R cdn dist/
 
-projects=("svelte-bad-font-viewer" "svelte-cv-creator" "js-readme-compiler")
+projects=$(cat .github/projects.txt)
 
 output_folders=("dist" "public")
 

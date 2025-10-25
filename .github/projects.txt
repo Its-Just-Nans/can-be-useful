@@ -1,0 +1,5 @@
+svelte-bad-font-viewer
+svelte-cv-creator
+js-readme-compiler
+svelte-3d-rotation
+svelte-pack-your-bag
