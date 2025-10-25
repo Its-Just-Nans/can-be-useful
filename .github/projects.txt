@@ -7,3 +7,4 @@ svelte-time-based-animation
 svelte-threlte-test
 svelte-not-paint
 svelte-waldo
+svelte-leaflet-map
