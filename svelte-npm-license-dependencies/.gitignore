@@ -1,0 +1,5 @@
+node_modules/
+.vercel
+public/bundle.js
+public/bundle.js.map
+public/bundle.css

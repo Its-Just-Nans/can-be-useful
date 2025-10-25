@@ -1,0 +1,57 @@
+<script>
+    document.getElementById("textarea").addEventListener("change", (event) => {
+        let element = document.getElementById("pre");
+        const parsed = JSON.parse(event.currentTarget.value);
+        if (parsed.dependencies) {
+            element.innerHTML = JSON.stringify(parsed.dependencies, null, 4);
+        } else {
+            element.innerHTML = "dependencies not found";
+        }
+    })
+    document.getElementById("form").onsubmit = function (event) {
+        event.preventDefault();
+        let element = document.getElementById("pre");
+        const parsed = JSON.parse(document.getElementById("textarea").value);
+        let object = {};
+        if (parsed.dependencies) {
+            object.dependencies = parsed.dependencies;
+            if (parsed.devDependencies) {
+                object.devDependencies = parsed.devDependencies
+            }
+        } else {
+            element.innerHTML = "dependencies not found";
+        }
+        fetch("/api/", {
+            method: "POST",
+            body: JSON.stringify(object)
+        }).then((response) => {
+            if (response.status == 200) {
+                response.json().then((resp) => {
+                    if (typeof resp !== "object") {
+                        resp = JSON.parse(resp);
+                    }
+                    if (resp.text) {
+                        console.log(resp.text);
+                    }
+                    if (resp.dependencies) {
+                        download(name, resp.dependencies)
+                    }
+                })
+            }
+        });
+    }
+    function download(filename, data) {
+        // https://stackoverflow.com/a/33542499/15568835
+        var blob = new Blob([data], { type: 'text/csv' });
+        if (window.navigator.msSaveOrOpenBlob) {
+            window.navigator.msSaveBlob(blob, filename);
+        } else {
+            var elem = window.document.createElement('a');
+            elem.href = window.URL.createObjectURL(blob);
+            elem.download = filename;
+            document.body.appendChild(elem);
+            elem.click();
+            document.body.removeChild(elem);
+        }
+    }
+</script>

@@ -1,0 +1,37 @@
+{
+    "name": "npm-license-dependencies",
+    "version": "1.0.0",
+    "description": "Get all the license of your dependencies",
+    "main": "index.js",
+    "homepage": "https://github.com/Its-Just-Nans/npm-license-dependencies",
+    "bugs": "https://github.com/Its-Just-Nans/npm-license-dependencies/issues",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Its-Just-Nans/npm-license-dependencies.git"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "rollup -c -w",
+        "build": "rollup -c"
+    },
+    "keywords": [
+        "license",
+        "thirdparty",
+        "thirdparty-license"
+    ],
+    "author": "n4n5",
+    "license": "MIT",
+    "devDependencies": {
+        "@rollup/plugin-commonjs": "^17.0.0",
+        "@rollup/plugin-node-resolve": "^11.0.0",
+        "rollup": "^2.3.4",
+        "rollup-plugin-css-only": "^3.1.0",
+        "rollup-plugin-livereload": "^2.0.0",
+        "rollup-plugin-svelte": "^7.0.0",
+        "rollup-plugin-terser": "^7.0.0",
+        "svelte": "^3.0.0"
+    },
+    "dependencies": {
+        "axios": "^0.21.1"
+    }
+}
