@@ -3,3 +3,4 @@ svelte-cv-creator
 js-readme-compiler
 svelte-3d-rotation
 svelte-pack-your-bag
+svelte-time-based-animation
