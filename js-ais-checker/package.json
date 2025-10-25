@@ -1,0 +1,23 @@
+{
+  "name": "ais-checker",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/Its-Just-Nans/ais-checker#readme",
+  "bugs": {
+    "url": "https://github.com/Its-Just-Nans/ais-checker/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Its-Just-Nans/ais-checker.git"
+  },
+  "license": "MIT",
+  "author": "n4n5",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "ws": "^8.18.2"
+  }
+}
