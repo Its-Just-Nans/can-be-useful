@@ -5,3 +5,4 @@ svelte-3d-rotation
 svelte-pack-your-bag
 svelte-time-based-animation
 svelte-threlte-test
+svelte-not-paint
