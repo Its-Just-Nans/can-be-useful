@@ -1,0 +1,28 @@
+---
+const { data } = Astro.props;
+
+type RowType = Record<string, string | number>;
+type ColumnType = string;
+
+const columns = Object.keys(data[0]);
+const rows = data;
+---
+
+<table>
+    <thead>
+        <tr>
+            {columns.map((column) => <th>{column}</th>)}
+        </tr>
+    </thead>
+    <tbody>
+        {
+            rows.map((row: RowType) => (
+                <tr>
+                    {columns.map((column: ColumnType) => (
+                        <td>{row[column]}</td>
+                    ))}
+                </tr>
+            ))
+        }
+    </tbody>
+</table>

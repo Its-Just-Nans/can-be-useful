@@ -1,0 +1,213 @@
+---
+import { domain, website } from "@utils/constants";
+// import { isSchoolIco, isWorkIco, isThoughtIco } from "@utils/constants";
+import GithubIcon from "./GithubIcon.astro";
+const menus = [
+    [
+        {
+            ico: "",
+            title: "show emojis",
+            id: "show-emojis",
+            link: null,
+            subtitle: null,
+            func: () => {
+                const el = document.getElementsByClassName("emoji-controller") as HTMLCollectionOf<HTMLElement>;
+                if (!el[0].classList.toggle("hide-emoji")) {
+                    localStorage.setItem("isEmoji", "true");
+                } else {
+                    localStorage.removeItem("isEmoji");
+                }
+            },
+        },
+    ],
+    // [
+    //     {
+    //         ico: isSchoolIco,
+    //         title: "only study",
+    //         id: "only-study",
+    //         link: null,
+    //         subtitle: null,
+    //         func: () => {
+    //             const el = document.getElementById("isSchool") as HTMLInputElement;
+    //             if (el.checked) {
+    //                 (document.getElementById("isAll") as HTMLInputElement).checked = true;
+    //             } else {
+    //                 el.checked = true;
+    //             }
+    //         },
+    //     },
+    //     {
+    //         ico: isWorkIco,
+    //         title: "only work",
+    //         id: "only-work",
+    //         link: null,
+    //         subtitle: null,
+    //         func: () => {
+    //             const el = document.getElementById("isWork") as HTMLInputElement;
+    //             if (el.checked) {
+    //                 (document.getElementById("isAll") as HTMLInputElement).checked = true;
+    //             } else {
+    //                 el.checked = true;
+    //             }
+    //         },
+    //     },
+    //     {
+    //         ico: isThoughtIco,
+    //         title: "only thoughts",
+    //         id: "only-thoughts",
+    //         link: null,
+    //         subtitle: null,
+    //         func: () => {
+    //             const el = document.getElementById("isThought") as HTMLInputElement;
+    //             if (el.checked) {
+    //                 (document.getElementById("isAll") as HTMLInputElement).checked = true;
+    //             } else {
+    //                 el.checked = true;
+    //             }
+    //         },
+    //     },
+    // ],
+    [
+        {
+            ico: "🐢",
+            title: domain,
+            id: "website-link",
+            link: website,
+            subtitle: null,
+            func: null,
+        },
+        {
+            ico: "📦",
+            link: `${website}/packages`,
+            title: "Packages",
+            subtitle: null,
+        },
+        {
+            ico: GithubIcon,
+            link: "https://github.com/Its-Just-Nans",
+            title: "Its-Just-Nans",
+            subtitle: "",
+        },
+    ],
+];
+---
+
+{
+    menus.map((oneMenu) => (
+        <ul class="menu-list">
+            {oneMenu.map((oneEntry) => (
+                <li class="menu-item">
+                    {oneEntry.link ? (
+                        <a href={oneEntry.link || ""} class="menu-link" target="_blank">
+                            <button class="menu-button">
+                                <div class="front-list">
+                                    {typeof oneEntry.ico === "string" ? (
+                                        <span>{oneEntry.ico}</span>
+                                    ) : (
+                                        <oneEntry.ico size={20} />
+                                    )}
+                                </div>
+                                <span class="submenu-title">{oneEntry.title || ""}</span>
+                                <span>{oneEntry.subtitle || ""}</span>
+                            </button>
+                        </a>
+                    ) : (
+                        <div class="menu-link">
+                            <button class="menu-button" id={oneEntry.id}>
+                                <div class="front-list">
+                                    {typeof oneEntry.ico === "string" ? (
+                                        <span>{oneEntry.ico}</span>
+                                    ) : (
+                                        <oneEntry.ico size={20} />
+                                    )}
+                                </div>
+                                <span class="submenu-title">{oneEntry.title || ""}</span>
+                                <span>{oneEntry.subtitle || ""}</span>
+                                <script
+                                    is:inline
+                                    define:vars={{ func: `(${oneEntry.func?.toString()})()`, id: oneEntry.id }}
+                                >
+                                    /* don't we love JS ? */ document.getElementById(id).addEventListener("click",
+                                    Function(func));
+                                </script>
+                            </button>
+                        </div>
+                    )}
+                </li>
+            ))}
+        </ul>
+    ))
+}
+<script is:inline>
+    Array.from(document.getElementsByClassName("menu-link")).forEach((link) => {
+        link.addEventListener("click", () => {
+            document.querySelector(".menu").style.display = "none";
+        });
+    });
+    if (localStorage.getItem("isEmoji")) {
+        const el = document.getElementsByClassName("emoji-controller");
+        el[0].classList.toggle("hide-emoji");
+    }
+</script>
+
+<style>
+    .menu-link {
+        text-decoration: none;
+    }
+    .menu-button {
+        cursor: pointer;
+    }
+    .menu-item:hover {
+        background-color: lightgray;
+    }
+    span {
+        color: var(--color-text-primary);
+    }
+
+    .menu-list {
+        margin: 0;
+        display: block;
+        width: 100%;
+        padding: 0px;
+    }
+    .menu-list,
+    ul {
+        list-style-type: none;
+    }
+    .menu-list + .menu-list {
+        border-top: 1px solid #ddd;
+    }
+
+    .menu-item {
+        position: relative;
+    }
+    .menu-button {
+        font: inherit;
+        color: inherit;
+        outline: none;
+        border: 0;
+        padding: 8px 8px;
+        width: 100%;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        position: relative;
+        background-color: var(--color-bg-secondary);
+    }
+    .menu-button:hover {
+        background-color: var(--color-bg-primary-offset);
+    }
+
+    .menu-button .front-list {
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+        stroke: var(--color-text-primary-offset);
+    }
+    .menu-button span:nth-of-type(2) {
+        margin-right: 0;
+        position: absolute;
+        right: 8px;
+        font-size: x-small;
+    }
+</style>

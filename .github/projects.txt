@@ -12,3 +12,4 @@ svelte-github-stats
 svelte-schmidt-coupling
 svelte-right-click-menu
 svelte-npm-license-dependencies
+astro-blog-website

@@ -1,0 +1,38 @@
+---
+import Layout from "@layouts/Layout.astro";
+---
+
+<Layout title="404">
+    <div class="container">
+        <div>
+            <p>404 Page Not found</p>
+            <p>
+                Redirecting to <span class="redirection">/</span> in <span class="countdown"></span>s
+            </p>
+        </div>
+    </div>
+    <script>
+        const redirect = document.querySelector(".redirection")!;
+        const count = document.querySelector(".countdown")!;
+        let countdown = 10;
+        count.innerHTML = countdown.toString();
+        redirect.innerHTML = window.location.origin;
+        setInterval(() => {
+            countdown -= 1;
+            count.innerHTML = countdown.toString();
+        }, 1000);
+        setTimeout(() => {
+            window.location.href = "/";
+        }, countdown * 1000);
+    </script>
+</Layout>
+
+<style>
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        text-align: center;
+    }
+</style>

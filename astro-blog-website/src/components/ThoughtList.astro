@@ -1,0 +1,30 @@
+---
+import type { CollectionEntry } from "astro:content";
+import OneLineThought from "./OneLineThought.astro";
+
+interface Props {
+    data: CollectionEntry<"post">[];
+    absSlug?: boolean;
+    showEmoji?: boolean;
+}
+
+const { data, showEmoji = false } = Astro.props;
+---
+
+<ul class="emoji-controller" class:list={[{ "hide-emoji": !showEmoji }]}>
+    {data.map((p) => <OneLineThought post={p} absSlug />)}
+</ul>
+
+<style>
+    .hide-emoji :global(.emoji) {
+        display: none;
+    }
+    .hide-emoji :global(.line-effect) {
+        width: fit-content;
+    }
+    @media screen and (max-width: 800px) {
+        ul {
+            padding-inline-start: 15px;
+        }
+    }
+</style>

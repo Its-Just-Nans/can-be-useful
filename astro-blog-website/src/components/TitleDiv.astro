@@ -1,0 +1,18 @@
+---
+import TitleLinks from "./TitleLinks.astro";
+import Title from "./Title.astro";
+---
+
+<div class="title-div">
+    <Title />
+    <slot />
+    <TitleLinks />
+</div>
+
+<style>
+    .title-div {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+</style>

@@ -1,0 +1,58 @@
+---
+import Layout from "@layouts/Layout.astro";
+import RightClickMenu from "@components/RightClickMenu.astro";
+import CentralBody from "@components/CentralBody.astro";
+import { getAllPosts, filterHidden, sortMDByDate, getAllTags } from "@utils/posts";
+import DefaultMenu from "@components/DefaultMenu.astro";
+import TitleDiv from "@components/TitleDiv.astro";
+import ThoughtList from "@components/ThoughtList.astro";
+import AllTags from "@components/AllTags.astro";
+
+const data = sortMDByDate(filterHidden(await getAllPosts()));
+const tags = getAllTags(data);
+---
+
+<Layout title="thoughts">
+    <CentralBody>
+        <TitleDiv />
+        {
+            data.length > 0 && (
+                <div>
+                    <section>
+                        <input id="isAll" name="selector" class="selector" type="radio" value="all" />
+                        <input id="isWork" name="selector" class="selector" type="radio" value="work" />
+                        <input id="isSchool" name="selector" class="selector" type="radio" value="school" />
+                        <input id="isThought" name="selector" class="selector" type="radio" value="thought" checked />
+                        <ThoughtList data={data} />
+                        <AllTags tags={tags} />
+                    </section>
+                </div>
+            )
+        }
+    </CentralBody>
+    <RightClickMenu>
+        <DefaultMenu />
+    </RightClickMenu>
+</Layout>
+
+<style>
+    .selector {
+        display: none;
+    }
+
+    :global(#isAll:checked ~ ul .article) {
+        display: var(--original-display);
+    }
+    :global(#isWork:checked ~ ul .tag-job) {
+        display: var(--original-display);
+    }
+    :global(#isThought:checked ~ ul .tag-thought) {
+        display: var(--original-display);
+    }
+    :global(#isSchool:checked ~ ul .tag-thought) {
+        display: var(--original-display);
+    }
+    :global(#isDev:checked ~ ul .tag-dev) {
+        display: var(--original-display);
+    }
+</style>

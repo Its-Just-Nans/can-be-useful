@@ -1,0 +1,87 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Emoji from "./Emoji.astro";
+import Time from "./Time.astro";
+import { getEntrySlug } from "@utils/posts";
+
+interface Props {
+    post: CollectionEntry<"post">;
+    absSlug?: boolean;
+}
+
+const { post, absSlug = false } = Astro.props;
+// const article = await p.render();
+const slug = getEntrySlug(post);
+const trailingSlashSlug = slug.endsWith("/") ? slug : `${slug}/`;
+const href = absSlug ? `/${trailingSlashSlug}` : `${trailingSlashSlug}`;
+const { draft } = post.data;
+const { title, publishDate, noDate } = post.data;
+const tagsClass = post.data.tags.map((tag) => `tag-${tag}`);
+
+const removeAccents = (str: string) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+---
+
+<li class="article line-effect" class:list={tagsClass}>
+    <a href={href} class="article-link">
+        <div class="link-wrap">
+            {draft && <span class="draft">draft</span>}
+            <span class="date">
+                {(noDate && "null") || <Time date={publishDate} />}
+            </span>
+            <span class="link-dash">-</span>
+            <span class="link-title">{removeAccents(title)}</span>
+        </div>
+    </a>
+    <div class="emoji">
+        <Emoji data={post.data} flex={true} />
+    </div>
+</li>
+
+<style>
+    .draft {
+        color: red;
+        font-weight: bold;
+        text-decoration: underline;
+    }
+    .article {
+        display: none;
+        justify-content: space-between;
+        --original-display: flex;
+        margin-bottom: 10px;
+    }
+    .line-effect::before {
+        content: " ";
+        transform: scaleX(0);
+        transform-origin: bottom right;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        inset: 0 0 0 0;
+        background: Gainsboro;
+        z-index: -1;
+        transition: transform 0.3s ease;
+    }
+    .line-effect:hover::before {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+    }
+    .line-effect {
+        width: auto;
+        position: relative;
+    }
+    .date {
+        /* monospaced font */
+        font-family: "Courier New", Courier, monospace;
+        font-size: 0.8em;
+    }
+    .article-link {
+        color: black;
+        -webkit-tap-highlight-color: transparent;
+        flex: 1;
+        text-decoration: none;
+        display: inline-block;
+        text-transform: lowercase;
+    }
+</style>

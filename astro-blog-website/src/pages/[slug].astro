@@ -1,0 +1,79 @@
+---
+import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
+
+import Layout from "@layouts/Layout.astro";
+import { getAllPosts, getEntrySlug } from "@utils/posts";
+import "../styles/markdown.css";
+import "../styles/tooltip.css";
+import Emoji from "@components/Emoji.astro";
+import Time from "@components/Time.astro";
+
+export const getStaticPaths = (async () => {
+    const articles = await getAllPosts();
+    return articles.map((entry) => {
+        const slug = getEntrySlug(entry);
+        return {
+            params: { slug },
+            props: { entry, data: entry.data },
+        };
+    });
+}) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { entry, data } = Astro.props;
+const { Content } = await entry.render();
+const { publishDate, title, noDate } = data;
+---
+
+<Layout title={data.title} description={`thoughts about ${title.toLowerCase()}`} `>
+    <div class="article-body">
+        <h1>{title}</h1>
+        <div class="under-title">
+            <a class="back-link" href="../"> 🔙 </a>
+            <span>
+                <Emoji data={data} />
+                <span>{(noDate && "null") || <Time date={publishDate} />}</span>
+                {
+                    data.updatedDate && (
+                        <span class="updated" data-tooltip="updated date">
+                            <span>🔄</span>
+                            <span class="updated-date">
+                                <Time date={data.updatedDate} />
+                            </span>
+                        </span>
+                    )
+                }
+            </span>
+        </div>
+        <hr />
+        <div class="markdown-body">
+            <Content />
+        </div>
+    </div>
+</Layout>
+
+<style>
+    .updated {
+        cursor: help;
+    }
+    .updated-date {
+        display: none;
+    }
+    .updated:hover .updated-date {
+        display: inline;
+    }
+    .under-title {
+        display: flex;
+        justify-content: space-between;
+    }
+    .back-link {
+        color: inherit;
+        text-decoration: none;
+    }
+    .article-body {
+        margin: 0 auto;
+        max-width: 800px;
+        padding: 20px;
+    }
+</style>

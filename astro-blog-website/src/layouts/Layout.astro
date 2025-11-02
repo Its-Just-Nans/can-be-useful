@@ -1,0 +1,51 @@
+---
+interface Props {
+    title: string;
+    description?: string;
+}
+
+const { title, description = "thoughts" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="description" content={description} />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="generator" content={Astro.generator} />
+        <link rel="sitemap" href="/sitemap-index.xml" />
+        <title>{title}</title>
+        <!-- No SEO -->
+    </head>
+    <body>
+        <slot />
+    </body>
+</html>
+<style is:global>
+    @font-face {
+        font-family: "Montserrat-Medium";
+        src: url("/fonts/Montserrat-Medium.ttf") format("truetype");
+        font-display: fallback;
+    }
+    html {
+        font-family: "Montserrat-Medium", monospace, system-ui, sans-serif;
+        background-color: snow;
+    }
+    body {
+        margin: 0px;
+    }
+    body::-webkit-scrollbar {
+        width: 10px;
+        height: 5px;
+    }
+    body::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+    body::-webkit-scrollbar-thumb {
+        background: #888;
+    }
+    body ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+</style>

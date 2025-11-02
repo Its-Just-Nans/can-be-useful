@@ -1,0 +1,47 @@
+<div role="menu" tabindex="0" class="menu" style="display: none">
+    <slot />
+</div>
+
+<script is:inline>
+    const menu = document.querySelector(".menu");
+    window.addEventListener(
+        "contextmenu",
+        (e) => {
+            e.preventDefault();
+            window.addEventListener(
+                "click",
+                () => {
+                    menu.style.display = "none";
+                },
+                false
+            );
+            menu.style.display = "block";
+            menu.style.position = "fixed";
+            menu.style.top = `${e.clientY}px`;
+            menu.style.left = `${e.clientX}px`;
+            menu.addEventListener(
+                "click",
+                (e) => {
+                    e.stopPropagation();
+                },
+                false
+            );
+        },
+        false
+    );
+</script>
+
+<style>
+    .menu {
+        z-index: 1000;
+        font-family: "Inter", sans-serif;
+        display: flex;
+        position: fixed;
+        flex-direction: column;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 10px 20px rgba(64, 64, 64, 0.15);
+        width: 250px;
+        overflow: hidden;
+    }
+</style>

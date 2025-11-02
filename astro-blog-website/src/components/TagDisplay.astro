@@ -1,0 +1,28 @@
+---
+interface Props {
+    tag: string;
+}
+
+const { tag } = Astro.props;
+---
+
+<a href=`/tags/${tag}`>
+    <span>{tag}</span>
+</a>
+
+<style>
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+    a:hover span {
+        background-color: darkgray;
+        color: black;
+    }
+    span {
+        background-color: lightgray;
+        padding: 2px 5px;
+        border-radius: 5px;
+        font-style: normal;
+    }
+</style>

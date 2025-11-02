@@ -1,0 +1,55 @@
+---
+import { project, website, repo } from "@utils/constants";
+const rss = `/rss.xml`;
+
+let idx = 0;
+const g = () => {
+    return project[idx++]; // crash if wrong
+};
+const ariaHome = "a hidden link to the home page - h for home";
+---
+
+<h1 class="title">
+    <a
+        class="link-title"
+        href={website}
+        target="_blank"
+        title="main website"
+        aria-label="webpage title is hiding a link to main website">{g()}</a
+    >
+    <a class="link-title" href="/" aria-label={ariaHome}>
+        {g()}
+    </a>
+    <a
+        class="link-title"
+        href={rss}
+        target="_blank"
+        title="rss feed"
+        aria-label="webpage title is hiding a link to rss feed">{g() + g()}</a
+    >
+    <span class="link-title">{g()}</span>
+    <a class="link-title" href="/" aria-label={ariaHome}>
+        {g()}
+    </a>
+    <span class="link-title">{g()}</span>
+    <a
+        class="link-title"
+        href={repo}
+        target="_blank"
+        title="github repo"
+        aria-label="webpage title is hiding a link to github repo">{g()}</a
+    >
+</h1>
+
+<style>
+    .title {
+        display: inline-flex;
+    }
+    .link-title {
+        color: inherit;
+        text-decoration: inherit;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+</style>

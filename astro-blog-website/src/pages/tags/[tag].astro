@@ -1,0 +1,47 @@
+---
+import Layout from "@layouts/Layout.astro";
+import CentralBody from "@components/CentralBody.astro";
+import { filterHidden, getAllPosts, getAllTags, sortMDByDate } from "@utils/posts";
+import TitleDiv from "@components/TitleDiv.astro";
+import ThoughtList from "@components/ThoughtList.astro";
+import TagDisplay from "@components/TagDisplay.astro";
+
+export async function getStaticPaths() {
+    const data = sortMDByDate(filterHidden(await getAllPosts()));
+
+    const uniqueTags = getAllTags(data);
+
+    return uniqueTags.map((tag) => {
+        const filteredPosts = data.filter((post) => post.data.tags.includes(tag));
+        return {
+            params: { tag },
+            props: { posts: filteredPosts },
+        };
+    });
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+---
+
+<Layout title={`Thoughts tagged with ${tag}`}>
+    <CentralBody>
+        <TitleDiv />
+        <div>
+            <p class="subtitle">
+                tagged with <TagDisplay tag={tag} />
+            </p>
+        </div>
+        <ThoughtList data={posts} showEmoji />
+    </CentralBody>
+</Layout>
+
+<style>
+    :global(ul .article) {
+        display: var(--original-display) !important;
+    }
+    .subtitle {
+        text-align: center;
+        font-style: italic;
+    }
+</style>

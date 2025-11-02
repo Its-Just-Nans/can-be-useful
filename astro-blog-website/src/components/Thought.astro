@@ -1,0 +1,52 @@
+---
+import { Image } from "astro:assets";
+
+import Logo from "@public/images/n4n5.png";
+---
+
+<div class="flexed">
+    <div class="logo">
+        <Image src={Logo} alt="n4n5 logo" width="100" height="100" />
+    </div>
+    <div class="bubble">
+        <slot />
+    </div>
+</div>
+
+<style>
+    .flexed {
+        display: flex;
+        align-items: center;
+    }
+    .flexed .bubble :global(p) {
+        margin: 0;
+    }
+    .flexed .bubble :global(a) {
+        word-break: break-all;
+    }
+    .flexed .bubble {
+        margin-bottom: 60px;
+    }
+    .flexed .logo {
+        background-color: #f0f0f0;
+        border-radius: 25px;
+        padding: 10px;
+    }
+    .flexed .logo img {
+        max-width: 60px;
+    }
+    .bubble {
+        background-color: #f0f0f0;
+        padding: 1rem;
+        border-radius: 1rem;
+        margin-left: 1rem;
+    }
+    @media screen and (max-width: 800px) {
+        .flexed img {
+            max-width: 40px;
+        }
+        .flexed .bubble {
+            margin-bottom: 30px;
+        }
+    }
+</style>
