@@ -3,6 +3,7 @@ import type { CollectionEntry } from "astro:content";
 import Emoji from "./Emoji.astro";
 import Time from "./Time.astro";
 import { getEntrySlug } from "@utils/posts";
+import { thisWebsite } from "@utils/constants";
 
 interface Props {
     post: CollectionEntry<"post">;
@@ -13,7 +14,7 @@ const { post, absSlug = false } = Astro.props;
 // const article = await p.render();
 const slug = getEntrySlug(post);
 const trailingSlashSlug = slug.endsWith("/") ? slug : `${slug}/`;
-const href = absSlug ? `/${trailingSlashSlug}` : `${trailingSlashSlug}`;
+const href = absSlug ? `${thisWebsite}${trailingSlashSlug}` : `${trailingSlashSlug}`;
 const { draft } = post.data;
 const { title, publishDate, noDate } = post.data;
 const tagsClass = post.data.tags.map((tag) => `tag-${tag}`);
