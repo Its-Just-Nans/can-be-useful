@@ -45,7 +45,7 @@
                     reader.readAsText(selectedFile);
                 };
             } else {
-                makeRequest("GET", "https://api.github.com/repos/Its-Just-Nans/cards-game/contents/data/")
+                makeRequest("GET", "https://api.github.com/repos/Its-Just-Nans/can-be-useful/contents/html-cards-game/data/")
                     .then(function (response) {
                         const apiJSON = JSON.parse(response);
                         const { tbody } = renderTableau(document.getElementById("content"), ["Name", "Path"], false);
