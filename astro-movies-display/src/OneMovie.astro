@@ -1,0 +1,42 @@
+---
+import MakeWatched from "./MakeWatched.astro";
+
+const { movie, year } = Astro.props;
+
+const minutesToHours = (minutes) => {
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
+    return `${hours}h${remainingMinutes}m`;
+};
+
+const id = `id-${year}-${movie.slug}`;
+---
+
+<div class={id}>
+    <p>title: {movie.title}</p>
+    <p>dateRelease: {movie.dateRelease}</p>
+    <p>dateReleaseOriginal: {movie.dateReleaseOriginal}</p>
+    <p>duration: {movie.duration / 60}m ({minutesToHours(movie.duration / 60)})</p>
+    <p>frenchReleaseDate: {movie.frenchReleaseDate}</p>
+
+    {
+        movie.directors && (
+            <p>
+                directors:{" "}
+                {movie.directors.map((oneDirector) => {
+                    return <span>{oneDirector.name}</span>;
+                })}
+            </p>
+        )
+    }
+    <MakeWatched id={id} />
+    <pre>
+        {JSON.stringify(movie, null, 4)}
+    </pre>
+</div>
+
+<style>
+    pre {
+        overflow: auto;
+    }
+</style>

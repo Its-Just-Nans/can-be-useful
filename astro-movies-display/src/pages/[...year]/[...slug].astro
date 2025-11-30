@@ -1,0 +1,41 @@
+---
+import Base from "../../layout/Base.astro";
+import { readFileSync } from "node:fs";
+import { getData } from "../../getData";
+import OneMovie from "../../OneMovie.astro";
+
+export async function getStaticPaths() {
+    const data = await getData();
+    const pages = data
+        .map((year) => {
+            const data = readFileSync(`public/movies_${year}.json`, { encoding: "utf8", flag: "r" });
+            const json = JSON.parse(data).filter(({ dateRelease }) => dateRelease && dateRelease.startsWith(year));
+            return json.map(({ slug }) => {
+                return {
+                    params: { year, slug },
+                    props: year,
+                };
+            });
+        })
+        .flat();
+    return pages;
+}
+
+const { year, slug } = Astro.params;
+const data = readFileSync(`public/movies_${year}.json`, { encoding: "utf8", flag: "r" });
+const json = JSON.parse(data)
+    .filter(({ dateRelease }) => dateRelease && dateRelease.startsWith(year))
+    .sort((a, b) => {
+        if (!a.dateRelease) {
+            return 0;
+        }
+        return a.dateRelease.localeCompare(b.dateRelease);
+    });
+const correct = json.find(({ slug: s }) => s === slug);
+---
+
+<Base>
+    <h1>{year}/{slug}</h1>
+    <hr />
+    <OneMovie movie={correct} year={year} />
+</Base>

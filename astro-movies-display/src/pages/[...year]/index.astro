@@ -1,0 +1,43 @@
+---
+import Base from "../../layout/Base.astro";
+import { readFileSync } from "node:fs";
+import { getData } from "../../getData";
+import MakeWatched from "../../MakeWatched.astro";
+
+export async function getStaticPaths() {
+    const data = await getData();
+    return data.map((year) => ({
+        params: { year: year },
+        props: year,
+    }));
+}
+
+const { year } = Astro.params;
+const data = readFileSync(`public/movies_${year}.json`, { encoding: "utf8", flag: "r" });
+const json = JSON.parse(data)
+    .filter(({ dateRelease }) => dateRelease && dateRelease.startsWith(year))
+    .sort((a, b) => {
+        if (!a.dateRelease) {
+            return 0;
+        }
+        return a.dateRelease.localeCompare(b.dateRelease);
+    });
+---
+
+<Base>
+    <h1>{year}</h1>
+    <hr />
+    {
+        json.map((movie) => {
+            const id = `id-${year}-${movie.slug}`;
+            return (
+                <div class={id}>
+                    {movie.title}
+                    <a href={movie.slug}>More info</a>
+                    <MakeWatched id={id} />
+                    <hr />
+                </div>
+            );
+        })
+    }
+</Base>

@@ -1,0 +1,19 @@
+---
+const { id } = Astro.props;
+---
+
+<button id={id}>Watched</button>
+<script is:inline define:vars={{ id }}>
+    if (localStorage.getItem(id) !== null) {
+        document.querySelector(`.${id}`).style.backgroundColor = "lightgreen";
+    }
+    document.querySelector(`#${id}`).addEventListener("click", () => {
+        if (localStorage.getItem(id) === null) {
+            localStorage.setItem(id, "watched");
+            document.querySelector(`.${id}`).style.backgroundColor = "lightgreen";
+        } else {
+            localStorage.removeItem(id);
+            document.querySelector(`.${id}`).style.backgroundColor = "initial";
+        }
+    });
+</script>
