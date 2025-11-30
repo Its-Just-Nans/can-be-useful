@@ -14,3 +14,4 @@ svelte-right-click-menu
 svelte-npm-license-dependencies
 astro-blog-website
 svelte-contacts-vcf
+svelte-string-explorer
