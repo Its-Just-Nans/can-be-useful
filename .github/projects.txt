@@ -15,3 +15,4 @@ svelte-npm-license-dependencies
 astro-blog-website
 svelte-contacts-vcf
 svelte-string-explorer
+html-cards-game
