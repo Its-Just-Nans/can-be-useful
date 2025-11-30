@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
+body{
+    margin: 0px;
+    font-family: 'PT Sans', sans-serif;
+    width: 100vw;
+    height: 100vh;
+}
+#content{
+    position: absolute;
+    width: 40vw;
+    margin-top: 30vh;
+    margin-left: 30vw;
+    margin-right: 30vw;
+    text-align: center;
+}
+.bulle{
+    --nameColor: LightSkyBlue;
+    position:relative;
+    display: inline-block;
+	width: 150px;
+    height: 150px;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-bottom: 40px;
+    padding: 10px;
+    padding-top: 20px;
+    background-color: var(--nameColor);
+    border-radius: 100px;
+    text-align:center;
+    border: 2px solid var(--nameColor);
+	font: 1.2em "Fira Sans", sans-serif;
+	vertical-align: bottom;
+    transition: box-shadow 1.25s;
+    box-sizing: border-box;
+}
+.bulle:hover{
+    cursor: pointer;
+    width: 200px;
+    height: 200px;
+    transform: translate(0px,-25px);
+    padding-top: 45px;
+}
+#tableCards{
+    position: absolute;
+    width: 20vw;
+    margin-top: 30vh;
+    margin-left: 30vw;
+    margin-right: 30vw;
+    text-align: center;
+}
+
+/* -------------------------------------------------------------------------- */
+/* https://codepen.io/colebemis/details/IlgFx */
+.card {
+    border-radius: 25px;
+    border: 2px solid black;
+    padding: 10px;
+    width: 100%;
+  margin-top: 50px;
+  position: absolute;
+  transform-style: preserve-3d;
+  transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border-radius: 6px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+  background-color: white;
+}
+.card div {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 6px;
+  background: #fff;
+  -o-box-pack: center;
+  justify-content: center;
+  -o-box-align: center;
+  align-items: center;
+  -webkit-font-smoothing: antialiased;
+  color: #47525d;
+}
+.card .back {
+  transform: rotateY(180deg);
+  display: none;
+}
+.card.flipped {
+  transform: rotateY(180deg);
+}
+
+.card.flipped .front{
+    display: none;
+}
+
+.card.flipped .back{
+    display: block;
+}
+/* -------------------------------------------------------------------------- */

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Cards game by n4n5</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="style.css" />
+        <script type="application/javascript" src="./useful.js"></script>
+        <!--- scripts -->
+        <script src="https://its-just-nans.github.io/can-be-useful/cdn/useful.js"></script>
+        <script src="https://its-just-nans.github.io/can-be-useful/cdn/smollPopUp.js"></script>
+        <!--- README --->
+        <script src="https://its-just-nans.github.io/can-be-useful/cdn/showdown.min.js"></script>
+        <script src="https://its-just-nans.github.io/can-be-useful/cdn/highlight.min.js"></script>
+        <link href="https://its-just-nans.github.io/can-be-useful/cdn/custom.showdown.css" rel="stylesheet" />
+        <link href="https://its-just-nans.github.io/can-be-useful/cdn/highlight.min.css" rel="stylesheet" />
+    </head>
+
+    <body>
+        <style>
+            #tableau {
+                position: absolute;
+                display: block;
+                width: 20vw;
+                height: 100vh;
+                top: 0px;
+                background-color: cornflowerblue;
+            }
+
+            #tbody {
+                overflow: auto;
+            }
+        </style>
+        <div id="content"></div>
+        <script>
+            var allCards;
+            var lang = "fr";
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has("import")) {
+                let content = document.getElementById("content");
+                content.innerHTML = "";
+                let input = document.createElement("input");
+                input.type = "file";
+                content.appendChild(input);
+                input.onchange = function () {
+                    let selectedFile = this.files[0];
+                    let reader = new FileReader();
+                    reader.onload = function () {
+                        try {
+                            allCards = JSON.parse(reader.result);
+                        } catch (error) {
+                            console.log(error);
+                        }
+                        input.remove();
+                        displayTab();
+                    };
+                    reader.readAsText(selectedFile);
+                };
+            } else {
+                // create new
+                let button = document.createElement("button");
+                button.innerHTML = "Create new";
+                content.appendChild(button);
+                button.onclick = () => {
+                    button.remove();
+                    allCards = {
+                        version: "0.0.1",
+                        name: "",
+                        autor: "",
+                        description: "",
+                        cards: [],
+                    };
+                    displayTab();
+                };
+            }
+
+            function displayTab() {
+                const { tfoot, tbody, thead } = renderTableau(document.body, null, true);
+                addStyle(tfoot, {
+                    position: "absolute",
+                    width: "100%",
+                    bottom: "0px",
+                    height: "50px",
+                    textAlign: "center",
+                });
+                addStyle(thead, {
+                    width: "100%",
+                    textAlign: "center",
+                });
+                let inputDownload = document.createElement("button");
+                inputDownload.innerHTML = "Télécharger le jeu de cartes";
+                inputDownload.onclick = function () {
+                    downloadObjectAsJson(allCards, "cards");
+                };
+                tfoot.appendChild(document.createElement("tr"));
+                let bottom = document.createElement("td");
+                bottom.colSpan = "2";
+                tfoot.childNodes[0].appendChild(bottom);
+                tfoot.childNodes[0].childNodes[0].appendChild(inputDownload);
+                let button = document.createElement("button");
+                button.innerHTML = "Create New Card";
+                button.onclick = async function () {
+                    let popUpReturn = await makePopUp({ titre: "", keywords: "", content: "" });
+                    let newTd = document.createElement("td");
+                    newTd.innerHTML = popUpReturn.titre;
+                    let newNumber = document.createElement("td");
+                    newNumber.innerHTML = allCards.cards.length; //TO DO
+                    allCards.cards.push({
+                        bigKeywords: popUpReturn.keywords.split(" ") || "",
+                        keywords: popUpReturn.keywords.split(" ") || "",
+                        title: {
+                            ["" + lang]: popUpReturn.titre || "",
+                        },
+                        content: {
+                            contentType: "readme",
+                            ["" + lang]: popUpReturn.titre || "",
+                        },
+                        quizz: [],
+                    });
+                    let row = document.createElement("tr");
+                    row.appendChild(newNumber);
+                    row.appendChild(newTd);
+                    row.onclick = editCard;
+                    tbody.appendChild(row);
+                };
+                thead.appendChild(document.createElement("tr"));
+                let header = document.createElement("th");
+                header.colSpan = "2";
+                thead.childNodes[0].appendChild(header);
+                thead.childNodes[0].childNodes[0].appendChild(button);
+            }
+
+            async function editCard() {
+                let index = this.childNodes[0].innerHTML;
+                let data = allCards.cards[index];
+                let popUpReturn = await makePopUp({
+                    titre: data.title[lang],
+                    keywords: data.bigKeywords.join(" "),
+                    content: data.content[lang],
+                });
+                allCards.cards[index] = {
+                    bigKeywords: popUpReturn.keywords.split(" "),
+                    keywords: popUpReturn.keywords.split(" "),
+                    title: {
+                        ["" + lang]: popUpReturn.titre,
+                    },
+                    content: {
+                        contentType: "readme",
+                        ["" + lang]: popUpReturn.titre,
+                    },
+                    quizz: [],
+                };
+                this.childNodes[1].innerHTML = popUpReturn.titre;
+            }
+        </script>
+    </body>
+</html>

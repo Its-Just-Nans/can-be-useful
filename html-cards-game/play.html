@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Cards game by n4n5</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="style.css" />
+        <script type="application/javascript" src="./useful.js"></script>
+        <!--- scripts -->
+        <script src="https://its-just-nans.github.io/can-be-useful/cdn/useful.js"></script>
+        <script src="https://its-just-nans.github.io/can-be-useful/cdn/smollPopUp.js"></script>
+        <!--- README --->
+        <script src="https://its-just-nans.github.io/can-be-useful/cdn/showdown.min.js"></script>
+        <script src="https://its-just-nans.github.io/can-be-useful/cdn/highlight.min.js"></script>
+        <link href="https://its-just-nans.github.io/can-be-useful/cdn/custom.showdown.css" rel="stylesheet" />
+        <link href="https://its-just-nans.github.io/can-be-useful/cdn/highlight.min.css" rel="stylesheet" />
+    </head>
+
+    <body>
+        <div id="content"></div>
+        <script>
+            var indexing = 0;
+            var allCards;
+            var lang = "fr";
+            var content = document.getElementById("content");
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has("import")) {
+                content.innerHTML = "";
+                let input = document.createElement("input");
+                input.type = "file";
+                content.appendChild(input);
+                input.onchange = function () {
+                    var selectedFile = this.files[0];
+                    var reader = new FileReader();
+                    reader.onload = function () {
+                        try {
+                            allCards = JSON.parse(reader.result);
+                            input.remove();
+                            renderCards(content);
+                            loadCard(allCards["cards"][indexing], lang);
+                        } catch (e) {
+                            console.log(e);
+                            smollPopUp({ title: "Error", msg: e.toString() }, { type: "ko" });
+                        }
+                    };
+                    reader.readAsText(selectedFile);
+                };
+            } else {
+                makeRequest("GET", "https://api.github.com/repos/Its-Just-Nans/cards-game/contents/data/")
+                    .then(function (response) {
+                        const apiJSON = JSON.parse(response);
+                        const { tbody } = renderTableau(document.getElementById("content"), ["Name", "Path"], false);
+                        for (let oneReponse of apiJSON) {
+                            let tr = document.createElement("tr");
+                            addStyle(tr, {
+                                cursor: "pointer",
+                            });
+                            let td1 = document.createElement("td");
+                            let td2 = document.createElement("td");
+                            tr.append(td1);
+                            tr.append(td2);
+                            tbody.append(tr);
+                            tr.onclick = function () {
+                                const url = `https://its-just-nans.github.io/cards-game/${td2.innerHTML}`;
+                                makeRequest("GET", url).then(function (response) {
+                                    allCards = JSON.parse(response);
+                                    document.getElementById("content").innerHTML = "";
+                                    renderCards(content);
+                                    loadCard(allCards["cards"][indexing], lang);
+                                });
+                            };
+                            td1.innerHTML = oneReponse.name;
+                            td2.innerHTML = oneReponse.path;
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log("log: ", error);
+                    });
+            }
+        </script>
+    </body>
+</html>

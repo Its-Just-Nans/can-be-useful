@@ -1,0 +1,68 @@
+{
+	"version": "0.0.1",
+	"name":"",
+	"autor":"",
+	"description":"",
+	"cards":[
+		{
+			"bigKeywords":"",
+			"keywords":"",
+			"title":{
+				"fr":"Paramètre de main() en C"
+			},
+			"content": {
+				"contentType":"readme",
+				"fr": "`argv[0]` contiendra tout le temps le nom du programme\n\n```\nint main(int argc, char *argv[]){\n\tfor(int o=0; o< argc; o++){\n\t\tprintf(\"Argument %d : %s\\n\", o, argv[o]);\n\t}\n\treturn 0;\n}\n```"
+			},
+			"quizz":[
+				{
+					"quizz-type":"qcm",
+					"mutli": false,
+					"questions":"",
+					"answers": [" answer 1",  "answer 2"],
+					"correct-answers":[" answer 1"]
+				}
+			]
+		},
+		{
+			"bigKeywords":"",
+			"keywords":"",
+			"title":{
+				"fr":"Carte 2"
+			},
+			"content": {
+				"contentType":"readme",
+				"fr": "`argv[0]` contiendra tout le temps le nom du programme\n\n```\nint main(int argc, char *argv[]){\n\tfor(int o=0; o< argc; o++){\n\t\tprintf(\"Argument %d : %s\\n\", o, argv[o]);\n\t}\n\treturn 0;\n}\n```"
+			},
+			"quizz":[
+				{
+					"type":"qcm",
+					"mutli": false,
+					"question":"L'ingénierie de trafic :",
+					"answers": ["correspond à tenir compte de contraintes autres que la seule topologie dans l'établissement des routes (congestion à éviter, QoS à assurer)", "correspond à décider comment répartir le trafic dans le réseau de l'ISP", "consiste à modifier les paquets IP pour les rendre plus performants", "ne dicte pas de toujours prendre le plus court chemin entre une source et une destination", "dicte de toujours prendre le plus court chemin entre une source et une destination"],
+					"correct-answers":[0, 1, 3]
+				}
+			]
+		},
+		{
+			"bigKeywords":"",
+			"keywords":"",
+			"title":{
+				"fr":"CARTE 3"
+			},
+			"content": {
+				"contentType":"readme",
+				"fr": "Commande pour créer un serveur web rapidement\n```sh\n\nnpm install --global http-server\n#or\n\nnpm install -g http-server\n\ncd YOUR-DIRECTORY\n\nhttp-server\n```"
+			},
+			"quizz":[
+				{
+					"quizz-type":"qcm",
+					"mutli": false,
+					"questions":"",
+					"answers": [" answer 1",  "answer 2"],
+					"correct-answers":[" answer 1"]
+				}
+			]
+		}
+	]
+}
