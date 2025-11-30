@@ -6,7 +6,9 @@
 <main>
     <h1>
         <span>String explorer - </span>
-        <a href="https://github.com/Its-Just-Nans/string-explorer">github.com/Its-Just-Nans/string-explorer</a>
+        <a href="https://github.com/Its-Just-Nans/can-be-useful/tree/main/svelte-string-explorer"
+            >https://github.com/Its-Just-Nans/can-be-useful/tree/main/svelte-string-explorer</a
+        >
     </h1>
     <EditorChoice />
     <Converter />

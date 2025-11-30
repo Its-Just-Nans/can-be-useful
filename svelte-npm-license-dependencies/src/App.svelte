@@ -121,7 +121,7 @@
 	<p class="inline">
 		Check code <a
 			class="link"
-			href="https://github.com/Its-Just-Nans/npm-license-dependencies"
+			href="https://github.com/Its-Just-Nans/can-be-useful/tree/main/svelte-npm-license-dependencies"
 			>here</a
 		>
 	</p>
