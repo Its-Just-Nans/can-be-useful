@@ -17,3 +17,4 @@ svelte-contacts-vcf
 svelte-string-explorer
 html-cards-game
 react-time
+react-emojis
