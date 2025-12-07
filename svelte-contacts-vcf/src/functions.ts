@@ -3,6 +3,37 @@ import { filename, size, content, fileHandle, parsed } from "./stores";
 import { get as getStore } from "svelte/store";
 import { parseVCard } from "./vcard";
 
+function openFileFallback() {
+    return new Promise<File>((resolve, reject) => {
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "*/*";
+
+        input.onchange = () => {
+            if (input.files && input.files.length > 0) {
+                resolve(input.files[0]);
+            } else {
+                reject(new Error("No file selected"));
+            }
+        };
+
+        document.body.appendChild(input);
+        input.click();
+    });
+}
+
+export const getFileAndRead = async (showFilePicker = false) => {
+    const supportsFSAPI = "showOpenFilePicker" in window;
+    debugger;
+    if (supportsFSAPI) {
+        await getFile(showFilePicker);
+    } else {
+        const file = await openFileFallback();
+        fileHandle.set(file);
+    }
+    await readFile();
+};
+
 export const getFile = async (showFilePicker = false) => {
     let currentFileHandle;
     if (!showFilePicker) {
@@ -40,11 +71,19 @@ export const getFile = async (showFilePicker = false) => {
 };
 
 export const readFile = async () => {
-    const currentFileHandle = getStore(fileHandle);
-    if (!currentFileHandle) {
-        return;
+    const current = getStore(fileHandle);
+    if (!current) return;
+
+    let file: File;
+
+    if ("getFile" in current) {
+        // FileSystemFileHandle (Chrome)
+        file = await current.getFile();
+    } else {
+        // Already a File object (Firefox)
+        file = current;
     }
-    const file = await currentFileHandle.getFile();
+
     filename.set(file.name);
     size.set(file.size);
     content.set(await file.text());

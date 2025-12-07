@@ -1,6 +1,6 @@
 <script>
     import { APP_TITLE } from "./constants";
-    import { getFile, readFile, writeToFile } from "./functions";
+    import { getFileAndRead, writeToFile } from "./functions";
     import { filename, size, content, parsed, fileHandle, sidebar } from "./stores";
     import Menu from "./Menu.svelte";
 </script>
@@ -16,8 +16,7 @@
         {#if !$fileHandle}
             <button
                 on:click={async () => {
-                    await getFile();
-                    await readFile();
+                    await getFileAndRead();
                 }}
             >
                 start
@@ -34,8 +33,7 @@
         <div>
             <button
                 on:click={async () => {
-                    await getFile(true);
-                    await readFile();
+                    await getFileAndRead(true);
                 }}
             >
                 open another

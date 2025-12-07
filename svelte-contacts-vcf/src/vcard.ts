@@ -1,9 +1,23 @@
 import { parse } from "ical.js";
 import { parsed } from "./stores";
 
+export const parseFile = (content: string): Array<{}> => {
+    const parsedFile = parse(content);
+    if (!parsedFile) {
+        return [];
+    }
+    if (!Array.isArray(parsedFile)) {
+        return [];
+    }
+    if (parsedFile.length > 0 && parsedFile[0] === "vcard") {
+        return [parsedFile];
+    }
+    return parsedFile;
+};
+
 export const parseVCard = (content: string) => {
     try {
-        const parsedContent = parse(content);
+        const parsedContent = parseFile(content);
         parsed.set(parsedContent);
     } catch (e) {
         console.error(e);
