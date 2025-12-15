@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>bandwidth-calculator</title>
+    </head>
+    <body>
+        <div>
+            <a href="https://github.com/Its-Just-Nans/bandwidth-calculator"><h3>Bandwidth Calculator</h3></a>
+            <p>Enter two values, push "Calculate" on the missing third value!</p>
+        </div>
+        <input type="checkbox" onchange="calc(1)" id="round" />
+        <label for="round">rounded result</label>
+        <style>
+            body {
+                text-align: center;
+            }
+            #bandwidthCalc {
+                border: 1px solid black;
+                margin: auto;
+            }
+            .borderUp {
+                border-top: 1px solid black;
+            }
+            .column {
+                display: inline-block;
+                width: 100%;
+                text-align: center;
+                border: 1px solid black;
+            }
+            .table {
+                margin: auto;
+                display: flex;
+            }
+            @media screen and (max-width: 600px) {
+                .table {
+                    display: block;
+                }
+            }
+        </style>
+        <div class="table">
+            <div class="column">
+                <div>DataSize</div>
+                <div>
+                    <button onclick="calc(1)">Calculate</button>
+                    <input id="dataNum" type="number" value="1" />
+                </div>
+                <div>
+                    <select id="dataUnit" onchange="calc(1)">
+                        <option value="1" selected>bits - b</option>
+                        <option value="1000">kilobits - Kb</option>
+                        <option value="1000000">megabits - Mb</option>
+                        <option value="1000000000">gigabits - Gb</option>
+                        <option value="1000000000000">terabits - Tb</option>
+                        <option value="-">--------------</option>
+                        <option value="8">bytes - B</option>
+                        <option value="8000">kilobytes - KB</option>
+                        <option value="8000000">megabytes - MB</option>
+                        <option value="8000000000">gigabytes - GB</option>
+                        <option value="8000000000000">terabytes - TB</option>
+                        <option value="-">--------------</option>
+                        <option value="8192">kibibytes - KiB</option>
+                        <option value="8.389e+6">mebibytes - MiB</option>
+                        <option value="8.59e+9">gibibytes - GiB</option>
+                        <option value="8.796e+12">tebibytes - TiB</option>
+                    </select>
+                </div>
+                <div class="borderUp" id="moreData"></div>
+            </div>
+            <div class="column">
+                <div><td class="borders">Time</td></div>
+                <div>
+                    <button onclick="calc(2)">Calculate</button>
+                    <input id="timeNum" type="number" value="1" />
+                </div>
+                <div>
+                    <select id="timeUnit" onchange="calc(2)">
+                        <option value="1e-9">nanoseconds</option>
+                        <option value="1e-6">milliseconds</option>
+                        <option value="0.001">milliseconds</option>
+                        <option value="1" selected>seconds</option>
+                        <option value="60">minutes</option>
+                        <option value="3600">hours</option>
+                        <option value="86400">days</option>
+                        <option value="604800">weeks</option>
+                        <option value="31536000">years (365 days)</option>
+                    </select>
+                </div>
+                <div class="borders borderUp" id="moreTime"></div>
+            </div>
+            <div class="column">
+                <div>
+                    <td>Speed</td>
+                </div>
+                <div>
+                    <button onclick="calc(3)">Calculate</button>
+                    <input id="speedNum" type="number" value="1" />
+                </div>
+                <div>
+                    <select id="speedUnit" onchange="calc(3)">
+                        <option value="1" selected>bits per second (bps)</option>
+                        <option value="1000">Kilobits per second (Kbps)</option>
+                        <option value="1000000">Megabits per second (Mbps)</option>
+                        <option value="1000000000">Gigabits per second (Gbps)</option>
+                        <option value="1000000000000">Terabits per second (Tbps)</option>
+                        <option value="-">--------------</option>
+                        <option value="8">Bytes per second (B)</option>
+                        <option value="8000">KiloBytes per second (KBps)</option>
+                        <option value="8000000">MegaBytes per second (MBps)</option>
+                        <option value="8000000000">GigaBytes per second (GBps)</option>
+                        <option value="8000000000000">TeraBytes per second (TBps)</option>
+                        <option value="-">--------------</option>
+                        <option value="8192">KibiBytes per second (KiBps)</option>
+                        <option value="8.389e+6">MebiBytes per second (MiBps)</option>
+                        <option value="8.59e+9">GibiBytes per second (GiBps)</option>
+                        <option value="8.796e+12">TebiBytes per second (TiBps)</option>
+                        <!-- 
+                            <option value="-">--------------</option>
+                            <option value="10000000">10Mbps ethernet (don't work)</option>
+                            <option value="100000000">100Mbps ethernet (don't work)</option>
+                            <option value="1000000000">1Gbps (gigabit) ethernet (don't work)</option>
+                        -->
+                    </select>
+                </div>
+
+                <div class="borderUp" id="moreSpeed"></div>
+            </div>
+        </div>
+        <script>
+            const timeNum = document.getElementById("timeNum");
+            const speedNum = document.getElementById("speedNum");
+            const dataNum = document.getElementById("dataNum");
+            const dataUnit = document.getElementById("dataUnit");
+            const timeUnit = document.getElementById("timeUnit");
+            const speedUnit = document.getElementById("speedUnit");
+            const round = document.getElementById("round");
+            const moreData = document.getElementById("moreData");
+            const moreSpeed = document.getElementById("moreSpeed");
+            const moreTime = document.getElementById("moreTime");
+
+            function putNothing() {
+                document.getElementById("moreData").innerHTML = "";
+                document.getElementById("moreTime").innerHTML = "";
+                document.getElementById("moreSpeed").innerHTML = "";
+            }
+            const mayRound = (value) => {
+                if (round.checked) {
+                    return Math.round(value);
+                }
+                return value;
+            };
+            const pV = (el) => {
+                return parseFloat(el.value);
+            };
+            const calc = (val = 1) => {
+                if (dataUnit.value === "-" || speedUnit.value === "-") {
+                    return alert("Select a unit");
+                }
+                let currentTimeNum = pV(timeNum) * pV(timeUnit);
+                let currentSpeedNum = pV(speedNum) * pV(speedUnit);
+                let currentDataNum = pV(dataNum) * pV(dataUnit);
+                if (val === 3) {
+                    const speed = currentDataNum / currentTimeNum;
+                    speedNum.value = mayRound(speed / pV(speedUnit));
+                    currentSpeedNum = speed;
+                } else if (val === 2) {
+                    const time = currentDataNum / currentSpeedNum;
+                    timeNum.value = mayRound(time / pV(timeUnit));
+                    currentTimeNum = time;
+                } else if (val === 1) {
+                    const dataTemp = currentTimeNum * currentSpeedNum;
+                    dataNum.value = mayRound(dataTemp / pV(dataUnit));
+                    currentDataNum = dataTemp;
+                } else {
+                    alert("Missing Number");
+                }
+                putNothing();
+                const table = [
+                    [dataUnit, moreData, currentDataNum],
+                    [timeUnit, moreTime, currentTimeNum],
+                    [speedUnit, moreSpeed, currentSpeedNum],
+                ];
+                for (const [unit, element, currentValue] of table) {
+                    for (let opEl of unit) {
+                        if (opEl.value != "-") {
+                            element.innerHTML +=
+                                "<strong>" +
+                                mayRound(currentValue / pV(opEl)) +
+                                "</strong> " +
+                                opEl.innerHTML +
+                                "<br />";
+                        }
+                    }
+                }
+            };
+        </script>
+    </body>
+</html>
