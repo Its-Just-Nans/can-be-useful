@@ -1,0 +1,189 @@
+<svg xmlns="http://www.w3.org/2000/svg" height="440" width="450">
+    <style>
+    *{
+        --hexa-color1: rgb(0, 0, 255);
+        --hexa-color2: rgb(50, 50, 205);
+        --hexa-color3: rgb(100, 100, 155);
+        --hexa-color4: rgb(150, 150, 105);
+        --hexa-color5: rgb(200, 200, 55);
+    }
+    .hexa-1 { fill: var(--hexa-color1); }
+    .hexa-2 { fill: var(--hexa-color2); }
+    .hexa-3 { fill: var(--hexa-color2); }
+    .hexa-4 { fill: var(--hexa-color2); }
+    .hexa-5 { fill: var(--hexa-color2); }
+    .hexa-6 { fill: var(--hexa-color2); }
+    .hexa-7 { fill: var(--hexa-color3); }
+    .hexa-8 { fill: var(--hexa-color3); }
+    .hexa-9 { fill: var(--hexa-color3); }
+    .hexa-10 { fill: var(--hexa-color2); }
+    .hexa-11 { fill: var(--hexa-color2); }
+    .hexa-12 { fill: var(--hexa-color3); }
+    .hexa-13 { fill: var(--hexa-color4); }
+    .hexa-14 { fill: var(--hexa-color4); }
+    .hexa-15 { fill: var(--hexa-color3); }
+    .hexa-16 { fill: var(--hexa-color3); }
+    .hexa-17 { fill: var(--hexa-color4); }
+    .hexa-18 { fill: var(--hexa-color5); }
+    .hexa-19 { fill: var(--hexa-color4); }
+    .hexa-20 { fill: var(--hexa-color3); }
+    .hexa-21 { fill: var(--hexa-color2); }
+    .hexa-22 { fill: var(--hexa-color3); }
+    .hexa-23 { fill: var(--hexa-color4); }
+    .hexa-24 { fill: var(--hexa-color4); }
+    .hexa-25 { fill: var(--hexa-color3); }
+    .hexa-26 { fill: var(--hexa-color2); }
+    .hexa-27 { fill: var(--hexa-color3); }
+    .hexa-28 { fill: var(--hexa-color3); }
+    .hexa-29 { fill: var(--hexa-color3); }
+    .hexa-30 { fill: var(--hexa-color2); }
+    .hexa-31 { fill: var(--hexa-color1); }
+    .hexa-32 { fill: var(--hexa-color2); }
+    .hexa-33 { fill: var(--hexa-color2); }
+    .hexa-34 { fill: var(--hexa-color2); }
+    .hexa-35 { fill: var(--hexa-color2); }
+    </style>
+
+    <g transform="translate(-10, -45)" stroke-width="5"  stroke="black">
+        <g transform="translate(0, 0)">
+            <g transform="translate(-45, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-1" />
+            </g>
+            <g transform="translate(45, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-2" />
+            </g>
+            <g transform="translate(135, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-3" />
+            </g>
+            <g transform="translate(225, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-4" />
+            </g>
+            <g transform="translate(315, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-5" />
+            </g>
+            <g transform="translate(405, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-1" />
+            </g>
+        </g>
+        <g transform="translate(0, 74)">
+            <g transform="translate(0, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-6" />
+            </g>
+            <g transform="translate(90, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-7" />
+            </g>
+            <g transform="translate(180, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-8" />
+            </g>
+            <g transform="translate(270, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-9" />
+            </g>
+            <g transform="translate(360, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-10" />
+            </g>
+            <g transform="translate(450, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-6" />
+            </g>
+        </g>
+        <g transform="translate(0, 148)">
+            <g transform="translate(-45, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-11" />
+            </g>
+            <g transform="translate(45, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-12" />
+            </g>
+            <g transform="translate(135, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-13" />
+            </g>
+            <g transform="translate(225, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-14" />
+            </g>
+            <g transform="translate(315, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-15" />
+            </g>
+            <g transform="translate(405, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-11" />
+            </g>
+        </g>
+        <g transform="translate(0, 222)">
+            <g transform="translate(0, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-16" />
+            </g>
+            <g transform="translate(90, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-17" />
+            </g>
+            <g transform="translate(180, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-18" />
+            </g>
+            <g transform="translate(270, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-19" />
+            </g>
+            <g transform="translate(360, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-20" />
+            </g>
+            <g transform="translate(450, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-16" />
+            </g>
+        </g>
+        <g transform="translate(0, 296)">
+            <g transform="translate(-45, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-21" />
+            </g>
+            <g transform="translate(45, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-22" />
+            </g>
+            <g transform="translate(135, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-23" />
+            </g>
+            <g transform="translate(225, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-24" />
+            </g>
+            <g transform="translate(315, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-25" />
+            </g>
+            <g transform="translate(405, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-21" />
+            </g>
+        </g>
+        <g transform="translate(0, 370)">
+            <g transform="translate(0, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-26" />
+            </g>
+            <g transform="translate(90, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-27" />
+            </g>
+            <g transform="translate(180, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-28" />
+            </g>
+            <g transform="translate(270, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-29" />
+            </g>
+            <g transform="translate(360, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-30" />
+            </g>
+            <g transform="translate(450, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-26" />
+            </g>
+        </g>
+        <g transform="translate(0, 444)">
+            <g transform="translate(-45, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-1" />
+            </g>
+            <g transform="translate(45, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-2" />
+            </g>
+            <g transform="translate(135, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-3" />
+            </g>
+            <g transform="translate(225, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-4" />
+            </g>
+            <g transform="translate(315, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-5" />
+            </g>
+            <g transform="translate(405, 0)">
+                <polygon points="50,1 95,25 95,75 50,99 5,75 5,25" fill="none" class="hexa-1" />
+            </g>
+        </g>
+    </g>
+</svg>

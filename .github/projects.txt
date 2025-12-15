@@ -21,3 +21,4 @@ react-emojis
 html-dictee
 svelte-matrix-tests
 svelte-pokemon-platinum-map
+lua-hexagon-background
