@@ -24,10 +24,11 @@ for project in "${projects[@]}"; do
     fi
     for output_folder in "${output_folders[@]}"; do
         if [ -e "$output_folder" ]; then
-            echo "Copying from $project/$output_folder to dist/$project"
+            echo "Copying from '$project/$output_folder' to dist/$project"
+            rm -rf "../dist/$project"
             cp -R "$output_folder/" "../dist/$project"
         else
-            echo "No output folder $output_folder in $project"
+            echo "No output folder '$project/$output_folder' in $project"
         fi
     done
     popd || exit 1
