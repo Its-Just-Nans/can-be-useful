@@ -20,3 +20,4 @@ react-time
 react-emojis
 html-dictee
 svelte-matrix-tests
+svelte-pokemon-platinum-map
