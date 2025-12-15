@@ -24,3 +24,4 @@ svelte-pokemon-platinum-map
 lua-hexagon-background
 astro-redirector
 svelte-mouse-data-transfer
+svelte-domains
