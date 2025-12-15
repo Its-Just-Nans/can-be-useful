@@ -1,0 +1,16 @@
+<script>
+    fetch("https://pokeapi.co/api/v2/characteristic/25")
+        .then((resp) => resp.json())
+        .then((json) => {
+            // doing stuff
+            const data = json.descriptions.reduce((acc, el) => {
+                acc[el.language.name] = el.description;
+                return acc;
+            }, {});
+            console.log("DATA_LAMBDA", JSON.stringify(data));
+            document.write(JSON.stringify(data));
+        })
+        .catch((err) => {
+            console.log("ERROR_LAMBDA", err);
+        });
+</script>
