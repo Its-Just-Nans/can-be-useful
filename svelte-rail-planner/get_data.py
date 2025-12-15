@@ -1,28 +1,25 @@
 """train"""
 
-import re
+import sys
+from os.path import join
+import math
 import json
 from requests import get
-import math
-from os.path import join
-import sys
 
 PATH_TO_JSON = "src/assets/json/"
 
 
 def get_data(out_folder):
     """download data"""
-    urls = [
-        "https://ressources.data.sncf.com/api/explore/v2.1/catalog/datasets/tarifs-intercites/exports/json?lang=fr&timezone=Europe%2FBerlin",
-        "https://ressources.data.sncf.com/api/explore/v2.1/catalog/datasets/tarifs-ter-par-od/exports/json?lang=fr&timezone=Europe%2FBerlin",
-        "https://ressources.data.sncf.com/api/explore/v2.1/catalog/datasets/gares-de-voyageurs/exports/json?lang=fr&timezone=Europe%2FBerlin",
-        "https://ressources.data.sncf.com/api/explore/v2.1/catalog/datasets/tarifs-tgv-inoui-ouigo/exports/json?lang=fr&timezone=Europe%2FBerlin",
-    ]
+    urls = {
+        "https://ressources.data.sncf.com/api/explore/v2.1/catalog/datasets/tarifs-intercites/exports/json?lang=fr&timezone=Europe%2FBerlin": "tarifs-intercites.json",
+        "https://ressources.data.sncf.com/api/explore/v2.1/catalog/datasets/tarifs-ter-par-od/exports/json?lang=fr&timezone=Europe%2FBerlin": "tarifs-ter-par-od.json",
+        "https://ressources.data.sncf.com/api/explore/v2.1/catalog/datasets/gares-de-voyageurs/exports/json?lang=fr&timezone=Europe%2FBerlin": "gares-de-voyageurs.json",
+        "https://ressources.data.sncf.com/api/explore/v2.1/catalog/datasets/tarifs-tgv-inoui-ouigo/exports/json?lang=fr&timezone=Europe%2FBerlin": "tarifs-tgv-inoui-ouigo.json",
+    }
     filenames = []
-    for one_url in urls:
+    for one_url, fname in urls.items():
         resp = get(one_url, timeout=10)
-        d = resp.headers["content-disposition"]
-        fname = re.findall("filename=(.+)", d)[0][1:-1]
         fname = join(out_folder, fname)
         with open(fname, "wb") as f:
             f.write(resp.content)
@@ -77,7 +74,7 @@ def travel_paths(gares, orig):
     sptSet = dict.fromkeys(g_keys, False)
     path = {orig: None}
 
-    for cout in range(len(g_keys)):
+    for _cout in range(len(g_keys)):
         # Pick the minimum distance vertex from
         # the set of vertices not yet processed.
         u = minDistance(g_keys, dist, sptSet)
