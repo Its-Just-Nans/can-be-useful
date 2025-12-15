@@ -13,6 +13,7 @@ def get_data(out_folder):
     """download data"""
     urls = {
         "https://ressources.data.sncf.com/api/explore/v2.1/catalog/datasets/tarifs-intercites/exports/json?lang=fr&timezone=Europe%2FBerlin": "tarifs-intercites.json",
+        # don't work anymore :(
         "https://ressources.data.sncf.com/api/explore/v2.1/catalog/datasets/tarifs-ter-par-od/exports/json?lang=fr&timezone=Europe%2FBerlin": "tarifs-ter-par-od.json",
         "https://ressources.data.sncf.com/api/explore/v2.1/catalog/datasets/gares-de-voyageurs/exports/json?lang=fr&timezone=Europe%2FBerlin": "gares-de-voyageurs.json",
         "https://ressources.data.sncf.com/api/explore/v2.1/catalog/datasets/tarifs-tgv-inoui-ouigo/exports/json?lang=fr&timezone=Europe%2FBerlin": "tarifs-tgv-inoui-ouigo.json",

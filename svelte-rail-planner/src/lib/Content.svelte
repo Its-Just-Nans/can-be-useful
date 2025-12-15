@@ -19,15 +19,15 @@
     <hr />
 
     {#if $data.gares}
-        <p>Gares de voyageurs : {$data.gares.length}</p>
+        <p>Number of Gares de voyageurs : {$data.gares.length}</p>
     {/if}
 
     {#if $data.intercites}
-        <p>Intercités : {$data.intercites.length}</p>
+        <p>Number of Intercités : {$data.intercites.length}</p>
     {/if}
 
     {#if $data.ter}
-        <p>TER : {$data.ter.length}</p>
+        <p>Number of TER : {$data.ter?.length > 0 ? $data.ter.length : "No data :("}</p>
     {/if}
 
     <h2>Départ</h2>

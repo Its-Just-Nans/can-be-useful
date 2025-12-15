@@ -4,31 +4,35 @@ type DestByGare = {
 
 const get_dest_by_gare = (data): DestByGare => {
     let destByGare: DestByGare = {};
-    for (const oneTarif of data.ter) {
-        const orig_uic = oneTarif["origine_code_uic"];
-        const dest_uic = oneTarif["destination_code_uic"];
-        for (const one_uic of [orig_uic.split(";")]) {
-            if (!(one_uic in destByGare)) {
-                destByGare[one_uic] = [];
-            }
-            for (const dest of dest_uic.split(";")) {
-                if (!destByGare[one_uic].includes(dest)) {
-                    destByGare[one_uic].push(dest);
+    if (Array.isArray(data.ter)) {
+        for (const oneTarif of data.ter) {
+            const orig_uic = oneTarif["origine_code_uic"];
+            const dest_uic = oneTarif["destination_code_uic"];
+            for (const one_uic of [orig_uic.split(";")]) {
+                if (!(one_uic in destByGare)) {
+                    destByGare[one_uic] = [];
+                }
+                for (const dest of dest_uic.split(";")) {
+                    if (!destByGare[one_uic].includes(dest)) {
+                        destByGare[one_uic].push(dest);
+                    }
                 }
             }
         }
     }
 
-    for (const oneTarif of data.intercites) {
-        const orig_uic = oneTarif["origine_uic8"];
-        const dest_uic = oneTarif["destination_uic8"];
-        for (const one_uic of [orig_uic.split(";")]) {
-            if (!(one_uic in destByGare)) {
-                destByGare[one_uic] = [];
-            }
-            for (const dest of dest_uic.split(";")) {
-                if (!destByGare[one_uic].includes(dest)) {
-                    destByGare[one_uic].push(dest);
+    if (Array.isArray(data.intercites)) {
+        for (const oneTarif of data.intercites) {
+            const orig_uic = oneTarif["origine_uic8"];
+            const dest_uic = oneTarif["destination_uic8"];
+            for (const one_uic of [orig_uic.split(";")]) {
+                if (!(one_uic in destByGare)) {
+                    destByGare[one_uic] = [];
+                }
+                for (const dest of dest_uic.split(";")) {
+                    if (!destByGare[one_uic].includes(dest)) {
+                        destByGare[one_uic].push(dest);
+                    }
                 }
             }
         }
