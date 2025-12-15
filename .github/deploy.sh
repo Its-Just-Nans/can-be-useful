@@ -16,8 +16,12 @@ output_folders=("dist" "public")
 for project in "${projects[@]}"; do
     echo "building $project"
     pushd "$project" || exit 1
-    npm install --force
-    npm run build
+    if [ -e "build.sh" ]; then
+        ./build.sh
+    else
+        npm install --force
+        npm run build
+    fi
     for output_folder in "${output_folders[@]}"; do
         if [ -e "$output_folder" ]; then
             cp -R "$output_folder/" "../dist/$project"
