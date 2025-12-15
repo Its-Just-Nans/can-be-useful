@@ -2,9 +2,9 @@
 
 Check domains availability thougth the [OVH API](https://api.ovh.com/console/) !
 
-Available online: [https://its-just-nans.github.io/domains/](https://its-just-nans.github.io/domains/)
+Available online: <https://n4n5.dev/can-be-useful/svelte-domains/>
 
-> Looking for a pythonic version? Check out [https://github.com/Its-Just-Nans/domains-scraping](https://github.com/Its-Just-Nans/domains-scraping)
+> Looking for a pythonic version? Check out <https://github.com/Its-Just-Nans/can-be-useful/tree/main/python-domains-scraping>
 
 ## Features
 
