@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Dictee</title>
+        <style>
+            textarea {
+                width: 300px;
+                height: 150px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Dictee - Proof of Concept</h1>
+        <label for="voiceSelect">Choose a voice:</label>
+        <select id="voiceSelect"></select>
+        <br />
+        <label for="textSelect">Choose a text:</label>
+        <select id="textSelect"></select>
+        <br />
+        <textarea type="text" id="textInput" placeholder="Enter text you hear"></textarea>
+        <br />
+        <button id="speakButton">Start voice</button>
+        <button id="verifyButton">Verify</button>
+        <div id="correction"></div>
+        <script>
+            let voices = [];
+            let voice = null;
+            let text = null;
+            let textContent = null;
+            const populateTexts = async () => {
+                const req = await fetch("texts.json").catch(() => {
+                    alert("Failed to get texts list");
+                });
+                const textsList = await req.json().catch(() => {
+                    alert("Failed to convert texts list to json");
+                });
+                const textSelect = document.getElementById("textSelect");
+                textSelect.innerHTML = "";
+
+                textsList.forEach((v, i) => {
+                    const option = document.createElement("option");
+                    option.value = i;
+                    option.textContent = `${v}`;
+                    textSelect.appendChild(option);
+                });
+
+                if (textsList.length <= 0) {
+                    alert("No texts");
+                    return;
+                }
+                if (localStorage.getItem("textIdx")) {
+                    const idx = parseInt(localStorage.getItem("langIdx"), 10);
+                    if (textsList.length > idx) {
+                        textSelect.value = idx;
+                        text = textsList[idx];
+                    } else {
+                        text = textsList[0];
+                    }
+                } else {
+                    text = textsList[0];
+                }
+
+                textSelect.addEventListener("change", () => {
+                    const selectedIndex = parseInt(textSelect.value, 10);
+                    localStorage.setItem("textIdx", selectedIndex.toString());
+                    text = textsList[selectedIndex];
+                    console.log("Selected voice:", text);
+                });
+            };
+            const populateVoiceList = () => {
+                voices = window.speechSynthesis.getVoices();
+                const voiceSelect = document.getElementById("voiceSelect");
+                voiceSelect.innerHTML = "";
+
+                voices.forEach((v, i) => {
+                    const option = document.createElement("option");
+                    option.value = i;
+                    option.textContent = `${v.lang} - ${v.name}`;
+                    voiceSelect.appendChild(option);
+                });
+
+                if (voices.length <= 0) {
+                    alert("No voices");
+                    return;
+                }
+                if (localStorage.getItem("voiceIdx")) {
+                    const idx = parseInt(localStorage.getItem("voiceIdx"), 10);
+                    if (voices.length > idx) {
+                        voiceSelect.value = idx;
+                        voice = voices[idx];
+                    } else {
+                        voice = voices[0];
+                    }
+                } else {
+                    voice = voices[0];
+                }
+                voiceSelect.addEventListener("change", () => {
+                    const selectedIndex = parseInt(voiceSelect.value, 10);
+                    localStorage.setItem("voiceIdx", selectedIndex.toString());
+                    voice = voices[selectedIndex];
+                    console.log("Selected voice:", voice);
+                });
+            };
+            const setup = () => {
+                const textInput = document.getElementById("textInput");
+                const speakButton = document.getElementById("speakButton");
+                const verifyButton = document.getElementById("verifyButton");
+
+                const isSpeech = "speechSynthesis" in window;
+                if (!isSpeech) {
+                    alert("Sorry, your browser doesn't support text to speech!");
+                    return;
+                }
+                populateTexts();
+                window.speechSynthesis.onvoiceschanged = populateVoiceList;
+                speakButton.addEventListener("click", async () => {
+                    if (!voice) {
+                        alert("No voice selected");
+                        return;
+                    }
+                    if (!text) {
+                        alert("No text selected");
+                        return;
+                    }
+                    const req = await fetch(`texts/${text}`).catch(() => {
+                        alert(`Failed to get text at texts/${text}`);
+                    });
+                    textContent = await req.text().catch(() => {
+                        alert(`Failed to get text`);
+                    });
+
+                    let utterance = new SpeechSynthesisUtterance();
+                    utterance.text = textContent;
+                    utterance.voice = voice;
+                    window.speechSynthesis.cancel();
+                    window.speechSynthesis.speak(utterance);
+                });
+                verifyButton.addEventListener("click", () => {
+                    if (!textContent) {
+                        alert("Dictee is not loaded");
+                        return;
+                    }
+                    const input = textInput.value.replaceAll("\n", "");
+                    const correction = textContent.replaceAll("\n", "");
+                    if (input != correction) {
+                        const correctionElement = document.getElementById("correction");
+                        const title = document.createElement("h2");
+                        title.innerText = "Correction";
+                        correctionElement.appendChild(title);
+                        const correct = document.createElement("textarea");
+                        correct.textContent = textContent;
+                        correctionElement.appendChild(correct);
+                        alert("Failed");
+                    } else {
+                        alert("Bravo");
+                    }
+                });
+            };
+            document.addEventListener("DOMContentLoaded", () => {
+                setup();
+            });
+        </script>
+    </body>
+</html>

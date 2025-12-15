@@ -18,3 +18,4 @@ svelte-string-explorer
 html-cards-game
 react-time
 react-emojis
+html-dictee
