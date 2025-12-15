@@ -10,4 +10,6 @@ fi
 
 rm -rf dist/
 mkdir -p dist/
-rsync -av --exclude 'dist' ./ dist/
+rsync -av texts dist/
+rsync -av index.html dist/
+rsync -av texts.json dist/
