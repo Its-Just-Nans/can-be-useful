@@ -1,0 +1,12 @@
+\usepackage{luacode}
+
+
+\begin{luacode}
+require("package/automator")
+\end{luacode}
+
+\let\originalinput\input
+
+\renewcommand{\input}[1]{%
+    \directlua{Get_text_insert("\luatexluaescapestring{#1}")}
+}
