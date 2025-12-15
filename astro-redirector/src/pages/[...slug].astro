@@ -1,0 +1,36 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+    const posts = await getCollection("redirections");
+    return posts.map((post) => ({
+        params: { slug: post.slug == "index" ? "" : post.slug },
+        props: post,
+    }));
+}
+type Props = CollectionEntry<"redirections">;
+
+const post = Astro.props;
+const { Content } = await post.render();
+---
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{post.data.title}</title>
+        {
+            post.data.url && (
+                <>
+                    <meta http-equiv="refresh" content={`1;url=${post.data.url}`} />
+                    <script is:inline define:vars={{ url: post.data.url }}>
+                        window.location = url;
+                    </script>
+                </>
+            )
+        }
+    </head>
+    <body>
+        {post.body.trim() ? <Content /> : <>Redirecting to {post.data.url}</>}
+    </body>
+</html>
