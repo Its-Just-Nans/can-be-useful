@@ -27,6 +27,7 @@ for project in "${projects[@]}"; do
             echo "Copying from '$project/$output_folder' to dist/$project"
             rm -rf "../dist/$project"
             cp -R "$output_folder/" "../dist/$project"
+            break
         else
             echo "No output folder '$project/$output_folder' in $project"
         fi

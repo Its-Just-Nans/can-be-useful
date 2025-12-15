@@ -27,7 +27,7 @@ For the `no_rewrite_mode/` we use-bug php with the `ErrorDocument` directive, so
 Run a simple command
 
 ```sh
-bash build.sh
+bash build_list.sh
 ```
 
 Then go to `localhost:8080`
