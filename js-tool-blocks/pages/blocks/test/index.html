@@ -1,0 +1,20 @@
+<h1>Hello World !</h1>
+<h1>Hello World !</h1>
+<p></p>
+<script>
+    console.log(window.parent.block);
+    let obj = {
+        stdout: "",
+        stdin: "",
+    };
+    document.getElementsByTagName("h1")[1].style.color = window.parent.api.getColor();
+    // const inter = setInterval(() => {
+    //     console.log(obj);
+    //     document.getElementsByTagName("p")[0].innerHTML = obj.stdout;
+    // }, 500);
+    (async () => {
+        const res = await window.parent.block.execSh("npm", ["i"], "./", obj);
+        console.log(res);
+        //clearInterval(inter);
+    })();
+</script>
