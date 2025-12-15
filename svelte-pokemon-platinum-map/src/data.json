@@ -1,0 +1,978 @@
+[
+    {
+        "image": "Twinleaf_Town_Pt.png",
+        "style": {
+            "transform": "translate(122px, 81px)",
+            "zIndex": 1000,
+            "width": "380px"
+        }
+    },
+    {
+        "image": "Sinnoh_Route_201_Pt.png",
+        "style": {
+            "transform": "translate(56px, -271px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Verity_Lakefront_Pt.png",
+        "style": {
+            "transform": "translate(-342px, -222px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Lake_Verity_Pt.png",
+        "style": {
+            "transform": "translate(-829px, -852px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Lake_Verity_Cavern_Pt.png",
+        "style": {
+            "transform": "translate(-637px, -966px)",
+            "zIndex": 999
+        }
+    },
+    {
+        "image": "Sandgem_Town_Pt.png",
+        "style": {
+            "transform": "translate(1096px, -322px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Sinnoh_Route_219_Pt.png",
+        "style": {
+            "transform": "translate(1096px, 75px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Sinnoh_Route_220_Pt.png",
+        "style": {
+            "transform": "translate(1089px, 476px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Sinnoh_Route_221_Pt.png",
+        "style": {
+            "clipPath": "polygon(0px 0px, 928px 0px, 928px 232px, 100% 232px, 100% 100%, 0px 100%)",
+            "transform": "translate(2113px, 449px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Pal_Park_Pt.png",
+        "style": {
+            "transform": "translate(3040px, -125px)",
+            "zIndex": 999
+        }
+    },
+    {
+        "image": "Sinnoh_Route_202_Pt.png",
+        "style": {
+            "transform": "translate(1058px, -754px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Jubilife_City_Pt.png",
+        "style": {
+            "transform": "translate(569px, -1509px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Sinnoh_Route_203_Pt.png",
+        "style": {
+            "transform": "translate(1577px, -1510px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Sinnoh_Route_204_Pt.png",
+        "style": {
+            "transform": "translate(1094px, -2318px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Sinnoh_Route_218_Pt.png",
+        "style": {
+            "transform": "translate(-447px, -1490px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Canalave_City_Pt.png",
+        "style": {
+            "transform": "translate(-936px, -1866px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Iron_Island_Pt.png",
+        "style": {
+            "transform": "translate(-3290px, -3122px)",
+            "zIndex": 1001
+        }
+    },
+    {
+        "image": "Iron_Island_1F_Pt.png",
+        "style": {
+            "transform": "translate(-3042px, -3256px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Iron_Island_B1F_L_Pt.png",
+        "style": {
+            "transform": "translate(-3266px, -3239px)",
+            "zIndex": 999
+        }
+    },
+    {
+        "image": "Iron_Island_B1F_R_Pt.png",
+        "style": {
+            "transform": "translate(-2897px, -3237px)",
+            "zIndex": 999
+        }
+    },
+    {
+        "image": "Iron_Island_B2F_L_Pt.png",
+        "style": {
+            "transform": "translate(-3465px, -2870px)",
+            "zIndex": 998
+        }
+    },
+    {
+        "image": "Iron_Island_B2F_R_Pt.png",
+        "style": {
+            "transform": "translate(-2624px, -2862px)",
+            "zIndex": 998
+        }
+    },
+    {
+        "image": "Iron_Island_Exit_Pt.png",
+        "style": {
+            "transform": "translate(-3869px, -2480px)",
+            "zIndex": 998
+        }
+    },
+    {
+        "image": "Iron_Island_Registeel_Pt.png",
+        "style": {
+            "transform": "translate(-3805px, -2750px)",
+            "zIndex": 998
+        }
+    },
+    {
+        "image": "Fullmoon_Island_Pt.png",
+        "style": {
+            "transform": "translate(-3337px, -4040px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Fullmoon_Island_Cresselia_Pt.png",
+        "style": {
+            "transform": "translate(-3164px, -4364px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Newmoon_Island_Pt.png",
+        "style": {
+            "transform": "translate(-2092px, -4061px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Newmoon_Island_Darkrai_Pt.png",
+        "style": {
+            "transform": "translate(-2136px, -4409px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Floaroma_Town_Pt.png",
+        "style": {
+            "transform": "translate(1091px, -3126px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Fuego_Ironworks_Pt.png",
+        "style": {
+            "transform": "translate(1095px, -3569px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Fuego_Ironworks_interior_DPPt.png",
+        "style": {
+            "transform": "translate(273px, -3805px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Valley_Windworks_Pt.png",
+        "style": {
+            "transform": "translate(2114px, -2720px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Sinnoh_Route_205_Pt.png",
+        "part": true,
+        "style": {
+            "clipPath": "polygon(0px 403px, 511px 403px, 511px 100%, 0 100%)",
+            "transform": "translate(1604px, -3946px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Sinnoh_Route_205_Pt.png",
+        "part": true,
+        "style": {
+            "clipPath": "polygon(511px 0%, 100% 0%, 100% 403px, 511px 403px)",
+            "transform": "translate(2114px, -4311px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Eterna_Forest_Exterior_Pt.png",
+        "style": {
+            "transform": "translate(1890px, -4136px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Eterna_Forest_Pt.png",
+        "style": {
+            "transform": "translate(903px, -4984px)",
+            "zIndex": 1001
+        }
+    },
+    {
+        "image": "Old_Chateau_entrance_DPPt.png",
+        "style": {
+            "transform": "translate(1837px, -5232px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Old_Chateau_dining_room_DPPt.png",
+        "style": {
+            "transform": "translate(1813px, -5288px)",
+            "zIndex": 998
+        }
+    },
+    {
+        "image": "Old_Chateau_2F_DPPt.png",
+        "style": {
+            "transform": "translate(1811px, -5404px)",
+            "zIndex": 999
+        }
+    },
+    {
+        "image": "Eterna_City_Pt.png",
+        "style": {
+            "transform": "translate(3132px, -4355px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Sinnoh_Route_206_Pt.png",
+        "style": {
+            "transform": "translate(3179px, -3593px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Sinnoh_Route_211_Pt.png",
+        "part": true,
+        "style": {
+            "clipPath": "polygon(0px 0px, 544px 0px, 544px 100%, 0px 100%)",
+            "transform": "translate(4155px, -4303px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Sinnoh_Route_211_Pt.png",
+        "part": true,
+        "style": {
+            "clipPath": "polygon(544px 0px, 100% 0px, 100% 100%, 544px 100%)",
+            "transform": "translate(4160px, -4384px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Sinnoh_Route_207_Pt.png",
+        "style": {
+            "transform": "translate(3131px, -1932px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Sinnoh_Route_208_Pt.png",
+        "style": {
+            "transform": "translate(4222px, -1966px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Oreburgh_Gate_1F_DPPt.png",
+        "style": {
+            "transform": "translate(2359px, -1850px)",
+            "zIndex": 999
+        }
+    },
+    {
+        "image": "Oreburgh_Gate_B1F_DPPt.png",
+        "style": {
+            "transform": "translate(1913px, -1839px)",
+            "zIndex": 998
+        }
+    },
+    {
+        "image": "Oreburgh_City_DPPt.png",
+        "style": {
+            "transform": "translate(2620px, -1518px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Oreburgh_Mine_B1F_Pt.png",
+        "style": {
+            "transform": "translate(3162px, -685px)",
+            "zIndex": 999
+        }
+    },
+    {
+        "image": "Oreburgh_Mine_B2F_Pt.png",
+        "style": {
+            "transform": "translate(3110px, -313px)",
+            "zIndex": 998
+        }
+    },
+    {
+        "image": "Mt_Coronet_1F_south_Pt.png",
+        "style": {
+            "transform": "translate(3957px, -1931px)",
+            "zIndex": 998
+        }
+    },
+    {
+        "image": "Mt_Coronet_2F_Pt.png",
+        "style": {
+            "transform": "translate(4105px, -2399px)",
+            "zIndex": 999
+        }
+    },
+    {
+        "image": "Mt_Coronet_3F_Pt.png",
+        "style": {
+            "transform": "translate(4094px, -2556px)",
+            "zIndex": 999
+        }
+    },
+    {
+        "image": "Mt_Coronet_snowy_area_DPPt.png",
+        "style": {
+            "transform": "translate(4045px, -3156px)",
+            "zIndex": 999
+        }
+    },
+    {
+        "image": "Mt_Coronet_4F_DPPt.png",
+        "style": {
+            "transform": "translate(3990px, -3067px)",
+            "zIndex": 999
+        }
+    },
+    {
+        "image": "Mt_Coronet_4F_2_DPPt.png",
+        "style": {
+            "transform": "translate(4163px, -3017px)",
+            "zIndex": 1001
+        }
+    },
+    {
+        "image": "Mt_Coronet_5F_Pt.png",
+        "style": {
+            "transform": "translate(4022px, -3441px)",
+            "zIndex": 1001
+        }
+    },
+    {
+        "image": "Mt_Coronet_6F_DPPt.png",
+        "style": {
+            "transform": "translate(4223px, -3500px)",
+            "zIndex": 1002
+        }
+    },
+    {
+        "image": "Mt_Coronet_7F_DPPt.png",
+        "style": {
+            "transform": "translate(4046px, -3505px)",
+            "zIndex": 1001
+        }
+    },
+    {
+        "image": "Spear_Pillar_Pt.png",
+        "style": {
+            "transform": "translate(4046px, -3505px)",
+            "zIndex": 1004
+        }
+    },
+    {
+        "image": "Hall_of_Origin_Pt.png",
+        "style": {
+            "transform": "translate(4046px, -3505px)",
+            "zIndex": 1005
+        }
+    },
+    {
+        "image": "Hearthome_City_Pt.png",
+        "style": {
+            "transform": "translate(5245px, -2298px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Amity_Square_Pt.png",
+        "style": {
+            "transform": "translate(5249px, -3072px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Sinnoh_Route_212_Pt.png",
+        "style": {
+            "transform": "translate(5237px, -1583px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Pokémon_Mansion_DPPt.png",
+        "style": {
+            "transform": "translate(5789px, -1396px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Sinnoh_Route_209_Pt.png",
+        "style": {
+            "transform": "translate(6266px, -2335px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Lost_Tower_1F_Pt.png",
+        "style": {
+            "transform": "translate(7324px, -2280px)",
+            "zIndex": 1001
+        }
+    },
+    {
+        "image": "Lost_Tower_2F_Pt.png",
+        "style": {
+            "transform": "translate(7324px, -2280px)",
+            "zIndex": 1002
+        }
+    },
+    {
+        "image": "Lost_Tower_3F_Pt.png",
+        "style": {
+            "transform": "translate(7324px, -2280px)",
+            "zIndex": 1003
+        }
+    },
+    {
+        "image": "Lost_Tower_4F_Pt.png",
+        "style": {
+            "transform": "translate(7324px, -2280px)",
+            "zIndex": 1004
+        }
+    },
+    {
+        "image": "Lost_Tower_5F_Pt.png",
+        "style": {
+            "transform": "translate(7324px, -2280px)",
+            "zIndex": 1005
+        }
+    },
+    {
+        "image": "Solaceon_Town_Pt.png",
+        "style": {
+            "transform": "translate(6760px, -2711px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Solaceon_Ruins_1F_DPPt.png",
+        "style": {
+            "transform": "translate(7384px, -2683px)",
+            "zIndex": 999
+        }
+    },
+    {
+        "image": "Solaceon_Ruins_B1F_DPPt.png",
+        "style": {
+            "transform": "translate(7640px, -2675px)",
+            "zIndex": 998
+        }
+    },
+    {
+        "image": "Solaceon_Ruins_B2F_DPPt.png",
+        "style": {
+            "transform": "translate(7406px, -2644px)",
+            "zIndex": 997
+        }
+    },
+    {
+        "image": "Solaceon_Ruins_B3F_DPPt.png",
+        "style": {
+            "transform": "translate(7182px, -2717px)",
+            "zIndex": 996
+        }
+    },
+    {
+        "image": "Solaceon_Ruins_B4F_DPPt.png",
+        "style": {
+            "transform": "translate(8164px, -3360px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Maniac_Tunnel_26-28_Pt.png",
+        "style": {
+            "transform": "translate(8002px, -2441px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Solaceon_Ruins_2F_DPPt.png",
+        "style": {
+            "transform": "translate(7849px, -2400px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Sinnoh_Route_210_Pt.png",
+        "style": {
+            "transform": "translate(5760px, -4315px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Celestic_Town_Pt.png",
+        "style": {
+            "transform": "translate(5249px, -4400px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Mt_Coronet_1F_center_Pt.png",
+        "style": {
+            "transform": "translate(4613px, -4526px)",
+            "zIndex": 999
+        }
+    },
+    {
+        "image": "Mt_Coronet_1F_tunnel_Pt.png",
+        "style": {
+            "transform": "translate(4565px, -3590px)",
+            "zIndex": 999
+        }
+    },
+    {
+        "image": "Mt_Coronet_B1F_Pt.png",
+        "style": {
+            "transform": "translate(4644px, -5068px)",
+            "zIndex": 998
+        }
+    },
+    {
+        "image": "Mt_Coronet_1F_north_Pt.png",
+        "style": {
+            "transform": "translate(4665px, -5176px)",
+            "zIndex": 999
+        }
+    },
+    {
+        "image": "Mt._Coronet_Regice_Cave_Pt.png",
+        "style": {
+            "transform": "translate(4727px, -5464px)",
+            "zIndex": 999
+        }
+    },
+    {
+        "image": "Sinnoh_Route_215_Pt.png",
+        "style": {
+            "transform": "translate(3274px, -5395px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Sinnoh_Route_216_Pt.png",
+        "style": {
+            "transform": "translate(3274px, -5395px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Sinnoh_Route_217_Pt.png",
+        "style": {
+            "transform": "translate(3259px, -6905px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Acuity_Lakefront_Pt.png",
+        "style": {
+            "transform": "translate(3274px, -7695px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Lake_Acuity_Pt.png",
+        "style": {
+            "transform": "translate(2859px, -8214px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Lake_Acuity_Cavern_Pt.png",
+        "style": {
+            "transform": "translate(2971px, -8250px)",
+            "zIndex": 999
+        }
+    },
+    {
+        "image": "Snowpoint_City_Pt.png",
+        "style": {
+            "transform": "translate(4283px, -7742px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Snowpoint_Temple_1F_DPPt.png",
+        "style": {
+            "transform": "translate(4395px, -7824px)",
+            "zIndex": 999
+        }
+    },
+    {
+        "image": "Snowpoint_Temple_B1F_DPPt.png",
+        "style": {
+            "transform": "translate(4395px, -7824px)",
+            "zIndex": 998
+        }
+    },
+    {
+        "image": "Snowpoint_Temple_B2F_DPPt.png",
+        "style": {
+            "transform": "translate(4395px, -7824px)",
+            "zIndex": 997
+        }
+    },
+    {
+        "image": "Snowpoint_Temple_B3F_DPPt.png",
+        "style": {
+            "transform": "translate(4395px, -7824px)",
+            "zIndex": 996
+        }
+    },
+    {
+        "image": "Snowpoint_Temple_B4F_DPPt.png",
+        "style": {
+            "transform": "translate(4395px, -7824px)",
+            "zIndex": 995
+        }
+    },
+    {
+        "image": "Snowpoint_Temple_B5F_DPPt.png",
+        "style": {
+            "transform": "translate(4395px, -7824px)",
+            "zIndex": 994
+        }
+    },
+    {
+        "image": "Veilstone_City_Pt.png",
+        "style": {
+            "transform": "translate(8829px, -3524px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Sinnoh_Route_214_Pt.png",
+        "style": {
+            "transform": "translate(9414px, -2685px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Spring_Path_Pt.png",
+        "style": {
+            "transform": "translate(9854px, -1924px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Sendoff_Spring_Pt.png",
+        "style": {
+            "transform": "translate(10335px, -2428px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Valor_Lakefront_Pt.png",
+        "style": {
+            "transform": "translate(8829px, -1549px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Lake_Valor_Pt.png",
+        "style": {
+            "transform": "translate(8415px, -1899px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Lake_Valor_Cavern_Pt.png",
+        "style": {
+            "transform": "translate(8600px, -1924px)",
+            "zIndex": 999
+        }
+    },
+    {
+        "image": "Sinnoh_Route_213_Pt.png",
+        "style": {
+            "transform": "translate(8317px, -834px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Pastoria_City_Pt.png",
+        "style": {
+            "transform": "translate(7293px, -795px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Great_Marsh_Pt.png",
+        "style": {
+            "transform": "translate(7912px, -1696px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Sinnoh_Route_222_Pt.png",
+        "style": {
+            "transform": "translate(9844px, -1228px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Sunyshore_City_Pt.png",
+        "style": {
+            "transform": "translate(11373px, -1600px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Sinnoh_Route_223_Pt.png",
+        "style": {
+            "transform": "translate(11372px, -3152px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Victory_Road_1F_Pt.png",
+        "style": {
+            "transform": "translate(11443px, -4327px)",
+            "zIndex": 998
+        }
+    },
+    {
+        "image": "Victory_Road_2F_Pt.png",
+        "style": {
+            "transform": "translate(11145px, -4080px)",
+            "zIndex": 999
+        }
+    },
+    {
+        "image": "Victory_Road_B1F_Pt.png",
+        "style": {
+            "transform": "translate(12113px, -4245px)",
+            "zIndex": 997
+        }
+    },
+    {
+        "image": "Victory_Road_B1F_Deep_Entrance_Pt.png",
+        "style": {
+            "transform": "translate(12117px, -4182px)",
+            "zIndex": 998
+        }
+    },
+    {
+        "image": "Victory_Road_B1F_Deep_Pt.png",
+        "style": {
+            "transform": "translate(12439px, -4690px)",
+            "zIndex": 995
+        }
+    },
+    {
+        "image": "Victory_Road_B1F_Deep_Exit_Pt.png",
+        "style": {
+            "transform": "translate(13160px, -4756px)",
+            "zIndex": 994
+        }
+    },
+    {
+        "image": "Sinnoh_Pokémon_League_Pt.png",
+        "style": {
+            "transform": "translate(11372px, -4147px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Fight_Area_Pt.png",
+        "style": {
+            "transform": "translate(8326px, -7538px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Sinnoh_Route_225_Pt.png",
+        "style": {
+            "transform": "translate(8327px, -8794px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Survival_Area_Pt.png",
+        "style": {
+            "transform": "translate(8819px, -8791px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Sinnoh_Route_226_Pt.png",
+        "style": {
+            "transform": "translate(9356px, -8801px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Sinnoh_Route_227_Pt.png",
+        "style": {
+            "transform": "translate(10379px, -9555px)",
+            "zIndex": 1001
+        }
+    },
+    {
+        "image": "Stark_Mountain_Exterior_Pt.png",
+        "style": {
+            "transform": "translate(10379px, -9972px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Stark_Mountain_Entrance_Pt.png",
+        "style": {
+            "transform": "translate(10284px, -10246px)",
+            "zIndex": 999
+        }
+    },
+    {
+        "image": "Stark_Mountain_Main_Cavern_Pt.png",
+        "style": {
+            "transform": "translate(9886px, -11279px)",
+            "zIndex": 998
+        }
+    },
+    {
+        "image": "Stark_Mountain_Heatran_Pt.png",
+        "style": {
+            "transform": "translate(10527px, -11484px)",
+            "zIndex": 997
+        }
+    },
+    {
+        "image": "Sinnoh_Route_228_Pt.png",
+        "style": {
+            "transform": "translate(10890px, -8774px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Sinnoh_Route_229_Pt.png",
+        "style": {
+            "transform": "translate(10852px, -7541px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Sinnoh_Route_230_Pt.png",
+        "style": {
+            "transform": "translate(9317px, -7539px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Resort_Area_Pt.png",
+        "style": {
+            "transform": "translate(11367px, -7193px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Sinnoh_Route_224_Oaks_Letter_DP.png",
+        "style": {
+            "transform": "translate(13444px, -5539px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Seabreak_Path_Pt.png",
+        "style": {
+            "transform": "translate(14074px, -8707px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Flower_Paradise_Shaymin_Pt.png",
+        "style": {
+            "transform": "translate(13954px, -9073px)",
+            "zIndex": 1000
+        }
+    },
+    {
+        "image": "Wayward_Cave_1F_Pt.png",
+        "style": {
+            "transform": "translate(2822px, -3768px)",
+            "zIndex": 999
+        }
+    },
+    {
+        "image": "Wayward_Cave_B1F_DPPt.png",
+        "style": {
+            "transform": "translate(2982px, -3554px)",
+            "zIndex": 998
+        }
+    },
+    {
+        "image": "Ravaged_Path_Pt.png",
+        "style": {
+            "transform": "translate(953px, -2537px)",
+            "zIndex": 999
+        }
+    }
+]
