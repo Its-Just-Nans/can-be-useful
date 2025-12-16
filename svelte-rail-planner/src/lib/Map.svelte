@@ -1,5 +1,6 @@
 <script>
     import L from "leaflet";
+    import "leaflet/dist/leaflet.css";
     import { onMount } from "svelte";
     import { data, start, stop, path, greenIcon, goldIcon } from "../stores";
 
@@ -86,14 +87,6 @@
     });
 </script>
 
-<svelte:head>
-    <link
-        rel="stylesheet"
-        href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-        crossorigin=""
-    />
-</svelte:head>
 <div class="map" bind:this={mapContainer}>
     <slot></slot>
 </div>
