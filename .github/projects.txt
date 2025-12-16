@@ -27,3 +27,4 @@ svelte-mouse-data-transfer
 svelte-domains
 svelte-rail-planner
 svelte-json-editor
+svelte-shared-qr-code
