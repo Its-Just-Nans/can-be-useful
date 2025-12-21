@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>QR code from URL</title>
+        <script src="/qr/qrcode.min.js"></script>
+        <style>
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                height: 100vh;
+                margin: 0;
+                text-align: center;
+            }
+            .wrap {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrap">
+            <div id="qrcode"></div>
+            <p id="msg"></p>
+        </div>
+        <script>
+            const repo = "https://github.com/Its-Just-Nans/qr";
+            const main = () => {
+                const qrcode = document.getElementById("qrcode");
+                const msg = document.getElementById("msg");
+                const urlIdx = window.location.href.indexOf("http", 4);
+                if (urlIdx == -1) {
+                    msg.innerHTML = `Bad URL (cannot found 'http')<br/>You should add 'n4n5.dev/qr/' before the url<br/><a href='${repo}' target="_blank">${repo}</a>`;
+                    return;
+                }
+                const url = window.location.href.slice(urlIdx);
+                console.log("Url: ", url);
+                new QRCode(qrcode, {
+                    text: url,
+                    width: 128,
+                    height: 128,
+                    colorDark: "#000",
+                    colorLight: "#fff",
+                    correctLevel: QRCode.CorrectLevel.H,
+                });
+                msg.innerHTML = `<a href='${url}' target="_blank">${url}</a>`;
+            };
+            main();
+        </script>
+    </body>
+</html>
