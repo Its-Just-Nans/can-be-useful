@@ -1,6 +1,7 @@
 export const getUrls = (username: string) => [
     `https://github-profile-trophy.vercel.app/?username=${username}`,
     `https://github-readme-stats.vercel.app/api?username=${username}`,
+    `https://github-readme-stats.vercel.app/api?username=${username}&rank_icon=percentile`,
     `https://github-readme-streak-stats.herokuapp.com/?user=${username}`,
     `https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=${username}`,
     `https://github-widgetbox.vercel.app/api/profile?username=${username}&data=followers,repositories,stars,commits`,
