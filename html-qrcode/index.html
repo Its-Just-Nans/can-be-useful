@@ -35,7 +35,7 @@
                 const msg = document.getElementById("msg");
                 const urlIdx = window.location.href.indexOf("http", 4);
                 if (urlIdx == -1) {
-                    msg.innerHTML = `Bad URL (cannot found 'http')<br/>You should add 'n4n5.dev/qr/' before the url<br/><a href='${repo}' target="_blank">${repo}</a>`;
+                    msg.innerHTML = `Bad URL (cannot found 'http')<br/>You should add your URL (with http) after this page URL<br/><a href='${repo}' target="_blank">${repo}</a>`;
                     return;
                 }
                 const url = window.location.href.slice(urlIdx);
