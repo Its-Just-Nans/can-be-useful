@@ -1,3 +1,5 @@
+const ossInsightId = "56606507"; // Its-Just-Nans
+
 export const getUrls = (username: string) => [
     `https://github-profile-trophy.vercel.app/?username=${username}`,
     `https://github-readme-stats.vercel.app/api?username=${username}`,
@@ -11,6 +13,7 @@ export const getUrls = (username: string) => [
     `https://github-contribution-stats.vercel.app/api/?username=${username}`,
     `https://svg-packages-stats.vercel.app/api?author=n4n5`,
     `https://github-contributor-stats.vercel.app/api?username=${username}`,
+    `https://next.ossinsight.io/widgets/official/compose-user-dashboard-stats/thumbnail.png?user_id=${ossInsightId}&image_size=auto`,
     `http://github-profile-summary-cards.vercel.app/api/cards/stats?username=${username}&theme=default`,
     `http://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=${username}&theme=default&utcOffset=0`,
     `http://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=${username}&theme=default`,
