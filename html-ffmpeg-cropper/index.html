@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ffmpeg-cropper</title>
+        <style>
+            body {
+                overflow: hidden;
+                margin: 0;
+            }
+            * {
+                box-sizing: border-box;
+                z-index: 10;
+            }
+            #drop_zone {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                left: 0;
+                top: 0;
+                background-color: #f1f1f1;
+                border: 2px dashed #000;
+                text-align: center;
+                padding: 10px;
+            }
+            video {
+                display: block;
+                width: 100%;
+                height: auto;
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 5;
+            }
+            #mydiv {
+                display: none;
+                position: absolute;
+                background-color: #f1f1f1;
+                border: 1px solid #d3d3d3;
+                text-align: center;
+                z-index: 11;
+            }
+
+            #mydivheader {
+                padding: 10px;
+                cursor: move;
+                z-index: 10;
+                background-color: #2196f3;
+                color: #fff;
+            }
+            .resizable {
+                display: none;
+                width: 100px;
+                height: 100px;
+                position: absolute;
+                backdrop-filter: brightness(0.5);
+                top: 100px;
+                left: 100px;
+            }
+
+            .resizable .resizers {
+                width: 100%;
+                height: 100%;
+                border: 3px solid #4286f4;
+                box-sizing: border-box;
+            }
+
+            .resizable .resizers .resizer {
+                width: 10px;
+                height: 10px;
+                border-radius: 50%; /*magic to turn square into circle*/
+                border: 3px solid #4286f4;
+                position: absolute;
+            }
+
+            .resizable .resizers .resizer.top-left {
+                left: -5px;
+                top: -5px;
+                cursor: nwse-resize; /*resizer cursor*/
+            }
+            .resizable .resizers .resizer.top-right {
+                right: -5px;
+                top: -5px;
+                cursor: nesw-resize;
+            }
+            .resizable .resizers .resizer.bottom-left {
+                left: -5px;
+                bottom: -5px;
+                cursor: nesw-resize;
+            }
+            .resizable .resizers .resizer.bottom-right {
+                right: -5px;
+                bottom: -5px;
+                cursor: nwse-resize;
+            }
+            .background {
+                display: none;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(255, 255, 255, 25%);
+            }
+            #text {
+                display: none;
+                z-index: 20;
+                position: absolute;
+                background: lightgray;
+                border: 1px dashed #d3d3d3;
+                padding: 5px;
+                left: 0;
+                right: 0;
+                margin-left: auto;
+                margin-right: auto;
+                width: 400px;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <div
+            id="drop_zone"
+            ondrop="dropHandler(event);"
+            ondragover="dragOverHandler(event, true);"
+            ondragleave="dragOverHandler(event, false);"
+        >
+            <p>Drag one video file to this <i>drop zone</i>.</p>
+            <input type="file" id="file" onchange="loadVideoChange()" />
+        </div>
+        <div class="background"></div>
+        <div class="resizable">
+            <div class="resizers">
+                <div class="resizer top-left"></div>
+                <div class="resizer top-right"></div>
+                <div class="resizer bottom-left"></div>
+                <div class="resizer bottom-right"></div>
+            </div>
+        </div>
+        <div id="text">
+            <span id="inner_text"></span>
+            <br />
+            <button onclick="copy()">Copy text</button>
+            <button onclick="fullscreen()">fullScreen</button>
+            <button onclick="playButton ()" id="play_button">Play</button>
+        </div>
+        <script>
+            let video;
+            function unsecuredCopyToClipboard(text) {
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand("copy");
+                } catch (err) {
+                    console.error("Unable to copy to clipboard", err);
+                }
+                document.body.removeChild(textArea);
+            }
+            function copy() {
+                const val = document.getElementById("inner_text").innerText;
+                // Copy the text inside the text field
+                if (window.navigator.clipboard) {
+                    window.navigator.clipboard.writeText(val);
+                } else {
+                    unsecuredCopyToClipboard(val);
+                }
+            }
+            function playButton() {
+                if (video.paused) {
+                    document.getElementById("play_button").innerText = "Pause";
+                    video.play();
+                } else {
+                    document.getElementById("play_button").innerText = "Play";
+                    video.pause();
+                }
+            }
+            function fullscreen() {
+                if (document.fullscreenElement) {
+                    document.exitFullscreen();
+                } else {
+                    document.body.requestFullscreen();
+                }
+            }
+            function loadVideoChange() {
+                loadVideo(document.getElementById("file").files[0]);
+            }
+            function loadVideo(file) {
+                const fileURL = window.URL.createObjectURL(file);
+                video = document.createElement("video");
+                video.id = "video";
+                video.src = fileURL;
+                document.body.appendChild(video);
+                document.getElementById("drop_zone").style.display = "none";
+                fullscreen();
+                document.querySelector(".resizable").style.display = "block";
+                document.querySelector(".background").style.display = "block";
+                document.querySelector("#text").style.display = "block";
+                makeResizableDiv(".resizable");
+                showText();
+            }
+            function dropHandler(ev) {
+                // Prevent default behavior (Prevent file from being opened)
+                ev.preventDefault();
+                if (ev.dataTransfer.items) {
+                    // Use DataTransferItemList interface to access the file(s)
+                    [...ev.dataTransfer.items].forEach((item, i) => {
+                        // If dropped items aren't files, reject them
+                        if (item.kind === "file") {
+                            const file = item.getAsFile();
+                            loadVideo(file);
+                        }
+                    });
+                } else {
+                    // Use DataTransfer interface to access the file(s)
+                    [...ev.dataTransfer.files].forEach((file, i) => {
+                        loadVideo(file);
+                    });
+                }
+            }
+            function dragOverHandler(ev, open) {
+                if (open) {
+                    document.getElementById("drop_zone").style.backgroundColor = "lightgray";
+                    console.log("File in drop zone");
+                } else {
+                    document.getElementById("drop_zone").style.backgroundColor = "white";
+                    console.log("File NOT in drop zone");
+                }
+                // Prevent default behavior (Prevent file from being opened)
+                ev.preventDefault();
+            }
+            function showText() {
+                const element = document.querySelector(".resizable");
+                const box = element.getBoundingClientRect();
+                document.getElementById(
+                    "inner_text"
+                ).innerText = `ffmpeg -vf "crop=${box.width}:${box.height}:${box.x}:${box.y}"`;
+            }
+            /*Make resizable div by Hung Nguyen*/
+            function makeResizableDiv(div) {
+                const element = document.querySelector(div);
+                const resizers = document.querySelectorAll(div + " .resizer");
+                const minimum_size = 20;
+                let original_width = 0;
+                let original_height = 0;
+                let original_x = 0;
+                let original_y = 0;
+                let original_mouse_x = 0;
+                let original_mouse_y = 0;
+                for (let i = 0; i < resizers.length; i++) {
+                    const currentResizer = resizers[i];
+                    currentResizer.addEventListener("mousedown", function (e) {
+                        e.preventDefault();
+                        original_width = parseFloat(
+                            getComputedStyle(element, null).getPropertyValue("width").replace("px", "")
+                        );
+                        original_height = parseFloat(
+                            getComputedStyle(element, null).getPropertyValue("height").replace("px", "")
+                        );
+                        original_x = element.getBoundingClientRect().left;
+                        original_y = element.getBoundingClientRect().top;
+                        original_mouse_x = e.pageX;
+                        original_mouse_y = e.pageY;
+                        window.addEventListener("mousemove", resize);
+                        window.addEventListener("mouseup", stopResize);
+                    });
+
+                    function resize(e) {
+                        if (currentResizer.classList.contains("bottom-right")) {
+                            const width = original_width + (e.pageX - original_mouse_x);
+                            const height = original_height + (e.pageY - original_mouse_y);
+                            if (width > minimum_size) {
+                                element.style.width = width + "px";
+                            }
+                            if (height > minimum_size) {
+                                element.style.height = height + "px";
+                            }
+                        } else if (currentResizer.classList.contains("bottom-left")) {
+                            const height = original_height + (e.pageY - original_mouse_y);
+                            const width = original_width - (e.pageX - original_mouse_x);
+                            if (height > minimum_size) {
+                                element.style.height = height + "px";
+                            }
+                            if (width > minimum_size) {
+                                element.style.width = width + "px";
+                                element.style.left = original_x + (e.pageX - original_mouse_x) + "px";
+                            }
+                        } else if (currentResizer.classList.contains("top-right")) {
+                            const width = original_width + (e.pageX - original_mouse_x);
+                            const height = original_height - (e.pageY - original_mouse_y);
+                            if (width > minimum_size) {
+                                element.style.width = width + "px";
+                            }
+                            if (height > minimum_size) {
+                                element.style.height = height + "px";
+                                element.style.top = original_y + (e.pageY - original_mouse_y) + "px";
+                            }
+                        } else {
+                            const width = original_width - (e.pageX - original_mouse_x);
+                            const height = original_height - (e.pageY - original_mouse_y);
+                            if (width > minimum_size) {
+                                element.style.width = width + "px";
+                                element.style.left = original_x + (e.pageX - original_mouse_x) + "px";
+                            }
+                            if (height > minimum_size) {
+                                element.style.height = height + "px";
+                                element.style.top = original_y + (e.pageY - original_mouse_y) + "px";
+                            }
+                        }
+
+                        showText();
+                    }
+
+                    function stopResize() {
+                        window.removeEventListener("mousemove", resize);
+                    }
+                }
+            }
+        </script>
+    </body>
+</html>
