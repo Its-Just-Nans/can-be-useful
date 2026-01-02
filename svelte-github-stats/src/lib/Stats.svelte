@@ -18,10 +18,18 @@
         }
     });
     const slicer = 150;
+    const urlRepo = "https://github.com/Its-Just-Nans/can-be-useful/tree/main/svelte-github-stats";
 </script>
 
 <h1 class="input">
-    Username: <input type="text" bind:value={username} on:input={updateParam} />
+    <div>
+        Username: <input type="text" bind:value={username} on:input={updateParam} />
+    </div>
+    <div>
+        <a href={urlRepo} class="repo-link">
+            <span>{urlRepo}</span>
+        </a>
+    </div>
 </h1>
 <br />
 <div>
@@ -44,6 +52,9 @@
 {/key}
 
 <style>
+    .repo-link {
+        font-size: 0.5em;
+    }
     @media screen and (max-width: 1024px) {
         img {
             width: 100%;
