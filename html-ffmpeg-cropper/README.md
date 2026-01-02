@@ -1,6 +1,6 @@
 # ffmpeg-cropper
 
-Easily get the ffmpeg crop filter for your video : <http://n4n5.dev/can-be-useful/html-ffmpeg-cropper/>
+Easily get the ffmpeg crop filter for your video : <https://n4n5.dev/can-be-useful/html-ffmpeg-cropper/>
 
 ## Credits
 
