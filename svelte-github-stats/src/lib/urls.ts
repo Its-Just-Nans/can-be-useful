@@ -7,6 +7,7 @@ export const getUrls = (username: string) => [
     `https://github-readme-streak-stats.herokuapp.com/?user=${username}`,
     `https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=${username}`,
     `https://next.ossinsight.io/widgets/official/compose-user-dashboard-stats/thumbnail.png?user_id=${ossInsightId}&image_size=auto`,
+    `https://awesome-github-stats.azurewebsites.net/user-stats/${username}`,
     `https://github-widgetbox.vercel.app/api/profile?username=${username}&data=followers,repositories,stars,commits`,
     `https://github-readme-stats.vercel.app/api/top-langs/?username=${username}`,
     `https://github-readme-stats.vercel.app/api?username=${username}&show_icons=true&show=reviews,discussions_started,discussions_answered,prs_merged,prs_merged_percentage`,
