@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Function viewer - by n4n5</title>
+        <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    </head>
+
+    <body>
+        <div id="help">
+            <input type="text" id="formula" value="Math.sin(x)" />
+            <div id="details" style="display: none">
+                <p style="display: block; margin: 0px">You can use JavaScript Math object !</p>
+                <p>Speed</p>
+                <input type="range" id="deplacement" min="0" max="2" value="0.5" step="0.01" />
+                <br />
+                <p>Distance between cube</p>
+                <input type="range" id="rapport" min="0" max="2" value="1" step="0.1" />
+                <br />
+                <button id="pause">Pause</button>
+                <br />
+                <p>Check code <a href="https://github.com/Its-Just-Nans/function-viewer">here</a></p>
+                <hr style="display: block" />
+            </div>
+            <div id="more">More</div>
+        </div>
+
+        <script type="module" src="./index.js"></script>
+    </body>
+</html>
