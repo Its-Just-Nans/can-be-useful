@@ -2,10 +2,12 @@
     import { onMount } from "svelte";
     import { getUrls } from "./urls";
     let username = "Its-Just-Nans";
+    let urlGithub = `https://github.com/${username}`;
     const updateParam = () => {
         const newUrl = new URL(window.location.href);
         newUrl.searchParams.set("username", username);
         window.history.replaceState("", "", newUrl);
+        urlGithub = `https://github.com/${username}`;
     };
     onMount(() => {
         const newUsername = new URLSearchParams(window.location.search).get("username");
@@ -22,6 +24,12 @@
     Username: <input type="text" bind:value={username} on:input={updateParam} />
 </h1>
 <br />
+<div>
+    <br />
+    <a href={urlGithub}>
+        <span>{urlGithub.length > slicer ? urlGithub.slice(0, slicer) + "..." : urlGithub}</span>
+    </a>
+</div>
 {#key username}
     {#each getUrls(username) as oneUrl}
         <div>
