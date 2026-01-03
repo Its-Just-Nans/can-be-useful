@@ -31,3 +31,4 @@ svelte-shared-qr-code
 js-function-viewer
 svelte-obs-webview
 html-base64-image
+python-coreutils-tracking-details
