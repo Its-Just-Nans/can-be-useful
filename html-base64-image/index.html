@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" href="https://n4n5.dev/favicon.ico">
+  <title>Image ⇄ Base64 — Simple</title>
+  <style>
+    :root{--gap:16px}
+    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial}
+    header{padding:10px 20px 5px 20px;border-bottom:1px solid #eee;text-align: center}
+    h1{margin:0;font-size:20px}
+    .wrap{display:flex;gap:var(--gap);padding:20px;--head: 100px;height:calc(100% - var(--head));box-sizing:border-box}
+    .panel{flex:1;display:flex;flex-direction:column;border-radius:8px;overflow:hidden}
+
+    /* left: black drop area */
+    .left{background:#000;color:#fff;padding:12px;min-width:40%;}
+    .left .label{font-size:13px;margin-bottom:8px;opacity:.8}
+    .b64{flex:1;background:transparent;border:1px dashed rgba(255,255,255,.15);color:#fff;padding:10px;border-radius:6px;font-family:monospace;resize:none;outline:none}
+
+    /* right: textarea + preview */
+    .right{background:#fafafa;padding:12px;min-width:40%;}
+    .right .label{font-size:13px;margin-bottom:8px;color:#333;opacity:.9}
+    .dropzone{flex:1;border:2px dashed #ddd;border-radius:6px;padding:10px;display:flex;flex-direction:column;gap:10px;align-items:stretch;justify-content:flex-start;overflow:auto;background:white}
+    .drop-hint{font-size:13px;color:#666}
+    .inputArea{width:100%;height:140px;border:1px solid #eee;border-radius:6px;padding:8px;font-family:monospace;resize:vertical}
+    .preview{display:block;max-width:100%;border-radius:6px;box-shadow:0 6px 20px rgba(0,0,0,.08)}
+    .row{display:flex;gap:8px;align-items:center}
+    .btn{border:0;padding:8px 10px;border-radius:6px;background:#111;color:#fff;cursor:pointer}
+
+    .helper{padding:10px 20px;font-size:13px;color:#666;margin: 0}
+
+    /* small screens */
+    @media (max-width:800px){
+      .wrap{flex-direction:column;height:auto}
+      .left,.right{min-width:auto}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Image ⇄ Base64 (drag & paste)</h1>
+     <a href="https://github.com/Its-Just-Nans/base64-image" style="margin-left:10px;font-size:14px;text-decoration:none;">
+      https://github.com/Its-Just-Nans/base64-image
+    </a>
+
+      <p class="helper">Quick: paste an <i>image</i> on the right to generate a data URL on the left. Paste a <i>data URL</i> or raw base64 on the left to render an image on the right.</p>
+  </header>
+
+  <main class="wrap">
+    <section class="panel left" id="leftPanel">
+      <div class="label">Left — base64 output / paste base64 here</div>
+      <textarea id="leftArea" class="b64" placeholder="Base64 (data URL or raw base64). Paste base64 here to show image on the right." spellcheck="false"></textarea>
+      <div style="margin-top:10px;display:flex;gap:8px"><button id="copyLeft" class="btn" title="Copy base64">Copy base64</button><button id="clearLeft" class="btn" style="background:#6b7280">Clear</button></div>
+    </section>
+
+    <section class="panel right" id="rightPanel">
+      <div class="label">Right — paste or drop an image here</div>
+      <div id="dropzone" class="dropzone">
+        <div class="drop-hint">Drop an image file here or paste an image (Ctrl/Cmd+V). The left area will show the data URL (base64) and the preview will appear below.</div>
+        <textarea id="rightArea" class="inputArea" placeholder="You can also paste (Ctrl/Cmd+V) an image from clipboard here. This textarea receives paste events for images."></textarea>
+        <img id="preview" class="preview" alt="image preview" style="display:none">
+        <div style="display:flex;gap:8px">
+          <button id="copyPreview" class="btn" title="Copy image data URL">Copy data URL</button>
+          <button id="clearPreview" class="btn" style="background:#6b7280">Clear</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const leftArea = document.getElementById('leftArea');
+    const rightArea = document.getElementById('rightArea');
+    const preview = document.getElementById('preview');
+    const dropzone = document.getElementById('dropzone');
+    const copyLeft = document.getElementById('copyLeft');
+    const copyPreview = document.getElementById('copyPreview');
+    const clearLeft = document.getElementById('clearLeft');
+    const clearPreview = document.getElementById('clearPreview');
+
+    // Helper: read a File or Blob to data URL
+    function fileToDataURL(file){
+      return new Promise((res, rej)=>{
+        const r = new FileReader();
+        r.onload = ()=>res(r.result);
+        r.onerror = rej;
+        r.readAsDataURL(file);
+      });
+    }
+
+    // When an image is dropped on the right dropzone
+    dropzone.addEventListener('dragover', e=>{ e.preventDefault(); dropzone.style.borderColor = '#999'; });
+    dropzone.addEventListener('dragleave', e=>{ dropzone.style.borderColor = '#ddd'; });
+    dropzone.addEventListener('drop', async e=>{
+      e.preventDefault(); dropzone.style.borderColor = '#ddd';
+      const dt = e.dataTransfer;
+      if(!dt) return;
+      const files = Array.from(dt.files || []);
+      if(files.length){
+        const imgFile = files.find(f=>f.type.startsWith('image/')) || files[0];
+        if(imgFile){
+          try{
+            const dataURL = await fileToDataURL(imgFile);
+            leftArea.value = dataURL;
+            showPreview(dataURL);
+          }catch(err){ console.error(err); alert('Failed to read file.'); }
+        }
+      } else {
+        // could be text drop (base64) — if so, write into left
+        const text = dt.getData('text');
+        if(text) leftArea.value = text;
+      }
+    });
+
+    // Paste handler on right: check clipboard items for image
+    rightArea.addEventListener('paste', async (e)=>{
+      const items = (e.clipboardData && e.clipboardData.items) || [];
+      for(const it of items){
+        if(it.type && it.type.startsWith('image')){
+          const blob = it.getAsFile();
+          if(blob){
+            const dataURL = await fileToDataURL(blob);
+            leftArea.value = dataURL;
+            showPreview(dataURL);
+            e.preventDefault();
+            return;
+          }
+        }
+      }
+      // if no image in clipboard, allow normal paste (e.g., text)
+    });
+
+    // Allow dropping/pasting raw base64 text onto the left as well
+    leftArea.addEventListener('paste', (e)=>{
+      // let the paste happen then process in next tick
+      setTimeout(()=>parseLeftIntoPreview(), 50);
+    });
+
+    leftArea.addEventListener('input', ()=>{
+      // live-update when user types or pastes
+      parseLeftIntoPreview();
+    });
+
+    function parseLeftIntoPreview(){
+      const txt = leftArea.value.trim();
+      if(!txt) { hidePreview(); return; }
+      // if it's already a data URL, use it
+      if(/^data:\w+\/[-+.\w]+;base64,/.test(txt) || txt.startsWith('data:image')){
+        showPreview(txt);
+        return;
+      }
+      // if it looks like raw base64 (common chars and length), prepend PNG data URL
+      const base64Only = txt.replace(/\s+/g,'');
+      if(/^[A-Za-z0-9+/=\n\r]+$/.test(base64Only) && base64Only.length > 100){
+        const dataURL = 'data:image/png;base64,' + base64Only;
+        showPreview(dataURL);
+        return;
+      }
+      // maybe the user pasted a URL to a data image or remote file — try to use as-is
+      if(/^https?:\/\//.test(txt)){
+        preview.src = txt; preview.style.display = 'block'; return;
+      }
+      // otherwise hide preview — it might be non-image text
+      hidePreview();
+    }
+
+    function showPreview(dataURL){
+      preview.src = dataURL;
+      preview.style.display = 'block';
+    }
+    function hidePreview(){ preview.src = ''; preview.style.display = 'none'; }
+
+    // copy buttons
+    copyLeft.addEventListener('click', async ()=>{
+      try{
+        await navigator.clipboard.writeText(leftArea.value || '');
+        copyLeft.textContent = 'Copied!';
+        setTimeout(()=>copyLeft.textContent='Copy base64',900);
+      }catch(e){ alert('Copy failed — select the text and copy manually.');console.error(e) }
+    });
+    copyPreview.addEventListener('click', async ()=>{
+      const val = leftArea.value || preview.src || '';
+      try{ await navigator.clipboard.writeText(val); copyPreview.textContent = 'Copied!'; setTimeout(()=>copyPreview.textContent='Copy data URL',900); }
+      catch(e){ alert('Copy failed — select the text and copy manually. '); console.error(e) }
+    });
+
+    clearLeft.addEventListener('click', ()=>{ leftArea.value=''; parseLeftIntoPreview(); });
+    clearPreview.addEventListener('click', ()=>{ rightArea.value=''; hidePreview(); leftArea.value=''; });
+
+    // small UX: when user types/pastes an image data URL into right textarea as text, mirror to left
+    rightArea.addEventListener('input', ()=>{
+      const t = rightArea.value.trim();
+      if(t.startsWith('data:image') || t.length>100 && /^[A-Za-z0-9+/=\s]+$/.test(t)){
+        leftArea.value = t;
+        parseLeftIntoPreview();
+      }
+    });
+
+    // initialize
+    leftArea.value = '';
+    rightArea.value = '';
+  </script>
+</body>
+</html>
