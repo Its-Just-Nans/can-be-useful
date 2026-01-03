@@ -29,3 +29,4 @@ svelte-rail-planner
 svelte-json-editor
 svelte-shared-qr-code
 js-function-viewer
+svelte-obs-webview

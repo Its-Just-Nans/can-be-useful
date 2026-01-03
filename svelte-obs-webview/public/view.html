@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+
+<head>
+    <title>OBS Webview - view</title>
+</head>
+
+<body>
+    <div id="view"></div>
+    <script>
+        const view = document.getElementById("view");
+        view.innerHTML = localStorage.getItem("view") || "";
+        window.addEventListener("storage", (evt) => {
+            if (evt.key === "view") {
+                view.innerHTML = evt.newValue;
+            }
+        });
+    </script>
+</body>
