@@ -1,0 +1,171 @@
+\subsection{Détecteur de présence}
+
+\paragraph*{}
+Afin de détecter la présence d'un véhicule sur une place du parking, nous installons un micro-contrôleur muni de divers capteurs. À l'aide d'une solution multi-plateformes et multi-capteurs, nous avons pris la décision de pouvoir offrir au client le choix du dispositif qu'il souhaite utiliser. Ainsi, notre produit ne nécessite pas forcément de nouvelles installations car si le client possède déjà des équipements, il pourra les réutiliser sans avoir à faire de nouvelles dépenses.
+
+\paragraph*{}
+Chaque module sera composé 
+\begin{itemize}
+    \item d'un micro-contrôleur pouvant faire des requêtes sur internet
+    \item d'une LED assurant la signalisation aux utilisateurs du parking
+    \item d'un capteur permettant la détection
+\end{itemize}
+
+\paragraph*{}
+Dans notre cas, pour montrer la pluralité des solutions possibles, nous choisissons de tester quatre modules :
+\begin{itemize}
+    \item un ESP32, une LED et un capteur infrarouge
+    \item un ESP32, une LED  et un capteur à ultrasons
+    \item un Raspberry Pi Pico W, une LED  et un capteur à infrarouge
+    \item un Raspberry Pi Pico W, une LED  et un capteur à ultrasons
+\end{itemize}
+
+\paragraph*{}
+Nous verrons dans les prochaines sections la réalisation et la comparaison des différents dispositifs ainsi que leur principe de fonctionnement.
+
+\paragraph*{}
+Pour chacun des modules, les fonctionnalités ont été implémentées dans le langage de la plate-forme : du Python pour le Rapsberry Pi Pico W et du C++ pour l'ESP32.
+
+\paragraph*{}
+Le code pour chacun des capteurs est disponible sur github : \url{https://github.com/github.com/katheleligaf/rio203-sensors/}
+
+\paragraph*{}
+Une idée intéressante qui aurait pu améliorer la démonstration aurait été la réalisation de boîte imprimée en 3D, qui contiennent et protègent les modules.
+
+\clearpage
+
+\subsubsection*{Protocole de communications}
+
+\paragraph*{}
+Comme décrit précédemment, chaque module devra offrir la possibilité de réaliser des requêtes sur internet dans le but de pouvoir communiquer avec le serveur. Dans un premier temps, nous avons choisi d'utiliser le protocole \textbf{HTTP} avec une \textbf{API} restful sur le serveur cloudifié. Cette \textbf{API} était très simple et permettait aux micro-contrôleurs de faire des requêtes vers le serveur central.
+
+Après des tests fructueux, nous avons malheureusement rencontré un problème : le serveur ne pouvait pas envoyer de requêtes aux capteurs - or cette fonctionnalité est nécessaire (nous le verrons plus en détail dans les sections suivantes). En effet, pour pouvoir envoyer une requête depuis le serveur vers les capteurs, il faudrait tout d'abord que le capteur agisse comme serveur pour recevoir des requêtes. De plus, pour que le serveur puisse envoyer la requête au capteur, il faudrait connaître l'adresse IP du capteur. 
+
+Ainsi, cette solution n'est pas viable car il faudrait mettre en place un système de forwarding sur le routeur (\textbf{NAT} ou \textbf{PAT}) pour les adresses IP du parking. Cette solution ne nous convient pas car nous voulons que notre projet soit simple à mettre en place.
+
+
+\paragraph*{}
+L'envoi et la réception de ces requêtes induisent cependant quelques contraintes. En effet, pour que la solution soit réactive, il est impératif que les transmissions soient réalisées en temps réel. De plus, puisque les interactions ont lieu dans les deux sens, il est nécessaire de mettre en place un système permettant les transmissions bidirectionnelles. Nous avons donc décidé d'utiliser le protocole WebSocket. Ce protocole permet de faire passer dans une connexion HTTP un flux d'information bidirectionnel et en temps réel entre le serveur et les capteurs. 
+
+\paragraph*{}
+Le protocole Websocket permet l'échange bidirectionnel entre un serveur et un client issus de deux réseaux différents. En utilisant un numéro de port ainsi qu'une adresse IP publique, le protocole Websocket contourne les problèmes liés au \textbf{NAT}/\textbf{PAT} ainsi que ceux de pare-feu. De plus, le protocole Websocket permet la transmission en temps réel. Cette solution est donc idéale dans notre contexte.
+
+\paragraph*{}
+Pour mettre en place la communication Websocket, nous avons dû établir un protocole entre le serveur et les capteurs. Ce protocole simple permet d'envoyer et de recevoir des informations au format JSON.
+
+
+\paragraph*{}
+Voici donc une explication des requêtes de notre protocole.
+
+\clearpage
+
+\paragraph*{}
+La première requête de notre protocole est envoyée par le serveur lorsque celui-ci enregistre une nouvelle connexion WebSocket. Le client doit répondre en indiquant son adresse MAC ainsi que, s'il existe, l'identifiant de la place de parking physique sur laquelle le dispositif est installé.
+
+\img{Content/images/r_name.png}{Structure de la réponse à la requête name}{0.4}
+
+\paragraph*{}
+Lors de la première connexion au serveur au démarrage du micro-contrôleur, le module ne possède pas encore son identifiant. Il doit donc le demander au serveur en utilisant la requête \textbf{getId}.
+
+\img{Content/images/r_getid.png}{Structure de la requête getId}{0.7}
+
+
+\paragraph*{}
+Une fois l'identifiant attribué, le module le garde en mémoire jusqu'à sa ré-initialisation. De ce fait, même si le serveur est redémarré, l'identifiant est toujours connu par le micro-contrôleur.
+
+\paragraph*{}
+Grâce à la requête \textbf{getId}, le dispositif peut donc demander au serveur quel est l'identifiant de la place physique qui lui est attribuée. Pour pouvoir lier un ID de place et un capteur, le serveur retient en mémoire l'attribution des places. S'il y a un lien, il pourra répondre à la requête \textbf{getId}. Autrement, le gestionnaire du parking est chargé d'attribuer manuellement un identifiant de place physique au dispositif - c'est la partie de mise en place du parking (elle n'arrive qu'une fois).
+Après avoir lié l'identifiant de place et le capteur, le serveur pourra
+\begin{itemize}
+    \item renvoyer l'ID quand on lui fait une requête \textbf{getId}
+    \item envoyer explicitement l'ID au capteur non lié avec l'appel \textbf{setId}
+\end{itemize}
+
+\img{Content/images/r_setid.png}{Structure de la requête setId}{0.7}
+
+
+\paragraph*{}
+Après avoir reçu son ID, le dispositif peut commencer à détecter des présences et transmettre son état au serveur. Le micro-contrôleur agira ensuite comme une machine à état qui, selon le changement d'état, effectuera des actions (formuler une requête, changer la couleur de la LED, etc).
+
+\paragraph*{}
+Lorsqu'un objet survole le dispositif, il détecte une présence et à l'inverse, lorsqu'aucun obstacle ne se trouve devant le dispositif, il ne détecte rien. Il met alors à jour son état (disponible, réservé, occupé) et conserve la valeur de son état précédent. Si l'état actuel est différent de l'état précédent, il envoie la requête \textbf{info} au serveur pour l'avertir du changement. Le capteur peut également être configuré plus intelligemment par exemple en calculant la durée de détection afin d'éviter les requêtes parasites lorsqu'un obstacle temporaire survole le capteur comme un piéton qui traverserait.
+
+\img{Content/images/r_info.png}{Structure de la requête info}{0.7}
+
+\paragraph*{}
+Il est aussi possible que le serveur souhaite connaître l'état du dispositif. Pour cela, il peut envoyer la requête \textbf{state}. Le dispositif répond à la requête avec son adresse MAC, son ID de place ainsi que son état actuel.
+
+\img{Content/images/r_state.png}{Structure de la réponse à la requête state}{0.6}
+
+
+\paragraph*{}
+Enfin, la dernière requête de notre protocole permet la réservation de place. Pour cela, un utilisateur interagit avec le serveur qui va par la suite envoyer une requête \textbf{setState} au dispositif pour qu'il modifie son état actuel et qu'il affiche son état de réservation. À noter que cette requête peut aussi être utilisée lors du debug.
+
+
+\img{Content/images/r_setstate.png}{Structure de la requête setState}{0.9}
+
+
+\clearpage
+\subsubsection*{Version ESP32}
+
+\paragraph*{}
+Pour la version avec l'ESP32, nous testons deux capteurs différents : un capteur infrarouge et un capteur ultrason. L'ESP32 lit l'un des deux capteurs et détecte ou non la présence d'un véhicule. Il notifie ensuite le serveur de son état grâce à une requête et changera la couleur de la LED au besoin. 
+
+\paragraph*{}
+Pour communiquer avec le serveur qui se trouve dans le cloud, l'ESP32 a besoin d'être connecté à internet, il se connecte donc au WiFi du parking lors du démarrage, puis démarre la connexion WebSocket.
+
+\img{Content/images/image11.png}{Architecture du circuit avec ESP32}{0.55}
+
+\paragraph*{}
+Nous avons utilisé le capteur à ultrasons Sunfounder HC SR04 ainsi que le capteur infrarouge Sunfounder IR Obstacle Sensor. Enfin, afin d'indiquer l'état du micro-contrôleur, nous avons ajouté une LED bicolore Sunfounder Dual-Color LED. Ayant tout le matériel nécessaire, nous avons pu réaliser les tests sur du véritable hardware.
+Pour ce dispositif, nous avons utilisé l'IDE fournit par Ardunio : \textbf{Arduino IDE}. Le langage utilisé a donc été le C++. 
+
+\paragraph*{}
+Pour la communication WebSocket, nous avons profité de la communauté Arduino et avons utilisé plusieurs librairies :
+\begin{itemize}
+    \item \url{https://github.com/gilmaimon/ArduinoWebsockets} pour la communication WebSocket
+    \item \url{https://github.com/bblanchon/ArduinoJson} pour la gestion du JSON
+\end{itemize}
+
+
+\clearpage
+\subsubsection*{Version ESP8266}
+
+\paragraph*{}
+Pour la version avec le Raspberry, le micro-contrôleur Raspberry Pico que nous avions n'avait pas la capacité de communiquer en WiFi. Nous l'avons donc connecté à une carte ESP8266 (WEMOS D1 WIFI) avec une liaison UART pour donner au Raspberry pico la capacité de communiquer par WiFi vers le serveur. 
+Malheureusement nous avons rencontré des blocages dans le développement de cette première version. Premièrement, bien que nous ayons réussi à envoyer des messages vers l'ESP8266 en utilisant l'UART, nous n'avons pas été en mesure de les décoder correctement pour ensuite pouvoir les exploiter et les transmettre au serveur.
+De plus, les connexions entre les différents composants sur le breadboard (platine d'expérimentation) n'étaient pas stables et faisaient souvent défaut lors du développement de cette version (faux contacts, perte de détection des ports USB vers l'ordinateur ou bien  même simplement des déconnexions) ce qui nous freinait dans l'avancement de cette version. À tel point que nous nous sommes retrouvés avec un composant (ESP8266) hors service suite à une fausse manipulation. 
+
+\img{Content/images/image1.png}{Architecture initiale du circuit avec ESP8266}{0.20}
+
+\paragraph*{}
+Pour contourner l'échec de cette première tentative, nous avons finalement décidé de développer une solution via un simulateur de systèmes IoT disponible en ligne : Wokwi (\url{https://wokwi.com/}). En procédant ainsi, cela nous a permis de contourner les problèmes "matériels" (au sens hardware) ainsi que de simplifier la structure de ce module (un unique micro-contrôleur au lieu de deux). En effet, le site mettant à disposition de nombreux micro-contrôleurs et capteurs IoT différents, nous avons pu développer cette seconde version en utilisant uniquement un Rapsberry Pico WIFI pour à la fois collecter les données du capteur rattaché et les transmettre au serveur ensuite. Le programme développé pour cette seconde version est donc exclusivement en MycroPython (alors que la version initiale faisait en plus intervenir deux programmes : un en C++ et un en MicroPython).
+
+\paragraph*{}
+Comme pour l'ESP32, il y a deux sous-versions : une avec un capteur infrarouge (Sunfounder IR Obstacle Sensor) et une avec un capteur à ultrasons (Sunfounder HC SR04). La logique est la même, si le micro-contrôleur considère qu'une voiture est garée à cette place, La LED change de couleur (passe au rouge) et il notifie alors au serveur que sa place est occupée via une requête WebSocket. Le serveur peut aussi envoyer des requêtes au micro-contrôleur pour mettre à jour certaines informations telle qu'indiquer qu'une place est désormais réservée.
+
+
+\paragraph*{}
+Le code commenté destiné au fonctionnement du Raspberry Pico WIFI est disponible en annexe ou sur le repository GIT : \url{https://github.com/github.com/katheleligaf/rio203-sensors/}
+
+\img{Content/images/V2_raspberry.png}{Architecture de la V2 avec Rapsberry Pico Wifi et le capteur ultrason}{0.7}
+ 
+\paragraph*{}
+Les librairies systèmes utilisées dans le programme sont les suivantes : 
+\begin{itemize}
+    \item network : permet de gérer les fonctionnalités réseau comme la connexion WiFi. 
+    \item ujson : facilite la manipulation de données au format JSON (JavaScript Object Notation).
+    \item time : offre des fonctionnalités pour la gestion du temps, comme la mesure du temps écoulé.
+    \item uasyncio : fournit un support pour la programmation asynchrone en Python, permettant l'exécution de tâches simultanées.
+    \item ubinascii : permet la conversion entre données binaires et leur représentation ASCII.
+    \item machine : offre un accès aux fonctionnalités de bas niveau du matériel, comme la gestion des broches GPIO.
+\end{itemize}
+
+Certaines librairie possèdent un "\textbf{u}" devant le nom, cela signifie qu'elle sont spécifiques à MicroPython.
+
+
+\paragraph*{}
+La librairie essentielle à notre projet est la librairie WebSocket.
+
+Après avoir testé différentes librairies et clients websocket, nous avons retenu la librairie \textbf{AsyncWebsocketClient} (\url{https://github.com/Vovaman/micropython_async_websocket_client}). Cette librairie permet d'utiliser une unique classe "AsyncWebsocketClient", qui permet la gestion du protocole WebSocket.
+Cette librairie présente l'avantage d'être spécifique à MicroPython et c'est une "single file library" (librairie python compacte et autonome qui tient en un fichier, ce qui la rend facile à distribuer et à utiliser).

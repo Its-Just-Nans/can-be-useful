@@ -1,0 +1,58 @@
+\section{Présentation des résultats}
+
+Dans cette section, nous présenterons les résultats des implémentations des fonctions mentionnées précédemment.
+
+
+\subsection{Fonction 1 : Vérification des disponibilités à distance}
+
+
+\paragraph*{}
+Le serveur est la partie centrale du projet et il permet de tout réunir. Le serveur possède une interface web pour les utilisateurs. Sur cette interface, on peut y voir plusieurs informations (voir image ci-dessous).
+
+\img{Content/images/affichage_parking.png}{Affichage utilisateur du parking}{0.5}
+
+\paragraph*{}
+On peut, par exemple, voir le solde de l'utilisateur et le bouton permettant de modifier celui-ci. Étant donné que nous sommes dans un Proof-of-Concept (PoC), nous n'avons pas mis en place de rechargement utilisant une \textbf{API} bancaire.
+En dessous, l'utilisateur peut sélectionner le parking qu'il souhaite visualiser, après la sélection, le parking s'affiche. L'application remplit donc bien la fonctionnalité de vérification des disponibilités. On peut également voir que les places ont des couleurs différentes.
+
+\paragraph*{}
+Les différentes couleurs symbolisent :
+\begin{itemize}
+    \item le gris pour la route (non réservable)
+    \item le rouge pour une place occupée
+    \item le orange pour une place réservée
+    \item le bleu pour une place disposant d'une borne de recharge pour les véhicules électriques
+    \item le vert pour une place disponible
+\end{itemize}
+
+\paragraph*{}
+Nous avons également pensé à une architecture assez souple, permettant par exemple d'ajouter très facilement un nouveau type de place, comme par exemple une place dédiée aux personnes à mobilité réduite.
+
+
+\subsection{Fonction 2 : Réservation d'une place}
+
+\paragraph*{}
+La réservation d'une place est possible dans l'interface de l'utilisateur. Lorsqu'il clique sur une place, un bouton de réservation apparaît. S'il clique dessus, la place sera réservée et deviendra orange. 
+
+\img{Content/images/parking_reservation.png}{Réservation d'une place de parking}{0.5}
+
+\paragraph*{}
+Cette fonctionnalité est donc bien réussie.
+
+\subsection{Fonction 3 : Lecture de plaque d'immatriculation et facturation}
+
+\paragraph*{}
+Comme expliqué précédemment, nous n'avions pas de caméra pour Raspberry Pi, nous avons donc utilisé la caméra de notre ordinateur. Cela est possible car le Raspberry Pi est lui-même un mini serveur en python, on peut donc avec notre ordinateur s'y connecter avec une interface web. Dans cette interface, du code JavaScript permet d'activer la caméra et d'envoyer les photos au serveur sur le Raspberry. Ensuite le Raspberry analyse l'image et envoie, s'il y a une plaque d'immatriculation détectée, la plaque au serveur. 
+
+\img{Content/images/interface_detection.png}{Détection de plaque}{0.4}
+
+\paragraph*{}
+Sur l'interface, on peut voir l'image prise par notre caméra. Le carré noir représente le flux vidéo en live (il est caché dans cette capture).
+On indique l'ID du parking en haut, puis on envoie l'image au Rapsberry avec le bouton "Send Snapshot". Le Raspberry analyse l'image et fait une requête au serveur s'il y a une plaque. Enfin la réponse de la requête contient des informations à afficher à l'utilisateur comme par exemple le montant à payer.
+
+
+\paragraph*{}
+De plus, le serveur possédant un système de solde utilisateur, lorsqu'une voiture sort du parking, qu'elle est reliée à un utilisateur et que celui-ci possède un solde suffisamment élevé, celui-ci est débité. S'il n'est pas assez élevé, l'utilisateur devra payer via l'interface du Raspberry Pi, mais comme expliqué précédemment notre projet n'utilise pas d'API bancaire pour plus de simplicité, ainsi, seul un message est affiché à l'utilisateur (pour simuler le paiement).
+
+\paragraph*{}
+Ces fonctionnalités sont donc bien validées.

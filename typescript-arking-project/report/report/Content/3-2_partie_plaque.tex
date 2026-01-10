@@ -1,0 +1,41 @@
+\subsection{Lecteur de plaque d'immatriculation}
+
+
+\paragraph*{}
+Pour pouvoir gérer l'entrée et la sortie des voitures avec la reconnaissance des plaques d'immatriculation pour la gestion des frais liés au stationnement, il est nécessaire d'installer un dispositif à l'endroit destiné à accueillir les véhicules sortants ainsi que les véhicules entrants.
+
+\subsubsection*{Architecture}
+\paragraph*{}
+
+L'outil de détection de plaques d'immatriculation a pour rôle d'envoyer une requête POST vers le serveur contenant l'identifiant unique du parking pour toute entrée ou sortie du parking. La requête POST doit donc préciser s'il s'agit d'une entrée dans le parking ou bien d'une sortie.
+
+\subsubsection*{Système de détection}
+\paragraph*{}
+Pour réaliser la détection de plaque d'immatriculation, il est nécessaire de posséder une caméra ainsi qu'un ordinateur afin que ce dernier puisse valider la lecture supposée de la plaque d'immatriculation.
+Dans un premier temps, nous avons essayé d'utiliser la librairie opencv et de construire notre propre algorithme de détection. Nous avions initialement construit un algorithme basique qui ne présentait de bonnes performances que dans des conditions très précises et donc peu représentatives de la réalité.
+Après quelques recherches nous avons découvert \href{https://github.com/openalpr/openalpr}{OpenALPR} (\url{https://github.com/openalpr/openalpr}), un programme open source qui utilise des algorithmes très performants de reconnaissance de plaques d'immatriculation (fait en C++).
+Après quelques tests, cette solution s'est avérée largement plus performante que le simple système de détection que l'on avait mis en place.
+
+\subsubsection*{Implémentation}
+\paragraph*{}
+Après avoir choisi quel système de détection nous allions utiliser, il a fallu l'intégrer au reste de notre service.
+Pour ce faire, nous voulions utiliser un Raspberry Pi ainsi qu'un module caméra. N'ayant pas ce module, nous avons utilisé la Webcam d'un de nos ordinateurs portables qui jouera le rôle du module caméra pour le Raspberry Pi.
+Nous avons donc installé un serveur HTTP sur le Raspberry Pi, qui reçoit par POST une image encodée en base64 et traite l'image comme si celle-ci était envoyée depuis la caméra du Raspberry Pi. Après avoir effectué la détection, il enverra une requête POST vers le serveur, avec les informations nécessaires.
+
+\img{Content/images/archi_license_plate.png}{Schéma d'architecture du service de détection}{0.1}
+
+
+\subsubsection*{Résultats}
+
+\paragraph*{}
+Ce service de détection de plaques d'immatriculation garantit de très bons résultats. Même avec de mauvaises conditions lumineuses, le système de détection est capable de lire correctement la plaque d'immatriculation présentée.
+
+Il est cependant arrivé que des erreurs aient lieu, notamment lorsque le service confond le chiffre 0 et la lettre O.
+Mais puisque les plaques minéralogiques françaises sont sous le format AA-999-AA, il est donc possible d'améliorer la solution en chargeant le serveur de rectifier la mauvaise détection d'un zéro ou d'un O.
+
+
+\paragraph*{}
+Le code de cette partie est dans ce repository :
+\begin{itemize}
+    \item \url{https://github.com/comeyrd/rio203-image-detection}
+\end{itemize}

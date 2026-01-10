@@ -1,0 +1,63 @@
+\section{Présentation du Projet}
+
+\paragraph*{}
+Notre projet de smart parking vise à améliorer l'expérience de stationnement en utilisant une approche intégrant des capteurs de détection, un concept de réservation en ligne et une reconnaissance des plaques d'immatriculation.
+Face aux défis croissants de gestion des espaces de stationnement dans des environnements urbains denses, notre solution cherche à optimiser l'utilisation des places disponibles. 
+Les capteurs de détection positionnés à chaque emplacement de stationnement assurent une surveillance en temps réel, indiquant clairement quels emplacements sont occupés et disponibles. 
+
+\paragraph*{}
+De plus, notre système de réservation en ligne permet aux utilisateurs de réserver à l'avance une place de stationnement, réduisant ainsi les incertitudes liées à la disponibilité des espaces. 
+L'innovation clé réside dans la gestion des clients intégrée à la reconnaissance de plaques d'immatriculation, offrant une expérience pratique : l'entrée et la sortie du parking ne nécessitent pas de tickets physiques. 
+
+\paragraph*{}
+En abordant ces problèmes de gestion et d'accessibilité, notre solution vise à réduire les temps d'attente, améliorer la fluidité du trafic et optimiser l'espace de stationnement disponible, offrant ainsi une expérience plus pratique aux utilisateurs.
+
+\clearpage
+
+\subsection*{Architecture globale}
+
+Notre projet s'appuie sur plusieurs outils essentiels qui se combinent pour améliorer de manière significative l'expérience de stationnement.
+
+\paragraph*{}
+Notre solution est composée de divers équipements qui interagissent entre eux pour réaliser trois fonctions que l'on détaillera par la suite. Chaque place de parking est équipée d'un dispositif composé d'un micro-contrôleur, de capteurs ainsi que de signalisation utilisateur de type LED. Un serveur cloud gère le lien entre les différentes parties du système. Il permet de relier les dispositifs de chacune des places de parking, d'offrir une interface web permettant la gestion du parking (mais aussi l'accès des utilisateurs) et enfin de communiquer avec le dispositif en charge de la reconnaissance de plaques d'immatriculation. Dans le schéma ci-dessous, nous ne matérialiserons que deux places de parking mais dans la pratique, chaque place aura un dispositif.
+
+\img{Content/images/image5.png}{Architecture du système global}{0.7}
+
+\paragraph*{}
+Dans notre cas, le détecteur de présence joue un rôle central en permettant de déterminer la disponibilité en temps réel d'une place de parking spécifique.
+Le système de détection de plaques d'immatriculation vient compléter cette infrastructure en simplifiant l'entrée et la sortie du parking grâce à la reconnaissance automatique des plaques associées aux réservations ainsi que la gestion de la facturation. 
+Simultanément, notre serveur en tandem avec un site web dédié propose une plate-forme pour les réservations en ligne ainsi que pour le règlement des frais de stationnement. 
+L'ensemble de ces outils collabore pour optimiser l'utilisation des espaces, réduire les temps d'attente et offrir une expérience de stationnement plus pratique et efficiente aux utilisateurs.
+
+\clearpage
+
+\subsection*{Architecture des technologies utilisées}
+
+\paragraph*{}
+Dans le cadre de ce projet, différentes technologies ont été mises en place. Lors de notre projet, nous avons pu tester deux micro-contrôleurs et pour chaque contrôleur, nous avons testé deux capteurs. L'un des micro-contrôleurs utilise Python tandis que l'autre se programme à l'aide du langage C++. Cette différence permet de montrer la compatibilité de notre système avec plusieurs types d'équipements (ce point sera détaillé ultérieurement). Les micro-contrôleurs utilisent le protocole WebSocket afin de communiquer avec le serveur cloud. Le serveur cloud est réalisé avec Hono, un framework permettant d'être utilisé avec plusieurs \textit{cloud prodivers}. Celui-ci dispose d'une base de données avec SQLite avec laquelle il communique. Les interfaces web quant à elles sont codées avec le framework Svelte (en typescript). L'interface de gestion et d'accès utilisateur communique avec le serveur cloud à l'aide d'une API \textbf{REST} et du WebSocket (pour une communication en temps réel). Le module de reconnaissance de plaques d'immatriculation repose sur le langage Python en utilisant le framework \textbf{FastAPI} qui communique avec le serveur cloud en REST et la lecture de plaques d'immatriculation utilise OpenALPR. Le Raspberry Pi expose aussi une interface graphique en HTML et CSS et qui communique en \textbf{REST}.
+
+\img{Content/images/architecture_techno.png}{Architecture des technologies du système global}{0.7}
+
+\clearpage
+\subsection{Fonction A}
+
+\paragraph*{}
+La première fonction que nous avons implémentée permet de visualiser l'état des places d'un parking à distance. En se connectant au site internet, un client peut ainsi vérifier la disponibilité des places ainsi que l'organisation de celles-ci. Il peut notamment voir si des bornes de recharge électrique sont disponibles, où se situent les places non occupées... Pour plus de simplicité, un indicateur (une LED) recense les places disponibles lorsqu'on est dans le parking. Dans ce cas de figure, les éléments mis en évidence sur la figure suivante sont ceux jouant un rôle dans l'exercice de cette fonction.
+
+\img{Content/images/architecture_fonctionA.png}{Architecture des composants du système utilisés pour la réalisation de la fonction A}{0.55}
+
+
+\subsection{Fonction B}
+
+\paragraph*{}
+La deuxième fonction mise en \oe{}uvre permet la réservation d'une place de parking. Cette fonction permet ainsi aux clients réguliers ou bien à ceux ne disposant que de très peu de temps pour rechercher une place une fois entré dans le parking de garantir la disponibilité d'une place au sein d'un parking. Il suffit au client de se connecter au site internet, sélectionner le parking voulu ainsi que la place désirée et si celle-ci est disponible, elle devient réservée. Lorsque la place est réservée, un marquage différent est utilisé sur le site internet ainsi que dans le parking. Cette fonction utilise les équipements mis en évidence sur la figure suivante.
+
+\img{Content/images/architecture_fonctionB.png}{Architecture des composants du système utilisés pour la réalisation de la fonction B}{0.55}
+
+
+\subsection{Fonction C}
+
+\paragraph*{}
+La troisième fonction quant à elle a pour but de faciliter l'entrée, le paiement ainsi que la sortie des clients. En lisant la plaque d'immatriculation du client à l'entrée, elle permet une circulation sans ticket physique. Si de plus le client possède un compte sur le site internet, sa plaque d'immatriculation renseignée au moment de l'inscription est lue et associée à son compte au moment de son entrée dans le parking. De cette façon, lorsque le client souhaite sortir du parking, sa plaque d'immatriculation est lue à nouveau et l'argent déposé sur son compte internet est débité - si le solde est insuffisant ou bien si le client ne possède pas de compte sur le site internet, la somme à payer s'affiche sur l'écran. Cette fonction dont les composantes utiles sont mises en évidence sur la figure suivante permet de fluidifier le trafic en sortie du parking et accélérer le processus de paiement, d'entrée et de sortie.
+
+\img{Content/images/architecture_fonctionC.png}{Architecture des composants du système utilisés pour la réalisation de la fonction C}{0.55}

@@ -1,0 +1,73 @@
+\subsection{Serveur}
+
+
+\paragraph*{}
+Le serveur est la partie centrale du projet. En effet, il permet de relier tous les équipements et de stocker les informations. Au début du projet, nous voulions avoir un unique serveur par parking. Après réflexion, nous avons constaté que cela nous imposait une limite : chaque parking devra posséder un serveur - cela signifie qu'on ne peut potentiellement pas agréger les parkings, ce qui pourrait être utile dans le cas où un client serait en fait un gestionnaire en charge de plusieurs parkings.
+
+
+\paragraph*{}
+Nous avons donc choisi, à l'image des télécoms, de cloudifier notre infrastructure : le serveur est désormais dans le cloud et il reste seulement un Raspberry Pi dans le parking (et les capteurs).
+La partie serveur dispose donc de trois parties globales :
+
+\begin{itemize}
+    \item la gestion d'un portail web pour les utilisateurs (admin ou non)
+    \item la communication avec les capteurs
+    \item la communication avec la barrière autonome
+\end{itemize}
+
+
+\img{Content/images/serveur.jpg}{Architecture serveur}{0.9}
+
+\subsubsection*{Communication avec les capteurs}
+
+\paragraph*{}
+La communication avec les capteurs est faite exclusivement en utilisant notre protocole (détaillé précédemment) sur WebSocket. Le serveur implémente donc ce protocole.
+
+
+\subsubsection*{Communication avec la barrière autonome}
+
+\paragraph*{}
+La communication avec la barrière autonome se fait unidirectionnellement depuis le Raspberry Pi vers le serveur. Ainsi, la communication REST est adaptée à nos besoins.
+
+\paragraph*{}
+Lors de la détection d'un véhicule, la barrière envoie sa requête contenant la plaque d'immatriculation. Le serveur enregistre donc la voiture en mode déplacement. Il vérifie également si la voiture est reliée à un compte client déjà existant.
+
+\paragraph*{}
+Au moment de la sortie d'une voiture, il faut vérifier qu'un des capteurs ait préalablement envoyé une requête d'état (cela signifie qu'une voiture était sur une place et qu'elle l'a quittée). Après cette transition, le serveur connaît le nombre ainsi que les identifiant des véhicules se dirigeant vers la sortie. Ainsi lorsque la barrière détecte une voiture en direction de la sortie du parking, le serveur peut savoir de quelle voiture il s'agit.
+
+
+\subsubsection*{Portail web}
+
+\paragraph*{}
+Le serveur a été réalisé en utilisant le framework javascript Hono (\url{https://hono.dev/}). Ce framework a la particularité de pouvoir fonctionner aisément sur la très grande majorité des clouds providers. Dans notre cas, comme nous n'utilisons pas de cloud provider mais un serveur généreusement prêté par Rezel, nous utilisons un \textit{adapter} qui permet d'utiliser Hono avec NodeJS. Notre serveur est codé en typescript (superset de JavaScript), ce qui permet une certaine sécurité.
+
+\paragraph*{}
+Pour le stockage des données, nous avons opté pour une solution éprouvée : SQLite. Cependant, pour faciliter son utilisation, nous avons eu recours à la librairie Drizzle, qui agit comme ORM (Operational Resource Management). Cet ORM permet de faciliter la création et la gestion de la base de données à l'aide de schéma SQL défini dynamiquement en TypeScript.
+
+\paragraph*{}
+Pour le côté frontend, nous utilisons la remarquable librairie Svelte (\url{https://svelte.dev/}) qui permet d'allier simplicité et efficacité.
+
+\paragraph*{}
+Le portail web possède deux parties :
+
+\begin{itemize}
+    \item partie client
+    \item partie administrateur
+\end{itemize}
+
+\paragraph*{Partie client}
+Dans cette partie, l'utilisateur peut se connecter et avoir accès à des informations basiques sur son compte : nom, plaque d'immatriculation enregistrée et solde. Il peut aussi créditer de l'argent sur son solde (simulé dans notre cas avec un bouton).
+L'utilisateur a également accès à un schéma des parkings présents sur la plate-forme et peut réserver une place s'il le souhaite.
+
+\paragraph*{Partie administrateur}
+Dans cette partie , le ou les administrateurs ont accès aux différents parkings qu'ils possèdent. Cette partie permet également de faire la liaison des capteurs lors de l'installation du parking. En effet, lorsque le serveur reçoit une requête \textbf{getId} mais que la liaison capteur-place physique n'a pas été faite, il ne peut rien répondre, cependant, il peut enregistrer le fait qu'un capteur ait besoin d'être lié et ainsi remonter l'information à l'administrateur.
+L'administrateur peut par la suite lier une place physique et un capteur dans le schéma du parking.
+
+\img{Content/images/parking_admin.png}{Partie administrateur}{0.35}
+
+\paragraph*{}
+La partie administrateur possède également des éléments supplémentaires utiles dans notre projet : des simulateurs ! Un panel permet, par exemple, de simuler l'entrée d'un véhicule. Après avoir sélectionné une place, un autre panel permettant de simuler un capteur apparaît. Enfin une dernière fenêtre permet de voir en temps réel ce qu'il se passe au niveau du WebSocket.
+
+
+\paragraph*{}
+Le code utilisé pour le serveur (frontend et backend) est dans ce repository : \url{https://github.com/Its-Just-Nans/rio203}

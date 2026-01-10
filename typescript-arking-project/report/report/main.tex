@@ -1,0 +1,196 @@
+%This is main.tex, uses LLNCS macro package for Springer Computer Science proceedings;
+% Version 2.21 of 2022/01/12
+
+%This document contains the structure of the thesis. Here, you can change the section titles and the order of the different sections. The content of the thesis should be added to the different .tex files in the 'Content' folder. References should be added to 'mybibliography.bib'.
+%
+\documentclass[12pt]{paper}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{float}
+\usepackage{csquotes}
+\usepackage{tocloft}
+\usepackage{biblatex}
+\addbibresource{mybibliography.bib}
+\usepackage[acronym]{glossaries}
+\makeglossaries
+
+
+% T1 fonts will be used to generate the final print and online PDFs,
+% so please use T1 fonts in your manuscript whenever possible.
+% Other font encondings may result in incorrect characters.
+%
+\usepackage{graphicx}
+% Used for displaying a sample figure. If possible, figure files should
+% be included in EPS format.
+%
+% If you use the hyperref package, please uncomment the following two lines
+% to display URLs in blue roman font according to Springer's eBook style:
+%\usepackage{color}
+%\renewcommand\UrlFont{\color{blue}\rmfamily}
+%
+\usepackage[percent]{overpic}
+% Used for overlaying pictures on title page.
+
+\usepackage[dvipsnames]{xcolor}
+% Used to define new colors
+
+\newcommand{\img}[3]{
+    \begin{figure}[H]
+    \centering
+    \includegraphics[scale=#3]{#1}
+    \caption{#2}
+    \label{fig:#2}
+    \end{figure}
+}
+
+
+
+\usepackage[left=2cm,right=2cm,top=2.5cm,bottom=3.5cm]{geometry}
+\geometry{
+  centering
+}
+% Used to define the margins of the pages.
+
+\pagestyle{headings}
+% Used for page numbering.
+
+\usepackage{hyperref}
+% Used for hyperlinking cross-referenced elements.
+
+\begin{document}
+%
+%Start
+\input{Content/0_Titlepage.tex}
+
+\restoregeometry
+
+%
+% ---- Abstract ----
+%
+\input{Content/0_remerciements.tex}
+\clearpage
+%
+\restoregeometry
+
+
+\clearpage
+%
+%
+% ---- Table of contents ----
+%
+\tableofcontents
+
+\clearpage
+
+
+
+%
+% ---- Introduction ----
+%
+\addcontentsline{toc}{section}{Introduction}
+\input{Content/1_Introduction.tex}
+\clearpage
+
+
+\clearpage
+
+%
+% ---- Methodology ----
+%
+\input{Content/2_presentation_projet.tex}
+
+\clearpage
+
+%
+% ---- Results ----
+%
+\input{Content/3_presentation_parties.tex}
+
+\clearpage
+
+%
+% ---- Discussion ----
+%
+
+\input{Content/3-1_partie_sensors}
+
+\clearpage
+
+\input{Content/3-2_partie_plaque}
+
+\clearpage
+
+
+\input{Content/3-3_partie_serveur}
+
+\clearpage
+
+
+\input{Content/4_resultats}
+
+\clearpage
+
+%
+% ---- Conclusion ----
+%
+\input{Content/5_Conclusion.tex}
+
+\clearpage
+
+%
+% ---- Appendices ----
+%
+\appendix
+\input{}
+\clearpage
+
+%
+% ---- List of figures ----
+%
+\listoffigures
+\clearpage
+
+
+\printbibliography \label{references}
+%
+\cleardoublepage
+
+\end{document}
+
+
+%{
+
+Conseils sur la rédaction d'un rapport (ou mémoire ou article) scientifique ou technique :
+
+Il devra comprendre :
+
+1. Une page de garde (avec titre, auteur, contexte (Logo école, etc.), éventuellement date ou période, etc.),
+
+2. Une page facultative de remerciements ; inutile pour le PI,
+3. Un sommaire (immédiatement après la page de garde (ou les remerciements), en commençant avec un n° de page impair, çàd sur "une page de droite"),
+4. Un éventuel avant-propos (ou une préface) - plutôt pour les ouvrages, monographies, thèses, etc. ; inutile pour vous,
+5. Un bref résumé (pas 100 % obligatoire pour le PI),
+
+6. Une introduction (exposition du contexte, du sujet, des objectifs, etc.),
+
+7. Un état de l'art (qui peut être ou non inclus dans l'intro, ou comme 1er chapitre) ; facultatif pour le PI,
+
+8. Des chapitres ou "grandes sections", numérotés, comprenant des sous-sections hiérarchisées (càd numérotées, par ex. 1.1., 1.1.1, 1.1.2., 2.1., etc.),
+
+9. Une conclusion, rappelant les points saillants du travail (théorie/méthode développée, principaux résultats), mais surtout les perspectives et éventuels développements ultérieurs,
+10. Des figures, tableaux, etc., destinées à illustrer (qualitativement ou quantitativement) le texte (et non l'inverse ! Une collection de figures/tableux non référencées dans le texte - et surtout commentées, interprétées, etc. - est à proscrire !),
+
+11. Une bibliographie (à laquelle le texte doit renvoyer),
+12. D'éventuelles annexes (donnant des informations non indispensable à une 1re lecture) --> démonstrations mathématiques un peu longues, algorithmes, détails de données/résultats quantifiés (figures, tableaux complémentaires), etc.,
+
+13. Un éventuel glossaire, et/ou une liste des sigles,
+
+14. L'ensemble du document devra être paginé,
+
+15. Les paragraphes, figures, et tableaux devront être numérotés de manière hiérarchisée (au moins pour les §) : 1., 1.1., 1.1.1., etc.
+
+La rédaction devra être écrite en bon français (ou toute autre langue), fluide, clair, sans erreur de syntaxe, en veillant à minimiser le nb de coquilles (fautes d'orthographe, et surtout de grammaire) - c'est très facile aujourd'hui avec les outils de traitement de texte et autre PAO (fautes d'orthographe ou de grammaire soulignée en rouge, syntaxe douteuse soulignée en bleu dans word par ex.).
+La "forme narrative" doit être absolument proscrite (ce n'est pas un roman, ni encore moins une autobiographie !) : "lundi, j'ai fait ci, puis on a fait ça, ensuite j'ai obtenu tel résultat, etc." (je caricature un peu, mais à peine ; j'ai lu des rapports plus ou moins rédigés ainsi par wagons !).
+Il est par ailleurs fortement recommander d'écrire à la forme impersonnelle (dans ce type de document, le ou les auteurs doivent se mettre en retrait - leur "identité", dans tous les sens du terme n'a pas vraiment d'importance, c'est le contenu qui compte -), et le plus factuellement possible :  "Les simulations ont été effectuées avec le simulateur EM CST Studio Suite", "Le paramétrage du moteur de simulation temporel "FIT" suivant a été adopté :..." ou "Nous avons adopté le paramétrage suivant du moteur de simulation temporel "FIT" :...", le "nous" étant ici "impersonnel", etc. Bref, la forme personnelle - "j'ai fait la simu truc come ceci ou cela, puis j'ai fait la mesure bidule" - doit être proscrite. Une exception toutefois, dans le cadre d'une formation (projet, stage, etc.), il est possible, si vous le souhaiter, de donner à la fin (soit dans la conclusion, soit dans un § qui la suit) votre sentiment personnel sur le travail effectué : intérêt (ou non), point de vue critique (au sens large, çàd ressenti "positif" et/ou "négatif"), éventuelles difficultés rencontrées, adéquation ou non de la charge de travail, contexte (encadrement, conditions de travail, moyens mis à disposition, etc.) : la forme personnelle ("je", "nous") est alors parfaitement appropriée.
+
+}
