@@ -12,10 +12,11 @@ output_folders=("dist" "public")
 # Loop through each element in the array
 for project in "${projects[@]}"; do
     echo "building $project"
-    pushd "$project" || {
-        echo "Cannot pushd to $project"
+    if [ ! -d "$project" ]; then
+        echo "No project folder '$project'"
         continue
-    }
+    fi
+    pushd "$project" || exit 1
     if [ -e "build.sh" ]; then
         ./build.sh
     elif [ -f "package.json" ]; then
