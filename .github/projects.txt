@@ -32,3 +32,4 @@ js-function-viewer
 svelte-obs-webview
 html-base64-image
 svelte-product-creation
+html-typst-search

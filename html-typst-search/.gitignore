@@ -1,0 +1,6 @@
+dist/
+typst/
+
+flexsearch.light.module.min.js
+data.json
+index.json

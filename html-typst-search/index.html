@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Typst search</title>
+        <style>
+            body {
+                font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+                background: #f7f7f8;
+                padding: 24px;
+                color: #222;
+            }
+
+            #search {
+                width: 100%;
+                max-width: 520px;
+                padding: 12px 14px;
+                font-size: 16px;
+                border-radius: 10px;
+                border: 1px solid #ddd;
+                outline: none;
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+                transition: border 0.2s, box-shadow 0.2s;
+            }
+
+            #search:focus {
+                border-color: #6366f1;
+                box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+            }
+
+            #results {
+                margin-top: 24px;
+                max-width: 900px;
+                display: grid;
+                grid-template-columns: auto auto auto;
+                gap: 10px;
+            }
+
+            .result {
+                background: #fff;
+                border-radius: 12px;
+                padding: 14px 16px;
+                margin-bottom: 12px;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+                transition: transform 0.15s ease, box-shadow 0.15s ease;
+            }
+
+            .result:hover {
+                transform: translateY(-1px);
+                box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+            }
+
+            .result-route {
+                font-size: 13px;
+                color: #6366f1;
+                margin-bottom: 6px;
+                font-weight: 500;
+            }
+
+            .result-text {
+                font-size: 15px;
+                line-height: 1.5;
+                color: #333;
+            }
+
+            .highlight {
+                background: #fff3bf;
+                border-radius: 4px;
+                padding: 0 3px;
+            }
+        </style>
+    </head>
+    <body>
+        <input id="search" placeholder="Search typst…" />
+        <div id="results"></div>
+        <script type="module">
+            import { Index } from "./flexsearch.light.module.min.js";
+
+            const json = await fetch("index.json");
+            const data = await json.json();
+
+            // create a simple index which can store id-content-pairs
+            const index = new Index({
+                tokenize: "forward",
+            });
+
+            // add data to the index
+            data.forEach(({ route, text }, id) => {
+                index.add(id, text);
+            });
+            const resultsEl = document.getElementById("results");
+
+            function getSnippet(text, s, padding = 50) {
+                const index = text.toLowerCase().indexOf(s.toLowerCase());
+                if (index === -1) return null;
+
+                const start = Math.max(0, index - padding);
+                const end = Math.min(text.length, index + s.length + padding);
+
+                return {
+                    before: text.slice(start, index),
+                    match: text.slice(index, index + s.length),
+                    after: text.slice(index + s.length, end),
+                };
+            }
+
+            document.getElementById("search").addEventListener("input", (e) => {
+                resultsEl.innerHTML = "";
+                const s = e.target.value;
+                if (!s) return;
+                // perform query
+                const result = index.search({
+                    query: s,
+                    suggest: true,
+                });
+
+                for (const id of result) {
+                    const oneResult = data[id];
+                    const { route, text, id: htmlId } = oneResult;
+                    const rout = `https://typst.app/docs${route}${htmlId}`;
+                    const snippet = getSnippet(text, s);
+                    if (!snippet) continue;
+
+                    const link = document.createElement("a");
+                    link.className = "result-link";
+                    link.href = rout;
+                    link.target = "_blank";
+
+                    const result = document.createElement("div");
+                    result.className = "result";
+
+                    result.innerHTML = `
+        <div class="result-route">${rout}</div>
+        <div class="result-text">
+          ${snippet.before}<span class="highlight">${snippet.match}</span>${snippet.after}
+        </div>
+      `;
+
+                    link.appendChild(result);
+                    resultsEl.appendChild(link);
+                }
+            });
+        </script>
+    </body>
+</html>
