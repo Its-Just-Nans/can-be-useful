@@ -1,0 +1,2 @@
+rapport:
+	$(MAKE) -C report

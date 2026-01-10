@@ -1,0 +1,12 @@
+sequenceDiagram
+    Note left of SSH: 1. Central server can show Diagram
+    Central server ->> Sensor (COAP server): COAP GET Temp
+    Server ->> Sensor (HTTP server): HTTP GET Pressure
+    Note left of SSH: 2. Set threeshold
+    SSH -->> Central server: COAP POST Threeshold
+    Central server ->> Autonomous Acuator: COAP POST Threeshold
+    Note right of Autonomous Acuator: Get the gyro and stop it if needed (> threeshold)
+    Note left of SSH: 3. Trigger Alarm
+    SSH -->> Boutton Alarm: COAP GET alarm
+    Note left of Boutton Alarm: A user has activated the alarm
+    Boutton Alarm ->> Central server: COAP GET alarm

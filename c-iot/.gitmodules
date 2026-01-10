@@ -1,0 +1,3 @@
+[submodule "iot-lab"]
+	path = iot-lab
+	url = https://github.com/iot-lab/iot-lab.git

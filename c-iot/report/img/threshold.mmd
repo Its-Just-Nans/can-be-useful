@@ -1,0 +1,5 @@
+sequenceDiagram
+    Note left of SSH: 2. Set threeshold
+    SSH -->> Central server: COAP POST Threeshold
+    Central  server ->> Autonomous Acuator: COAP POST Threeshold
+    Note right of Autonomous Acuator: Get the gyro and stop it if needed (> threeshold)
