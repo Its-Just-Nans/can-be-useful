@@ -1,0 +1,1 @@
+ALTER TABLE client ADD `balance` integer NOT NULL;

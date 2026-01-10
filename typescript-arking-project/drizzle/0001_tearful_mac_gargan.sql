@@ -1,0 +1,1 @@
+ALTER TABLE place ADD `state` text NOT NULL;

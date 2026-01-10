@@ -1,0 +1,48 @@
+{
+  "version": "5",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1704557722189,
+      "tag": "0000_spotty_kate_bishop",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1704883021798,
+      "tag": "0001_tearful_mac_gargan",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1705431752769,
+      "tag": "0002_colossal_baron_zemo",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1705431816529,
+      "tag": "0003_public_ultimo",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1706106695646,
+      "tag": "0004_first_quasimodo",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1706646760467,
+      "tag": "0005_early_marrow",
+      "breakpoints": true
+    }
+  ]
+}
