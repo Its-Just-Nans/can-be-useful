@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ ! -d "typst" ]; then
-    git clone git@github.com:typst/typst.git
+    git clone https://github.com/typst/typst.git
 fi
 if [ ! -f "data.json" ];then
     cd typst/docs || exit 1

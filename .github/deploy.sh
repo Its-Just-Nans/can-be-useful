@@ -18,9 +18,12 @@ for project in "${projects[@]}"; do
     pushd "$project" || exit 1
     if [ -e "build.sh" ]; then
         ./build.sh
-    else
+    elif [ -f "package.json" ];then
         npm install --force
         npm run build
+    else
+        echo "no build or package.json"
+        exit 1
     fi
     for output_folder in "${output_folders[@]}"; do
         if [ -e "$output_folder" ]; then
