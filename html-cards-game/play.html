@@ -60,7 +60,7 @@
                             tr.append(td2);
                             tbody.append(tr);
                             tr.onclick = function () {
-                                const url = `https://its-just-nans.github.io/cards-game/${td2.innerHTML}`;
+                                const url = `https://raw.githubusercontent.com/Its-Just-Nans/can-be-useful/main/html-cards-game/data/${td2.innerHTML}`;
                                 makeRequest("GET", url).then(function (response) {
                                     allCards = JSON.parse(response);
                                     document.getElementById("content").innerHTML = "";
