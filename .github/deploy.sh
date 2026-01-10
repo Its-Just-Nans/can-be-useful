@@ -2,9 +2,6 @@
 
 rm -rf dist/
 mkdir -p dist/
-cp -R html-* dist/
-cp -R js-onclick-interceptor dist/
-cp -R cdn dist/
 
 
 mapfile -t projects < .github/projects.txt
@@ -15,15 +12,19 @@ output_folders=("dist" "public")
 # Loop through each element in the array
 for project in "${projects[@]}"; do
     echo "building $project"
-    pushd "$project" || exit 1
+    pushd "$project" || {
+        echo "Cannot pushd to $project"
+        continue
+    }
     if [ -e "build.sh" ]; then
         ./build.sh
-    elif [ -f "package.json" ];then
+    elif [ -f "package.json" ]; then
         npm install --force
         npm run build
     else
-        echo "no build or package.json"
-        exit 1
+        # copy all
+        mkdir -p dist/
+        cp -R * dist/
     fi
     for output_folder in "${output_folders[@]}"; do
         if [ -e "$output_folder" ]; then

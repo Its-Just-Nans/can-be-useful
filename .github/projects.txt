@@ -1,3 +1,4 @@
+cdn
 svelte-bad-font-viewer
 svelte-cv-creator
 js-readme-compiler
@@ -32,4 +33,17 @@ js-function-viewer
 svelte-obs-webview
 html-base64-image
 svelte-product-creation
+#html-typst-search
+js-onclick-interceptor
+html-bandwidth-calculator
+html-barcode-detector
+html-css-editor
+html-ffmpeg-cropper
+html-github-explorer-demo
+html-js-animation
+html-print-css
+html-qrcode
+html-showdownjs-problem
+html-sitemaper
 html-typst-search
+html-vanta-background
