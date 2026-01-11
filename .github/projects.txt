@@ -33,7 +33,7 @@ js-function-viewer
 svelte-obs-webview
 html-base64-image
 svelte-product-creation
--html-typst-search
+#html-typst-search
 js-onclick-interceptor
 html-bandwidth-calculator
 html-barcode-detector
@@ -45,5 +45,4 @@ html-print-css
 html-qrcode
 html-showdownjs-problem
 html-sitemaper
-html-typst-search
 html-vanta-background
