@@ -46,3 +46,4 @@ html-qrcode
 html-showdownjs-problem
 html-sitemaper
 html-vanta-background
+html-website-greener
