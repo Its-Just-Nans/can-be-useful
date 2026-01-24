@@ -6,7 +6,7 @@ import useCompass from "./useCompass";
 
 export default function Boussole() {
     const [compass, pointDegree] = useCompass(null);
-    const prev = useRef<null | number>(null);
+    const prev = useRef(null);
     const rotation = useRef(0);
 
     // What is this ? See calcDegreeToPoint()

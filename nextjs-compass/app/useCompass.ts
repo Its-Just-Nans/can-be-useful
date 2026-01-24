@@ -1,11 +1,6 @@
 import { useEffect, useState } from "react";
 
-type UseCompassOptions = {
-    latitude: number;
-    longitude: number;
-} | null;
-
-export default function useCompass(where: UseCompassOptions): [number, number] {
+export default function useCompass(where) {
     const [compass, setCompass] = useState(0);
     const [isIOS, setIsIOS] = useState(false);
 
@@ -18,7 +13,7 @@ export default function useCompass(where: UseCompassOptions): [number, number] {
     const pointDegree =
         possiblyNegativePointDegree < 0 ? possiblyNegativePointDegree + 360 : possiblyNegativePointDegree;
 
-    const handler = (e: DeviceOrientationEvent) => {
+    const handler = (e) => {
         const compass = e.webkitCompassHeading || Math.abs(e.alpha - 360);
         setCompass(compass);
     };
@@ -62,7 +57,7 @@ export default function useCompass(where: UseCompassOptions): [number, number] {
     }, [startCompass]);
     return [compass, pointDegree];
 }
-function calcDegreeToPoint(latitude: number, longitude: number) {
+function calcDegreeToPoint(latitude, longitude) {
     // The code block checks whether the compass heading is within ±15 degrees of a predefined point (pointDegree). This is likely used to determine if the device is pointing in the right direction with a margin of error of 15 degrees.
     // https://dev.to/orkhanjafarovr/real-compass-on-mobile-browsers-with-javascript-3emi
     //
