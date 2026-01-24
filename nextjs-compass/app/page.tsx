@@ -15,11 +15,6 @@ export default function BoussolePage() {
             <Content>
                 <h2>Boussole en ligne</h2>
                 <p>
-                    Notre boussole en ligne peut être utilisée directement depuis votre navigateur mobile, sans besoin
-                    d'installer une application.
-                </p>
-                <h2>🗺️ Cartes en ligne</h2>
-                <p>
                     Testez <Link href="/">cartes.app</Link>, une alternative française en ligne à Google Maps. Là non
                     plus, aucune app à installer !
                 </p>
