@@ -51,7 +51,7 @@ export const Circle = styled.div<CircleProps>`
 	left: 50%;
 	transform: translate(-50%, -50%);
 	transition: transform 0.1s ease-out;
-	background: url('/boussole.png') center no-repeat;
+	background: url('/can-be-useful/nextjs-compass/boussole.png') center no-repeat;
 	background-size: contain;
 
 	${(p) =>
