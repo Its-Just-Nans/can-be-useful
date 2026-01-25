@@ -1,8 +1,6 @@
 import { ChangeEvent, useEffect, useMemo, useState } from "react";
 import TimeDisplayer from "./TimeDisplayer";
 
-import "./App.css";
-
 type TimeDisplayerProps = {
     [key: string]: boolean;
 };
@@ -67,8 +65,17 @@ const App = () => {
         return () => clearInterval(id);
     }, [date]);
 
+    const currentTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
     return (
         <div>
+            <div>
+                <span>Your Current Timezone: {currentTimeZone}</span>
+                <h2>
+                    <TimeDisplayer timeZone={currentTimeZone} date={date} />
+                </h2>
+            </div>
+            <hr />
             <div>
                 <select value={selectedTimeZone} onChange={handleTimeZoneSelect}>
                     <option value="">-- Select a Timezone --</option>
