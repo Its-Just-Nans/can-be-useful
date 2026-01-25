@@ -4,6 +4,7 @@ export const Wrapper = styled.section`
 	margin: 2rem 1rem;
 `
 export const Content = styled.section`
+	text-align: center;
 	h2 {
 		margin: 0.6rem 0;
 	}

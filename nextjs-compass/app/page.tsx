@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Boussole from "./Boussole";
 import { Content } from "./UI";
 
@@ -15,8 +14,8 @@ export default function BoussolePage() {
             <Content>
                 <h2>Boussole en ligne</h2>
                 <p>
-                    Testez <Link href="/">cartes.app</Link>, une alternative française en ligne à Google Maps. Là non
-                    plus, aucune app à installer !
+                    Testez <a href="https://cartes.app">cartes.app</a>, une alternative française en ligne à Google
+                    Maps. Là non plus, aucune app à installer !
                 </p>
             </Content>
         </main>
