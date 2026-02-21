@@ -7,8 +7,8 @@
 
 <div class="content">
     <h1>rail-planner</h1>
-    <a href="https://github.com/Its-Just-Nans/rail-planner" target="_blank"
-        >https://github.com/Its-Just-Nans/rail-planner</a
+    <a href="https://github.com/Its-Just-Nans/can-be-useful/tree/main/svelte-rail-planner" target="_blank"
+        >https://github.com/Its-Just-Nans/can-be-useful/tree/main/svelte-rail-planner</a
     >
     <p>
         This project use the open data of SNCF. As the data is incomplete, the project is not fully functional. Also the
