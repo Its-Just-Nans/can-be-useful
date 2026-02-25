@@ -48,3 +48,4 @@ html-sitemaper
 html-vanta-background
 html-website-greener
 nextjs-compass
+python-crate-list
