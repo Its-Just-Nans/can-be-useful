@@ -3,29 +3,80 @@
 import sys
 from os.path import join
 import math
+import gzip
+import io
+import csv
 import json
 from requests import get
 
 PATH_TO_JSON = "src/assets/json/"
 
 
+def post_clean_ter(data):
+    """post cleaning function"""
+    for one_entry in data:
+        code = one_entry["Origine - code UIC"]
+        one_entry["origine_code_uic"] = code
+        one_entry.pop("Origine - code UIC")
+        code = one_entry["Destination - code UIC"]
+        one_entry["destination_code_uic"] = code
+        one_entry.pop("Destination - code UIC")
+    return data
+
+
+OPEN_DATA_SNCF = "https://ressources.data.sncf.com/api/explore/v2.1/catalog/datasets/"
+PARAMS = "?lang=fr&timezone=Europe%2FBerlin"
+
+
 def get_data(out_folder):
     """download data"""
     urls = {
-        "https://ressources.data.sncf.com/api/explore/v2.1/catalog/datasets/tarifs-intercites/exports/json?lang=fr&timezone=Europe%2FBerlin": "tarifs-intercites.json",
-        # don't work anymore :(
-        "https://ressources.data.sncf.com/api/explore/v2.1/catalog/datasets/tarifs-ter-par-od/exports/json?lang=fr&timezone=Europe%2FBerlin": "tarifs-ter-par-od.json",
-        "https://ressources.data.sncf.com/api/explore/v2.1/catalog/datasets/gares-de-voyageurs/exports/json?lang=fr&timezone=Europe%2FBerlin": "gares-de-voyageurs.json",
-        "https://ressources.data.sncf.com/api/explore/v2.1/catalog/datasets/tarifs-tgv-inoui-ouigo/exports/json?lang=fr&timezone=Europe%2FBerlin": "tarifs-tgv-inoui-ouigo.json",
+        "tarifs-ter-par-od.json": [
+            {
+                # don't work anymore :(
+                "url": f"{OPEN_DATA_SNCF}tarifs-ter-par-od/exports/json{PARAMS}"
+            },
+            {
+                "url": "https://files.opendatarchives.fr/data.sncf.com/tarifs-ter-par-od.csv.gz",
+                "post": post_clean_ter,
+            },
+        ],
+        "tarifs-intercites.json": [
+            {"url": f"{OPEN_DATA_SNCF}tarifs-intercites/exports/json{PARAMS}"}
+        ],
+        "gares-de-voyageurs.json": [
+            {"url": f"{OPEN_DATA_SNCF}gares-de-voyageurs/exports/json{PARAMS}"}
+        ],
+        "tarifs-tgv-inoui-ouigo.json": [
+            {"url": f"{OPEN_DATA_SNCF}tarifs-tgv-inoui-ouigo/exports/json{PARAMS}"}
+        ],
     }
     filenames = []
-    for one_url, fname in urls.items():
-        resp = get(one_url, timeout=10)
-        fname = join(out_folder, fname)
-        with open(fname, "wb") as f:
-            f.write(resp.content)
-        print(f"Downloaded {fname}")
-        filenames.append(fname)
+    for fname, urls_list in urls.items():
+        for one_src in urls_list:
+            file_url = one_src["url"]
+            response = get(file_url, timeout=10)
+            if not response.ok:
+                print(f"Request failed for {file_url}")
+                continue
+            if file_url.endswith(".gz"):
+                with gzip.GzipFile(fileobj=io.BytesIO(response.content)) as gz:
+                    decoded = gz.read().decode("utf-8")
+                file_url = file_url.removesuffix(".gz")
+            else:
+                decoded = response.json()
+            if file_url.endswith(".csv"):
+                csv_reader = csv.DictReader(io.StringIO(decoded), delimiter=";")
+                data = list(csv_reader)
+            else:
+                data = decoded
+            if "post" in one_src:
+                data = one_src["post"](data)
+            fname = join(out_folder, fname)
+            with open(fname, "w", encoding="utf-8") as f:
+                json.dump(data, f, ensure_ascii=False, indent=2)
+            print(f"Downloaded {fname}")
+            filenames.append(fname)
     return filenames
 
 
@@ -36,7 +87,7 @@ def load_json(filename):
     return data
 
 
-def minDistance(g_keys, dist, sptSet):
+def min_distance(g_keys, dist, spt_set):
     # Initialize minimum distance for next node
     min_dist = float("inf")
     min_index = None
@@ -44,7 +95,7 @@ def minDistance(g_keys, dist, sptSet):
     # Search for the nearest vertex not in the
     # shortest path tree
     for v in g_keys:
-        if dist[v] < min_dist and not sptSet[v]:
+        if dist[v] < min_dist and not spt_set[v]:
             min_dist = dist[v]
             min_index = v
 
@@ -78,7 +129,7 @@ def travel_paths(gares, orig):
     for _cout in range(len(g_keys)):
         # Pick the minimum distance vertex from
         # the set of vertices not yet processed.
-        u = minDistance(g_keys, dist, sptSet)
+        u = min_distance(g_keys, dist, sptSet)
 
         # Put the minimum distance vertex in the
         # shortest path tree
@@ -156,6 +207,7 @@ def check_is_possible(gares, dest_by_gare, paths):
 
 
 def print_dest_of(gares, dest_by_gare, current):
+    """print dest of"""
     arr = dest_by_gare[current]
     pat = gares_from_final_path(gares, arr)
     print(f"Accessible gare from {gares[current]['nom']} are")
@@ -163,6 +215,7 @@ def print_dest_of(gares, dest_by_gare, current):
 
 
 def test():
+    """tiny unit test"""
     gares = load_json(f"{PATH_TO_JSON}/gares-de-voyageurs.json")
     gares = {one_gare["codes_uic"]: one_gare for one_gare in gares}
     dest_by_gare = get_dest_by_gares()
@@ -180,6 +233,7 @@ def test():
     print(final)
     print(gares_from_final_path(gares, final))
     assert check_is_possible(gares, dest_by_gare, final)
+    print("----------")
     check = [
         orig,
         "87765008",
@@ -197,6 +251,7 @@ def test():
 
 
 def main():
+    """main function"""
     if len(sys.argv) > 1:
         print("Downloading data")
         get_data(PATH_TO_JSON)
