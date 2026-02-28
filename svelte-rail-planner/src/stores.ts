@@ -8,6 +8,7 @@ import tgv from "./assets/json/tarifs-tgv-inoui-ouigo.json";
 
 import icoGreen from "./assets/marker-icon-2x-green.png";
 import icoGold from "./assets/marker-icon-2x-gold.png";
+import icoNormal from "./assets/marker-icon.png";
 import icoShadow from "./assets/marker-shadow.png";
 
 export const data = writable({
@@ -37,6 +38,15 @@ export const greenIcon = new L.Icon({
 
 export const goldIcon = new L.Icon({
     iconUrl: icoGold,
+    shadowUrl: icoShadow,
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41],
+});
+
+export const normalIcon = new L.Icon({
+    iconUrl: icoNormal,
     shadowUrl: icoShadow,
     iconSize: [25, 41],
     iconAnchor: [12, 41],

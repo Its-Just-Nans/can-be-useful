@@ -2,7 +2,7 @@
     import L from "leaflet";
     import "leaflet/dist/leaflet.css";
     import { onMount } from "svelte";
-    import { data, start, stop, path, greenIcon, goldIcon } from "../stores";
+    import { data, start, stop, path, greenIcon, goldIcon, normalIcon } from "../stores";
 
     let mapContainer;
     let map;
@@ -73,7 +73,9 @@
             const gare = $data.garesIndex[code];
             if (![$start, $stop].includes(code)) {
                 markerPath.push(
-                    L.marker([gare.position_geographique.lat, gare.position_geographique.lon])
+                    L.marker([gare.position_geographique.lat, gare.position_geographique.lon], {
+                        ico: normalIcon
+                    })
                         .bindPopup(gare.nom)
                         .addTo(map)
                 );
