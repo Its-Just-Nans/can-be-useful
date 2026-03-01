@@ -74,7 +74,7 @@
             if (![$start, $stop].includes(code)) {
                 markerPath.push(
                     L.marker([gare.position_geographique.lat, gare.position_geographique.lon], {
-                        ico: normalIcon
+                        icon: normalIcon
                     })
                         .bindPopup(gare.nom)
                         .addTo(map)
