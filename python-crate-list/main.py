@@ -49,9 +49,6 @@ def get_version_color(version: str) -> str:
         9: "brown",
     }
 
-    if major > 10:
-        return "yellow"
-
     return colors.get(major, default_color)
 
 def fetch_crates():
