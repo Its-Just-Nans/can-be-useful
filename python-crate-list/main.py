@@ -66,12 +66,15 @@ def generate_html(crates):
     html_lines.append("<tbody>")
     for crate in crates:
         repo_url = crate.get("repository")
+        crate_name = crate.get("name")
         github_repo = extract_github_repo(repo_url)
 
         if github_repo:
             badge_url = f"https://img.shields.io/github/stars/{github_repo}"
+            badge_version_url = f"https://img.shields.io/crates/v/{crate_name}"
         else:
             badge_url = ""
+            badge_version_url = ""
         html_lines.append(f"""
             <tr>
                 <td>
@@ -83,6 +86,8 @@ def generate_html(crates):
                 <td>
                     <img src="{badge_url}" />
                 </td>
+                <td>
+                    <img src="{badge_version_url}" />
             </li>
         """)
     html_lines.append("</tbody>")
