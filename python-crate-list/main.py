@@ -37,10 +37,10 @@ def get_version_color(version: str) -> str:
         return default_color
 
     colors = {
-        0: "orange",
-        1: "blue",
-        2: "green",
-        3: "red",
+        0: "darkorange",
+        1: "steelblue",
+        2: "royalblue",
+        3: "blueviolet",
         4: "purple",
         5: "pink",
         6: "cyan",
