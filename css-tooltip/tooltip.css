@@ -1,0 +1,16 @@
+*[data-tooltip]::after {
+    text-align: center;
+    background-color: #313247;
+    border-radius: 10px;
+    color: #fff;
+    display: none;
+    padding: 10px 15px;
+    font-weight: lighter;
+    position: absolute;
+    z-index: 1;
+    content: attr(data-tooltip);
+}
+*[data-tooltip]:hover::after {
+    text-align: center;
+    display: block;
+}
