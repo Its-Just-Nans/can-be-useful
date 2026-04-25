@@ -1,7 +1,7 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { getUrls } from "./urls";
-    let username = "Its-Just-Nans";
+    import { getUrls, defaultUsername } from "./urls";
+    let username = defaultUsername;
     let urlGithub = `https://github.com/${username}`;
     const updateParam = () => {
         const newUrl = new URL(window.location.href);
