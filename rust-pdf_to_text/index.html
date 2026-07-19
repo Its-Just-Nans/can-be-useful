@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link data-trunk rel="copy-dir" href="public/" data-target-path="." />
+        <meta charset="utf-8" />
+        <link rel="icon" href="favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>pdf_to_text</title>
+        <base data-trunk-public-url />
+        <link data-trunk rel="rust" href="Cargo.toml" data-wasm-opt="z" data-bin="pdf_to_text" />
+        <style>
+            body {
+                margin: 0;
+            }
+            #dropHandler {
+                min-height: 50vh;
+                background-color: #f0f0f0;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                padding: 10px;
+            }
+            #dropHandler .startDiv {
+                text-align: center;
+                margin: auto;
+            }
+            #dropHandler .startDiv ul {
+                text-align: initial;
+            }
+            #dropHandler .startDiv .start {
+                font-size: 2em;
+            }
+            details {
+                margin-bottom: 5px;
+            }
+            summary {
+                cursor: pointer;
+            }
+            details > details {
+                margin-left: 10px;
+            }
+            details > span {
+                margin-left: 20px;
+                background: aqua;
+                cursor: copy;
+                line-break: anywhere;
+            }
+            .links {
+                text-align: center;
+            }
+            .success {
+                background-color: lightgreen;
+            }
+            .error {
+                white-space: pre;
+                background-color: orangered;
+            }
+            #string {
+                white-space: pre;
+                background: lightblue;
+                overflow: auto;
+            }
+            #binary {
+                white-space: pre-wrap;
+                overflow: auto;
+                background: lightcoral;
+                word-break: break-word;
+            }
+            #hex {
+                white-space: pre-wrap;
+                overflow: auto;
+                background: lightgoldenrodyellow;
+            }
+            #infos {
+                white-space: pre;
+                overflow: auto;
+            }
+            audio,
+            video,
+            img {
+                width: 100%;
+            }
+            table {
+                    border-collapse: collapse;
+                    border: 2px solid rgb(140 140 140);
+                    font-family: sans-serif;
+                    font-size: 0.8rem;
+                    letter-spacing: 1px;
+                    width: 100%;
+            }
+            #table_wrapper {
+                padding: 10px;
+            }
+            th,
+            td {
+                    border: 1px solid rgb(160 160 160);
+                    padding: 8px 10px;
+            }
+
+            tbody > tr:nth-of-type(even) {
+                    background-color: rgb(237 238 242);
+            }
+        </style>
+        <script>
+            // https://github.com/Its-Just-Nans/pdf_to_text
+
+            const decodeFile = async (file) => {
+                const data = await file.arrayBuffer();
+                const filename = file.name;
+                const source_url = URL.createObjectURL(file);
+                let u8 = new Uint8Array(data);
+                window.wasmBindings.process_file(u8, filename, source_url);
+            };
+
+            const startup = (event) => {
+                console.log("application started - bindings:", window.wasmBindings, "WASM:", event.detail.wasm);
+
+                const dropHandler = document.getElementById("dropHandler");
+                const start = document.getElementById("start-text");
+                const input = document.getElementById("file-input");
+
+                input.addEventListener("change", (event) => {
+                    const files = event.target.files;
+                    for(const oneFile of files) {
+                            decodeFile(oneFile);
+                    }
+                });
+
+                const eventHandler = (msg, callback) => (event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    start.innerHTML = msg;
+                    if (callback) {
+                        callback(event);
+                    }
+                };
+
+                dropHandler.addEventListener(
+                    "drop",
+                    eventHandler("Loading...", (event) => {
+                        if (event.dataTransfer.items) {
+                            [...event.dataTransfer.items].forEach((item, i) => {
+                                // If dropped items aren't files, reject them
+                                if (item.kind === "file") {
+                                    const file = item.getAsFile();
+                                    decodeFile(file);
+                                }
+                            });
+                        } else {
+                            [...event.dataTransfer.files].forEach((file, i) => {
+                                decodeFile(file);
+                            });
+                        }
+                    }),
+                    false
+                );
+
+                dropHandler.addEventListener("dragover", eventHandler("Dragging !"), false);
+
+                dropHandler.addEventListener("dragenter", eventHandler("Drop now !"), false);
+
+                dropHandler.addEventListener("dragleave", eventHandler("Drop here"), false);
+            };
+
+            addEventListener("TrunkApplicationStarted", startup);
+        </script>
+    </head>
+    <body>
+        <div class="links">
+            <a href="https://github.com/Its-Just-Nans/pdf_to_text" target="_blank"
+                >https://github.com/Its-Just-Nans/pdf_to_text</a
+            >
+        </div>
+        <div id="dropHandler">
+            <div id="startDiv" class="startDiv">
+                <input type="file" id="file-input" multiple/>
+                <div id="start-text" class="start">Drop file(s) here</div>
+            </div>
+        </div>
+    </body>
+</html>

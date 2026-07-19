@@ -49,3 +49,4 @@ html-vanta-background
 html-website-greener
 nextjs-compass
 python-crate-list
+rust-pdf_to_text

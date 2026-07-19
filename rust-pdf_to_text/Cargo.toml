@@ -1,0 +1,30 @@
+[package]
+name = "pdf_to_text"
+description = "PDF to text"
+license = "MIT"
+version = "0.2.1"
+edition = "2024"
+homepage = "https://n4n5.dev/pdf_to_text/"
+repository = "https://github.com/Its-Just-Nans/pdf_to_text"
+documentation = "https://docs.rs/pdf_to_text/"
+
+[dependencies]
+getrandom = { version = "0.3.4", features = ["std", "wasm_js"] }
+log = "0.4.29"
+pdf-extract = "0.10.0"
+serde = { version = "1.0.228", features = ["derive"] }
+serde_json = "1.0.149"
+
+[target.wasm32-unknown-unknown.dependencies]
+console_error_panic_hook = "0.1"
+wasm-bindgen = "0.2"
+web-sys = { version = "0.3", features = [
+    "console",
+    "Document",
+    "HtmlElement",
+    "Node",
+    "Text",
+    "Window",
+    "Url",
+    "Blob",
+] }
