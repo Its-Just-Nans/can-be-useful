@@ -94,7 +94,7 @@
             >
         </div>
     </div>
-    <canvas id="canvas" bind:this={canvas} />
+    <canvas id="canvas" bind:this={canvas}></canvas>
 </div>
 
 <style>

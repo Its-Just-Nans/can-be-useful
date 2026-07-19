@@ -78,7 +78,7 @@
         {#if isGameOn == false}
             {#key imgElement}
                 {#each win as oneWin}
-                    <div class="success" style={getStyle(oneWin.x_px, oneWin.y_px)} />
+                    <div class="success" style={getStyle(oneWin.x_px, oneWin.y_px)}></div>
                 {/each}
             {/key}
         {/if}
