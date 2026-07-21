@@ -1,0 +1,21 @@
+# Mac stuff:
+.DS_Store
+
+# trunk output folder
+dist
+
+# Rust compile target directories:
+target
+target_ra
+target_wasm
+
+# https://github.com/lycheeverse/lychee
+.lycheecache
+
+java/.gradle
+java/local.properties
+java/.idea
+java/app/build
+java/app/src/main/jniLibs
+
+output.txt
