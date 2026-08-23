@@ -1,0 +1,29 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import ActivityPage from "../../components/ActivityPage.astro";
+import { getActivityById, getAllActivitiesIds } from "../../functions";
+
+export async function getStaticPaths() {
+    const allActivitiesIds = await getAllActivitiesIds();
+    return allActivitiesIds.map((id) => {
+        return {
+            params: { id },
+            props: { id },
+        };
+    });
+}
+
+interface Props {
+    id: string;
+}
+
+const { id } = Astro.props;
+const activity = await getActivityById(id);
+const name = activity.data.name;
+---
+
+<Layout title={name} description={`Activity ${name} on Sportiva`}>
+    <Header />
+    <ActivityPage activity={activity} />
+</Layout>

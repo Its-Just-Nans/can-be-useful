@@ -1,0 +1,16 @@
+---
+const { time } = Astro.props;
+
+let timeSec = time / 60;
+
+// time in minutes
+let timeDisplay = `${Math.floor(timeSec)} min`;
+
+if (timeSec > 60) {
+    let minutes = Math.floor(timeSec % 60);
+    timeSec = Math.floor(timeSec / 60);
+    timeDisplay = `${timeSec} hr ${minutes} min`;
+}
+---
+
+{timeDisplay}

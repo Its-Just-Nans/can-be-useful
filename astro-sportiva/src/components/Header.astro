@@ -1,0 +1,63 @@
+<header>
+    <a href="/">
+        <img src="/sportiva.png" alt="Sportiva" />
+    </a>
+    <nav>
+        <ul>
+            <li><a href="/">Dashboard</a></li>
+        </ul>
+    </nav>
+    <button>
+        <a class="link-repo" href="https://github.com/Its-Just-Nans/sportiva" target="_blank"> All free ! </a>
+    </button>
+</header>
+
+<style>
+    .link-repo {
+        color: white;
+        text-decoration: none;
+    }
+    .link-repo:hover {
+        color: black;
+    }
+    header {
+        grid-column: 1 / -1;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+    header img {
+        height: 30px;
+    }
+
+    nav ul {
+        display: flex;
+        list-style-type: none;
+        gap: 20px;
+    }
+    nav ul a {
+        text-decoration: none;
+        color: black;
+    }
+    button {
+        background-color: #fc5200;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    @media screen and (max-width: 768px) {
+        nav ul {
+            gap: 10px;
+            padding-inline-start: 5px;
+        }
+        button {
+            padding: 10px 10px;
+        }
+    }
+</style>

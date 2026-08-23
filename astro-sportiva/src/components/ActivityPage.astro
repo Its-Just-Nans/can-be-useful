@@ -1,0 +1,173 @@
+---
+import Activity from "./Activity.astro";
+import type { FullActivity } from "../types";
+
+interface Props {
+    activity: FullActivity;
+}
+
+const { activity } = Astro.props;
+---
+
+<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+<link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+/>
+<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/2.1.0/gpx.min.js"></script>
+<script is:inline src="https://cdn.plot.ly/plotly-2.35.0.min.js" charset="utf-8"></script>
+
+<main>
+    <div>
+        <Activity activity={activity} column={true} />
+    </div>
+    <div class="activity-data">
+        <div id="map"></div>
+        <div class="graph" id="elevation"></div>
+        <div class="graph" id="speed"></div>
+        <div class="graph" id="cadence"></div>
+    </div>
+</main>
+
+<script is:inline define:vars={{ gpxStr: activity.gpx.content }}>
+    const map = L.map("map");
+    const server = "https://tile.openstreetmap.org/{z}/{x}/{y}.png";
+    L.tileLayer(server, {
+        attribution: 'Map data &copy; <a href="http://www.osm.org">OpenStreetMap</a>',
+    }).addTo(map);
+
+    map.setView([51.505, -0.09], 13);
+
+    const options = {
+        async: true,
+        polyline_options: { color: "red" },
+    };
+
+    const plotly = (gpx) => {
+        const margins = {
+            margin: {
+                l: 50,
+                r: 20,
+                b: 20,
+                t: 100,
+                pad: 4,
+            },
+        };
+
+        const elevation = gpx.get_elevation_data().reduce(
+            (acc, [x, y]) => {
+                acc[0].push(x);
+                acc[1].push(y);
+                return acc;
+            },
+            [[], []]
+        );
+        var trace1 = {
+            x: elevation[0],
+            y: elevation[1],
+            mode: "lines+markers",
+            name: "Elevation",
+        };
+        Plotly.newPlot("elevation", [trace1], {
+            title: "Stats Elevation",
+            ...margins,
+        });
+
+        const speed = gpx.get_speed_data().reduce(
+            (acc, [x, y]) => {
+                acc[0].push(x);
+                acc[1].push(y);
+                return acc;
+            },
+            [[], []]
+        );
+        var trace2 = {
+            x: speed[0],
+            y: speed[1],
+            mode: "lines+markers",
+            name: "Speed",
+        };
+        Plotly.newPlot("speed", [trace2], {
+            title: "Stats Speed",
+            ...margins,
+        });
+
+        const cadence = gpx.get_cadence_data().reduce(
+            (acc, [x, y]) => {
+                acc[0].push(x);
+                acc[1].push(y);
+                return acc;
+            },
+            [[], []]
+        );
+        var trace3 = {
+            x: cadence[0],
+            y: cadence[1],
+            mode: "lines+markers",
+            name: "Cadence",
+        };
+
+        Plotly.newPlot("cadence", [trace3], {
+            title: "Stats cadence",
+            ...margins,
+        });
+    };
+
+    new L.GPX(gpxStr, options)
+        .on("loaded", (e) => {
+            map.fitBounds(e.target.getBounds());
+            plotly(e.target);
+        })
+        .addTo(map);
+</script>
+
+<style>
+    .activity-data {
+        border: 1px solid black;
+        border-top: none;
+    }
+    .activity-data > * {
+        border-top: 1px solid black;
+    }
+    main {
+        display: grid;
+        grid-template-columns: 250px 1fr;
+        grid-template-rows: max-content auto;
+        gap: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        height: 90%;
+    }
+
+    .graph {
+        overflow: hidden;
+        display: flex;
+        margin: auto;
+        height: 500px;
+        padding: 20px;
+        background-color: white;
+    }
+    #map {
+        display: flex;
+        margin: auto;
+        overflow: hidden;
+        height: 500px;
+    }
+
+    @media screen and (max-width: 600px) {
+        main {
+            grid-template-columns: 1fr;
+            grid-template-rows: max-content auto auto;
+        }
+        .graph {
+            flex-direction: column;
+            height: 300px;
+        }
+        #map {
+            height: 300px;
+        }
+    }
+</style>

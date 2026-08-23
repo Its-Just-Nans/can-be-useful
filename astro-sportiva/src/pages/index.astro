@@ -1,0 +1,70 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+import { user } from "../data";
+import Profile from "../components/Profile.astro";
+import Misc from "../components/Misc.astro";
+import Header from "../components/Header.astro";
+import { getAllActivities } from "../functions";
+import TinyActivity from "../components/TinyActivity.astro";
+
+const activities = await getAllActivities();
+---
+
+<Layout title="Sportiva">
+    <Header />
+    <main>
+        <section>
+            <Profile activities={activities} />
+        </section>
+        <section class="activity-feed">
+            <h3>Activities ({activities.length})</h3>
+            {activities.toReversed().map((activity) => <TinyActivity activity={activity} user={user} />)}
+        </section>
+        <aside>
+            <Misc />
+        </aside>
+    </main>
+</Layout>
+
+<style>
+    main {
+        display: grid;
+        grid-template-columns: 250px 1fr 300px;
+        grid-template-rows: max-content auto;
+        gap: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        height: 90%;
+    }
+
+    button {
+        background-color: #fc5200;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    @media screen and (max-width: 768px) {
+        main {
+            grid-template-columns: 1fr;
+            grid-template-rows: max-content auto auto;
+        }
+        section::after {
+            content: "------";
+            text-align: center;
+            display: block;
+            clear: both;
+        }
+        nav ul {
+            gap: 10px;
+            padding-inline-start: 5px;
+        }
+
+        button {
+            padding: 10px 10px;
+        }
+    }
+</style>

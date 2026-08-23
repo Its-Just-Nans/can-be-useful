@@ -1,0 +1,80 @@
+---
+import type { FullActivity } from "../types";
+import ProfilePic from "./ProfilePic.astro";
+import TimeDisplay from "./TimeDisplay.astro";
+
+interface Props {
+    activity: FullActivity;
+    user?: any;
+    column?: boolean;
+}
+
+const { activity, column = false } = Astro.props;
+
+let distance = activity.data.distance;
+let unitDistance = "m";
+let distanceString = distance.toString();
+if (distance > 1000) {
+    distanceString = (distance / 1000).toFixed(2);
+    unitDistance = "km";
+} else {
+    distanceString = Math.floor(distance).toString();
+}
+
+const date = new Intl.DateTimeFormat("en-US", {
+    dateStyle: "full",
+    timeStyle: "medium",
+    localeMatcher: "lookup",
+    timeZone: "Europe/Paris",
+    hour12: false,
+}).format(activity.data.date);
+---
+
+<article class="activity" class:list={[{ "activity-column": column }]}>
+    <header>
+        <ProfilePic tiny={true} column={false} />
+        <p>
+            {date}
+            <span>•</span>
+            <a href={`./activity/${activity.data.id}/`}>View Activity</a>
+        </p>
+    </header>
+    <h3>{activity.data.name}</h3>
+    <p>{activity.data.description}</p>
+    <div class="activity-stats">
+        <span>Distance: {distanceString} {unitDistance}</span>
+        <span>Elev Gain: {Math.floor(activity.data.elevationGain)}m</span>
+        <span>Time: <TimeDisplay time={activity.data.movingDuration} /></span>
+    </div>
+    <slot />
+</article>
+
+<style>
+    .activity {
+        border-radius: 8px;
+        padding: 20px;
+        background-color: white;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .activity header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .activity-stats {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+    .activity-column .activity-stats {
+        flex-direction: column;
+    }
+    .activity-column header {
+        flex-direction: column;
+    }
+</style>

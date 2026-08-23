@@ -1,0 +1,25 @@
+---
+interface Props {
+    date: Date;
+    showSeconds?: boolean;
+    useLettersSeparator?: string;
+}
+
+const { date, showSeconds = true, useLettersSeparator = false } = Astro.props;
+
+const isoString = date.toISOString();
+const [datePart, timePart] = isoString.split("T");
+
+// Extract time components
+const [hours, minutes, seconds] = timePart.split(":");
+
+const secondsStr = seconds.slice(0, 2);
+
+const formattedTime = useLettersSeparator
+    ? `${hours}h${minutes}m${secondsStr}sec`
+    : `${hours}:${minutes}:${secondsStr}`;
+
+const customFormat = `${datePart} ${formattedTime}`;
+---
+
+{showSeconds ? customFormat : datePart}

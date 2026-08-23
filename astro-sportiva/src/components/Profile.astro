@@ -1,0 +1,60 @@
+---
+import { user, following, followers } from "../data";
+import type { FullActivity } from "../types";
+import ProfilePic from "./ProfilePic.astro";
+
+interface Props {
+    activities: FullActivity[];
+}
+
+const { activities } = Astro.props;
+
+const latestActivityDate = Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+}).format(new Date(activities.toReversed()[0].data.date));
+
+---
+
+<div class="user-profile">
+    <ProfilePic column={true} />
+    <h4>user#0000 - {user.country}</h4>
+    <div class="stats">
+        <div>
+            <div>Following</div>
+            <div>{following.length}</div>
+        </div>
+        <div>
+            <div>Followers</div><div>{followers.length}</div>
+        </div>
+        <div>
+            <div>Activities</div><div>{activities.length}</div>
+        </div>
+    </div>
+    <p>
+        {activities.length > 0 && (
+            <span>Latest Activity: </span>
+            <br />
+            <span>{latestActivityDate}</span>
+        )}
+</p>
+</div>
+
+<style>
+
+    .user-profile {
+        height: fit-content;
+        background-color: white;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    .stats {
+        display: flex;
+        text-align: center;
+        font-size: 0.8em;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+</style>
