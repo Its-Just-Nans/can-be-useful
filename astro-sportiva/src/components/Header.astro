@@ -1,10 +1,10 @@
 <header>
-    <a href="/">
-        <img src="/sportiva.png" alt="Sportiva" />
+    <a href={import.meta.env.BASE_URL}>
+        <img src={`${import.meta.env.BASE_URL}sportiva.png`} alt="Sportiva" />
     </a>
     <nav>
         <ul>
-            <li><a href="/">Dashboard</a></li>
+        <li><a href={import.meta.env.BASE_URL} />Dashboard</a></li>
         </ul>
     </nav>
     <button>
