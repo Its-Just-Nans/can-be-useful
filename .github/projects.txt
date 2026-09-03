@@ -52,4 +52,4 @@ python-crate-list
 rust-pdf_to_text
 astro-sportiva
 html-navigator-share
-html-goto-tp
+svelte-goto-tp
