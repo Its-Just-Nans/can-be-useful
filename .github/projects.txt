@@ -53,3 +53,4 @@ rust-pdf_to_text
 astro-sportiva
 html-navigator-share
 svelte-goto-tp
+html-logo-animation
