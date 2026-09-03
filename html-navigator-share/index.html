@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navigator Share API</title>
+</head>
+<body>
+
+  <h1>Web Share API</h1>
+
+  <label>
+    Title:
+    <input id="title" type="text" value="My shared page">
+  </label>
+
+  <br><br>
+
+  <label>
+    Text:
+    <textarea id="text" rows="5" cols="50">Hello! This is shared using navigator.share().</textarea>
+  </label>
+
+  <br><br>
+
+  <label>
+    URL:
+    <input id="url" type="url" value="">
+  </label>
+
+  <br><br>
+
+  <button id="shareButton">Share</button>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const title = document.getElementById("title");
+      const text = document.getElementById("text");
+      const url = document.getElementById("url");
+      const shareButton = document.getElementById("shareButton");
+
+      shareButton.addEventListener("click", async () => {
+        if (!navigator.share) {
+          alert("Web Share API is not supported in this browser.");
+          return;
+        }
+
+        try {
+          await navigator.share({
+            title: title.value,
+            text: text.value,
+            url: url.value
+          });
+        } catch (error) {
+          console.log("Share cancelled or failed:", error);
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
