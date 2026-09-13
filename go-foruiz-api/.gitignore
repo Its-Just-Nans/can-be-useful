@@ -1,0 +1,10 @@
+data/
+
+*.db
+*.cert
+*.key
+*.xml
+
+__debug_bin
+foruiz-api-go
+config.json

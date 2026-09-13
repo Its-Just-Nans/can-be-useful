@@ -55,3 +55,4 @@ html-navigator-share
 svelte-goto-tp
 html-logo-animation
 js-france-cities
+svelte-foruiz-front
