@@ -1,0 +1,8 @@
+node_modules/
+target/
+mdxjs-rs/
+
+render.mjs
+content.mjs
+output.html
+

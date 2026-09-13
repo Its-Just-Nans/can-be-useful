@@ -1,0 +1,8 @@
+[package]
+name = "test-mdxjs"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+mdxjs = { path = "./mdxjs-rs/" }
+swc_core = "74.0.2"
