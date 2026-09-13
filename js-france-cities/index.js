@@ -27,7 +27,7 @@ const buildOneDepartement = async (oneDep) => {
     .sort((a, b) => b.population - a.population)
     .filter((c) => c.population > 500)
     .map((c) => {
-        const geo = `geo:${c.centre.coordinates[1]},${c.centre.coordinates[2]}`
+        const geo = `geo:${c.centre.coordinates[1]},${c.centre.coordinates[0]}`
       return `<p>
     <span>${c.nom} (${c.population} hab.)</span> <a href="${geo}">${geo}</a>
 </p>`;
