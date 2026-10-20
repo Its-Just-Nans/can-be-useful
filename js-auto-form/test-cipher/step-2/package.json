@@ -1,0 +1,12 @@
+{
+    "name": "step-2",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "keywords": [],
+    "author": "n4n5",
+    "license": "MIT",
+    "dependencies": {
+        "adm-zip": "^0.5.9"
+    }
+}

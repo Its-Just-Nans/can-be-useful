@@ -1,0 +1,9 @@
+/step-1/*.txt*
+
+/step-2/node_modules/
+/step-2/*.txt
+/step-2/*.zip
+
+/step-3/node_modules/
+/step-3/*.txt*
+/step-3/*.zip

@@ -1,0 +1,40 @@
+# DONOT CHANGE/EDIT THIS FILE
+
+stages:
+   - build
+
+build-report:
+   image: asciidoctor/docker-asciidoctor
+   # You can download the artifacts in the pipeline/jobs tab in Gitlab web UI
+   artifacts:
+      expire_in: 7 days
+      name: "Rapport-$CI_PROJECT_NAME-$(date -u +%d-%m-%Y@%Hh%MUTC)"
+      paths:
+         - rapport/Rapport-$CI_PROJECT_NAME.html
+         - rapport/Rapport-$CI_PROJECT_NAME.pdf
+         - rapport/images
+   stage: build
+   script:
+      # generate html version
+      - (cd rapport && asciidoctor     -d book -b html5  README.adoc -o Rapport-$CI_PROJECT_NAME.html)
+      # generate pdf version
+      - (cd rapport && asciidoctor-pdf -r asciidoctor-mathematical -a mathematical-format=svg -d book -b pdf README.adoc -o Rapport-$CI_PROJECT_NAME.pdf)
+   only:
+      - master
+
+make-api-test:
+   stage: build
+   image: alpine
+   script:
+      - apk update && apk add make nodejs npm
+      - make api
+
+make-interface-test:
+   stage: build
+   image: cypress/base:14.19.0
+   script:
+      - apt update
+      - apt install -y make
+      - make interface
+
+

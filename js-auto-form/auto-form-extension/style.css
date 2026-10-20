@@ -1,0 +1,54 @@
+button {
+    outline: none;
+    margin: 0px;
+    border: none;
+    border-radius: 2px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    margin: 0px;
+    width: 100%;
+    min-width: 300px;
+    height: 100%;
+    min-height: 100px;
+}
+
+#big-content {
+    width: 100%;
+    height: 100%;
+    background-color: gray;
+    padding: 5px;
+}
+
+#content {
+    padding: 8px;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+}
+
+p {
+    margin-top: 5px;
+    margin-bottom: 0px;
+}
+
+#result {
+    margin: 0px;
+    overflow-y: auto;
+}
+#password-part {
+    display: none;
+}
+
+#fill-label {
+    text-align: center;
+}

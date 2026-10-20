@@ -1,0 +1,54 @@
+{
+    "name": "auto-form",
+    "version": "1.0.0",
+    "description": "automated online forms",
+    "productName": "Auto-form app",
+    "main": "main.js",
+    "scripts": {
+        "test": "playwright test",
+        "start": "electron .",
+        "dev": "electron . --debug",
+        "api": "node ./api/server",
+        "build": "rollup -c",
+        "pages-dev": "rollup -c -w",
+        "validate": "svelte-check"
+    },
+    "keywords": [
+        "form"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Its-Just-Nans/auto-form-app.git"
+    },
+    "author": "autoform",
+    "license": "MIT",
+    "dependencies": {
+        "@polka/send-type": "^0.5.2",
+        "adm-zip": "^0.5.9",
+        "bcrypt": "^5.0.1",
+        "body-parser": "^1.19.2",
+        "cors": "^2.8.5",
+        "electron": "^18.0.3",
+        "electron-log": "^4.4.4",
+        "express-fileupload": "^1.3.1",
+        "glob": "^7.2.0",
+        "jsonwebtoken": "^8.5.1",
+        "polka": "^0.5.2",
+        "serve-static": "^1.14.2",
+        "update-electron-app": "^2.0.1"
+    },
+    "devDependencies": {
+        "@playwright/test": "^1.21.0",
+        "@rollup/plugin-commonjs": "^17.0.0",
+        "@rollup/plugin-node-resolve": "^11.0.0",
+        "playwright": "^1.21.0",
+        "rollup": "^2.3.4",
+        "rollup-plugin-css-only": "^3.1.0",
+        "rollup-plugin-livereload": "^2.0.0",
+        "rollup-plugin-svelte": "^7.0.0",
+        "rollup-plugin-terser": "^7.0.0",
+        "svelte": "^3.32.3",
+        "svelte-check": "^1.0.0",
+        "svelte-preprocess": "^4.0.0"
+    }
+}
