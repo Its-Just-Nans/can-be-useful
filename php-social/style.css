@@ -1,0 +1,316 @@
+header{
+	position: fixed;
+	top: 0%;
+	height: 5vh;
+	width: 100%;
+	background-color: CornflowerBlue;
+	padding-bottom: 3px;
+	z-index:1;
+}
+
+a{
+	color: blue;
+	text-decoration: none;
+}
+
+#deco{
+	position: fixed;
+	color: white;
+	right: 0%;
+	top: 1%;
+	padding-right: 17.75vw;
+}
+
+#titleFront{
+	color: white;
+	padding-left: 17.75vw;
+	
+}
+
+
+.titleBase{
+	color: white;
+	text-decoration: none;
+}
+#profil{
+	margin-top: 3px;
+	position: absolute;
+	top: 6.5vh;
+	width: 98%;
+	min-width: 822px;
+	padding: 10px;
+	border: 1px solid #BDBDBD;
+	background-color: #FFFAFA;
+}
+
+#middle{
+	margin-top: -1px;
+	position: absolute;
+	top: 6.5vh;
+	width: 75%;
+	min-width: 600px;
+	right: 0vw;
+	margin-bottom: 5vh;
+}
+
+article{
+	position: relative;
+	background-color: #FFFAFA;
+	border: 1px solid #BDBDBD;
+
+	margin-bottom: 20px;
+}
+
+.interieur{
+	padding: 20px;
+	padding-top:15px;
+	padding-bottom:10px;
+	right: 0vw;
+}
+
+strong{
+	font-family: monospace;
+}
+
+
+body,h1, h2, p{
+	margin: 0px;
+	padding: 0px;
+	font-family: 'Nunito', sans-serif;
+}
+
+h2{
+	border-bottom: 1px solid #a2a9b1;
+	margin-bottom:0px;
+	padding: 0px;
+}
+h1, h2, h3, h4{
+	padding: 0px;
+	margin:0px;
+    margin-block-end: 0.25em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+body{
+	background-color: #f6f6f6;
+	
+}
+
+#contenu{
+	position: absolute;
+	min-width: 850px;
+	width: 65vw;
+	height: 100%;
+	top: 0%;
+	left: 17.5vw;
+	margin-right: 40vw;
+}
+
+html{
+	font-family: 'Nunito', sans-serif;
+}
+	
+img{
+	border: 1px solid grey;
+	padding: 10px;
+	margin-top: 8px;
+	margin-bottom: 6px;
+}
+
+#divRecherche{
+	position: absolute;
+	top: 1vh;
+	color: white;
+	padding-left: 33.80vw;
+}
+
+#formRecherche{
+	position: absolute;
+	top: 4px;
+	height: 32px;
+	width: 30vw;
+}
+
+#recherche{
+	position: absolute;
+	background-color: #f6f6f6;
+	padding: 0px;
+	border: 0px solid silver;
+	color: black;
+	height: 22px;
+	width: 30vw;
+}
+
+#loupe{
+	position: absolute;
+	height: 20x;
+	width: 20px;
+	padding: 1px;
+	margin: 0%;
+	top: -1px;
+	right: 0%;
+}
+
+#boutonLoupe{
+	position: absolute;
+	
+	height: 22px;
+	width: 22px;
+	border: 0px solid silver;
+	top: 0px;
+	right: 0%;
+}
+
+
+@media (max-width: 1280px) {
+	#contenu{
+		left: 7.5vw;
+	}
+	#titleFront{
+		padding-left: 7.75vw;
+	}
+	#deco{
+		padding-right: 7.75vw;
+	}
+	#divRecherche{
+		padding-left: 30.5vw;
+	}
+}
+
+#info{
+	margin-top: -1px;
+	position: absolute;
+	top: 6.5vh;
+	width: 20%;
+	margin-bottom: 3vh;
+}
+
+.informations{
+	position: relative;
+	background-color: #FFFAFA;
+	border: 1px solid #BDBDBD;
+	padding: 10px;
+	right: 0vw;
+	margin-bottom: 10px;
+}	
+
+#newPubli{
+	text-align: center;
+	background-color: #1473E6;
+	color: white;
+	border-radius: 10px;
+}
+
+#newPublitext{
+	color: white;
+}
+
+#imgProfile{
+	max-width: 100%;
+	padding: 0%;
+	margin: 3px 0px 3px 0px;
+}
+
+.imgProfile{
+	max-width: 15%;
+	padding: 0%;
+	margin: 3px 0px 3px 0px;
+}
+
+.imgPubli{
+	max-width: 95%;	
+}
+
+.fontNormal{
+		font-weight: normal;
+}
+
+.infoPubli{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	font-size: 0.85em;
+}
+
+.infoRep{
+	margin-top: 5px;
+	margin-bottom: 0px;
+	font-size: 0.85em;
+}
+
+.placementBouton{
+	position: absolute;
+	top : 40%;
+	left: 30%;
+	height: 20px;
+}
+
+.bouton{
+	position: absolute;
+	top : 40%;
+	left: 30%;
+	width: 80px;
+	height: 20px;
+}
+
+.ajout{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	border: 1px solid black;
+	border-radius: 5px;
+	background-color: Silver;
+	color: #303030;
+}
+
+.boutonAmis{
+	border: 1px solid #107BE7;
+	border-radius: 5px;
+	background-color: #107BE7;
+	width: 160px;
+	color: white;
+}
+
+.amis{
+	position: relative;
+}
+
+.iconImgProfile{
+	max-width: 40px;
+	padding: 0%;
+	margin: 0px;
+	border: 1px solid black;
+}
+
+.iconImgProfile2{
+	max-width: 30px;
+	padding: 0px;
+	margin: 4px 0px -5px 4px;
+	border: 1px solid black;
+}
+
+.reponse{
+	position: relative;
+
+	border: 1px solid #BDBDBD;
+	border-width: 1px 0px 0px 0px;
+	margin-bottom: 0px;
+	padding: 10px;
+	padding-right: 30px;
+	padding-left: 30px;
+	background-color: #FFFAFC;
+}
+
+.btnReponse{
+	position: relative;
+	left: 1%;
+}
+
+.champRep{
+	position: relative;
+	width: 85%;
+}
+
+.photo{
+	max-width: 90%;
+}
