@@ -1,0 +1,35 @@
+<html>
+
+<head>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mapwize-ui@3.3.3"></script>
+
+    <style>
+        #mapwize {
+            height: 100%;
+            width: 100%;
+        }
+
+        body {
+            margin: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="mapwize"></div>
+    <script>
+        API_KEY = "abcdef";
+        VENUE = "ghijklm";
+        MapwizeUI.map({
+            apiKey: API_KEY,
+            centerOnVenueId: VENUE_ID,
+            onSelectedChange: function (selectedObject, analytics) {
+                //console.log('onSelectedChange', selectedObject, analytics)
+                console.log(selectedObject.geometry.coordinates[0])
+            },
+        })
+
+    </script>
+</body>
+
+</html>
